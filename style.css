@@ -1,0 +1,43 @@
+.footer {
+    width: 94%;
+    margin-right: 3%;
+    margin-left: 3%;
+    margin-bottom: 1%;
+    text-align: center;
+    display: flex;
+    bottom: 0;
+    position: fixed;
+}
+#toValidate {
+    width: 100%;
+    text-align: center;
+}
+
+#menu {
+    background-color: antiquewhite;
+    width: 40%;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+#app>button {
+    /* Temporaneo*/
+    position: fixed;
+    margin-left: 80%;
+    margin-top: 0;
+}
