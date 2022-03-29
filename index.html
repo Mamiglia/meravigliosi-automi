@@ -7,14 +7,31 @@
     <link rel="stylesheet" type="text/css" href="./style.css"/>
     <title>Meravigliosi Automi</title>
     <script>
+        var menuToggle = true;
+
         function toggleMenu() {
             let el = document.getElementById("menu");
 
-            if (el.style.display==="none") {
-                el.style.display = "block"
+            if (!menuToggle) {
+                Object.assign(el.style, {
+                    //display : "block",
+                    width: "40%"            
+                });
+                Object.assign(
+                    document.getElementById("app").style,{
+                        "margin-left" : "5%"
+                });
             } else {
-                el.style.display = "none"
+                Object.assign(el.style, {
+                    //display : "none",
+                    width: "0%",
+                })
+                Object.assign(
+                    document.getElementById("app").style,{
+                        "margin-left" : "0%"
+                });
             }
+            menuToggle = !menuToggle;
         }
     </script>
 </head>
@@ -35,7 +52,8 @@
             <input type="text" id="toValidate" placeholder="Inserisci qui la tua stringa">
             <button type="submit">Vai!</button>
         </div>
-        <button type="button" onclick="toggleMenu()">menu</button> <!--Bottone temporaneo-->
     </div>
+    <button type="button" onclick="toggleMenu()">menu</button> <!--Bottone temporaneo-->
+
 </body>
 </html>

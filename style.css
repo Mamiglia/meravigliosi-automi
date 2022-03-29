@@ -14,11 +14,16 @@
 }
 
 #menu {
+    z-index: 1;
     background-color: antiquewhite;
     width: 40%;
     height: 100%;
     text-align: center;
     position: absolute;
+    left: 0;
+    top: 0;
+    transition: all .75s ease;
+    overflow: hidden;
 }
 
 ul {
@@ -35,9 +40,25 @@ html, body {
     height: 100%;
 }
 
-#app>button {
+.hidden {
+    display: none;
+}
+
+body>button {
     /* Temporaneo*/
     position: fixed;
     margin-left: 80%;
     margin-top: 0;
 }
+
+#app {
+    margin-left: 5%;
+    transition: margin .75s ease;
+}
+
+@media screen and (orientation: portrait) {
+    /* Responsiveness */
+    #menu {
+        width: 100%;
+    }
+  }
