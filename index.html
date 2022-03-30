@@ -43,8 +43,17 @@
             <li>Wiki</li>
             <li>Source Code</li>
         </ul>
+        <button type="button" onclick="toggleMenu()">&lt</button>
     </div>
     <div id="app">
+        <div id="toolbar">
+            <button type="button" onclick="toggleMenu()">></button> <!--Bottone temporaneo-->
+            <button type="button">Add node</button>
+            <button type="button">Add Edge</button>
+            <button type="button">Edit<br>Alphabet</button>
+            <button type="button"></button>
+
+        </div>
         <div id="sheet">
             <!--Conterrá il foglio di lavoro dove verrá visualizzato il grafo-->
         </div>
@@ -53,7 +62,7 @@
             <button type="submit">Vai!</button>
         </div>
     </div>
-    <button type="button" onclick="toggleMenu()">menu</button> <!--Bottone temporaneo-->
+    
 
 </body>
 </html>

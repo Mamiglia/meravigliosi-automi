@@ -44,21 +44,30 @@ html, body {
     display: none;
 }
 
-body>button {
-    /* Temporaneo*/
-    position: fixed;
-    margin-left: 80%;
-    margin-top: 0;
+#toolbar {
+    /* flexbox guide: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+    width: 5%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #app {
     margin-left: 5%;
     transition: margin .75s ease;
+    height: 100%;
 }
 
 @media screen and (orientation: portrait) {
     /* Responsiveness */
     #menu {
         width: 100%;
+    }
+
+    #toolbar {
+        width: 100%;
+        height: 5%;
+        flex-direction: row;
     }
   }
