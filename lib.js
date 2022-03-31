@@ -68,7 +68,7 @@ class automaton{
         }
         const newNodes = Array();
         for(edge of myAutomaton.edges){
-            if( checkContains(edge.source, myNodes) and checkTransition(edge) and not checkContains(edge.target, newNodes) ){
+            if( checkContains(edge.source, myNodes) && checkTransition(edge) && !checkContains(edge.target, newNodes) ){
                 newNodes.push(edge.target);    //aggiungo il nodo di arrivo di edge a newNodes
 
         }
