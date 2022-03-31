@@ -6,7 +6,7 @@ function toggleMenu() {
     if (!menuToggle) {
         Object.assign(el.style, {
             //display : "block",
-            width: (window.innerHeight<window.innerWidth)? "40%" :"100%"        
+            width: (window.innerHeight<window.innerWidth)? "33%" :"100%"        
         });
         Object.assign(
             document.getElementById("app").style,{

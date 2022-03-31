@@ -1,3 +1,16 @@
+:root {
+    /* Palette temporanea: https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=e86530 */
+    --primary: #e86630;
+    --primary-light: #ff995d;
+    --primary-dark: #af3600;
+
+    --complementary: #30b1e8;
+
+    --analogous-dark: #e83055;
+    --analogous-light: #e8c330;
+
+}
+
 .footer {
     width: 94%;
     margin-right: 3%;
@@ -15,7 +28,7 @@
 
 #menu {
     z-index: 1;
-    background-color: antiquewhite;
+    background-color: var(--primary-light);
     width: 33%;
     height: 100vh;
     text-align: center;
@@ -38,6 +51,7 @@ ul {
 
 h1 {
     margin: 0;
+    padding-top: 10%;
 }
 
 html, body {
@@ -49,10 +63,12 @@ html, body {
 }
 
 button {
-    background-color: whitesmoke;
+    background-color: var(--primary);
     border-radius: 0;
     border-style:solid;
+    aspect-ratio: 1/1;
 }
+
 /* menu-btn from https://codepen.io/kaylolo/pen/KzLwmR */
 .menu-btn {
     width: 10vh;
@@ -61,6 +77,7 @@ button {
     justify-content: center;
     align-items: center;
     transition: background .35s ease;
+    cursor: pointer;
 }
 .menu-btn>button {
     height: 30%;
@@ -90,7 +107,7 @@ button {
     transform-origin: 0% 0%;
 }
 .menu-btn:hover{
-    background-color: #e86830;
+    background-color: var(--primary);
 }
 .menu-btn:hover>button {
     border-color: transparent;
