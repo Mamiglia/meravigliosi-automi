@@ -6,53 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./style.css"/>
     <title>Meravigliosi Automi</title>
-    <script>
-        var menuToggle = true;
-
-        function toggleMenu() {
-            let el = document.getElementById("menu");
-            
-            if (!menuToggle) {
-                Object.assign(el.style, {
-                    //display : "block",
-                    width: (window.innerHeight<window.innerWidth)? "40%" :"100%"        
-                });
-                Object.assign(
-                    document.getElementById("app").style,{
-                        "margin-left" : "5%"
-                });
-            } else {
-                Object.assign(el.style, {
-                    //display : "none",
-                    width: "0%",
-                })
-                Object.assign(
-                    document.getElementById("app").style,{
-                        "margin-left" : "0%"
-                });
-            }
-            menuToggle = !menuToggle;
-        }
-    </script>
+    <script type="text/javascript" src="buttonHandler.js"></script>
 </head>
 <body>
     <div id="menu">
-        <h1 class="title">Meravigliosi Automi</h1>
+        <h1 class="title" id="title">Meravigliosi Automi</h1>
         <ul>
-            <li>Start</li>
-            <li>Wiki</li>
-            <li>Source Code</li>
+            <li><a href="start.html">Start</a></li>
+            <li><a href ="wiki.html">Wiki</a></li>
+            <li><a href="source.html">Source Code</a></li>
+            <br>
+            <br>
+            <br>
+            <li><button type="button" id ="dark" onclick="darkMode()">switch to dark mode</button></li>
+            <li><button type="button" id ="light" onclick="lightMode()">switch to light mode</button></li>
         </ul>
-        <button type="button" onclick="toggleMenu()">&lt</button>
+        <button type="button" id="close" onclick="toggleMenu()" onmouseover="mouseOver()" onmouseout="mouseOut()">&lt</button>
     </div>
     <div id="app">
         <div id="toolbar">
             <div class="menu-btn">
                 <button type="button" onclick="toggleMenu()"></button>
             </div>
-            <button type="button">Add node</button>
-            <button type="button">Add Edge</button>
-            <button type="button">Edit<br>Alphabet</button>
+            <button type="button" id="node" onclick="addNode()">Add node</button>
+            <button type="button" id ="edge" onclick="addEdge()">Add Edge</button>
+            <button type="button" id="alphabet" onclick="Alphabet()">Edit<br>Alphabet</button>
             <button type="button"></button>
 
         </div>

@@ -87,7 +87,7 @@ button {
     transition: transform 0.35s;
     top: 50%;
     transform: translate(-50%, -50%);
-    transform-origin: 0%0%;
+    transform-origin: 0% 0%;
 }
 .menu-btn:hover{
     background-color: #e86830;
