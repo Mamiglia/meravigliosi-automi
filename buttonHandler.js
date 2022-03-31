@@ -62,13 +62,3 @@ function lightMode() {
     light.style.backgroundColor="white";
     light.style.color="black";
 }
-
-function mouseOver() {
-    let button = document.getElementById("close");
-    button.style.backgroundColor="#0000FF";
-}
-
-function mouseOut() {
-    let button = document.getElementById("close");
-    button.style.backgroundColor="#F8F8FF";
-}

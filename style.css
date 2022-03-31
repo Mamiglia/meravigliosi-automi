@@ -66,7 +66,11 @@ button {
     background-color: var(--primary);
     border-radius: 0;
     border-style:solid;
-    aspect-ratio: 1/1;
+    /* aspect-ratio: 1/1; */
+}
+
+#close:hover {
+    background-color: var(--primary-dark);
 }
 
 /* menu-btn from https://codepen.io/kaylolo/pen/KzLwmR */
