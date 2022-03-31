@@ -58,7 +58,7 @@ function lightMode() {
     dark.style.backgroundColor="white";
     dark.style.color="black";
     title.style.color="black";
-    sheet.style.backgroundColor="antiquewhite";
+    sheet.style.backgroundColor="#ff995d";
     light.style.backgroundColor="white";
     light.style.color="black";
 }
