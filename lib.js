@@ -1,50 +1,54 @@
-import * as vNG from "v-network-graph"
+//import * as vNG from "v-network-graph"
 import data from "./data"
 
 class automaton{
-    nodes
-    edges
 
     constructor(){ //Da controllare se aggiungere i nodi così ha senso
-        const myNodes = Array()
-        const myEdges = Array()
+        const myNodes = Array();
+        const myEdges = Array();
         for (node of data.nodes) {
-            myNodes.push(node)
+            myNodes.push(node);
         }
         for (edge of data.edges) {
-            myEdges.push(edge)
+            myEdges.push(edge);
         }
-        this.nodes = myNodes
-        this.edges = myEdges
+        this.nodes = myNodes;
+        this.edges = myEdges;
     }
 
     toString(){
-        print("NODES: ")
+        ris = "";
+        ris += "NODES: ";
         for (node of nodes){
-            print(node.name)
+            ris += node.name;
+            ris += " ";
         }
-        print("EDGES: ")
+        ris += "\n";
+        ris += "EDGES: (Source, Target, Label) ";
         for (edge of edges){
-            print("Source: ",edge.source, " Target: ", edge.target, " Label: ",edge.label)
+            ris += edge.source;
+            ris += edge.target;
+            ris += edge.label;
+            ris += "\n";
         }
-
+        return ris;
     }
 
     //ausiliaria per evaluate
     checkSuccess(nodes){
         for (node of nodes){
             if(node è finale??){    //to do
-                return true
+                return true;
             }
         }
-        return false
+        return false;
     }
 
     //ausiliaria per evaluate
     checkContains(myNode, myNodes){
         for (node of myNodes){
             if (node==myNode){
-                return true
+                return true;
             }
         }
     }
@@ -52,13 +56,13 @@ class automaton{
     //ausiliaria per evaluate
     checkTransition(myString, path){
         //todo
-        return false
+        return false;
     }
 
     evaluate(myString){
-        const myAutomaton = new Automaton()
-        myNodes = Array(myAutomaton.nodes[0])                    //assumendo che la radice sia il primo nodo di nodes
-        return ricorsiveEvaluate(myAutomaton, myNodes, myString) //nodes è l'insieme dei nodi "attivi", inizialmente la sola radice
+        const myAutomaton = new Automaton();
+        myNodes = Array(myAutomaton.nodes[0]);                    //assumendo che la radice sia il primo nodo di nodes
+        return ricorsiveEvaluate(myAutomaton, myNodes, myString); //nodes è l'insieme dei nodi "attivi", inizialmente la sola radice
     }
 
     //A ogni ricorsione viene consumato un carattere di myString e
@@ -70,14 +74,14 @@ class automaton{
     ricorsiveEvaluate(myAutomaton, myNodes, myString){
         if (myString==""){                               //caso base
             if(checkSucces(myNodes)){                    //se nodes contiene uno stato finale
-                return true
+                return true;
             }
-            return false
+            return false;
         }
         const newNodes = Array();
         for(edge of myAutomaton.edges){
             if( checkContains(edge.source, myNodes) && checkTransition(edge) && !checkContains(edge.target, newNodes) ){
-                newNodes.push(edge.target)    //aggiungo il nodo di arrivo di edge a newNodes
+                newNodes.push(edge.target);    //aggiungo il nodo di arrivo di edge a newNodes
 
         }
         const newString = myString.slice(1)
