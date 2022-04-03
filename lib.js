@@ -34,10 +34,17 @@ class automaton{
         return ris;
     }
 
+    isSuccess(node){
+        if (true){ //to do
+            return true;
+        }
+        return false;
+    }
+
     //ausiliaria per evaluate
-    checkSuccess(nodes){
-        for (node of nodes){
-            if(node è finale??){    //to do
+    checkSuccess(myNodes){
+        for (node of myNodes){
+            if(isSuccess(node)){
                 return true;
             }
         }
@@ -86,6 +93,68 @@ class automaton{
         }
         const newString = myString.slice(1)
         return ricorsiveEvaluate(myAutomaton, newNodes, newString);
+    }
+
+    //ausiliaria per toRegex
+    isATarget(node){
+        for (edge of edges){
+            if (edge.target == a){ //da vedere come controllare l'uguaglianza
+                return true;
+            }
+            return false
+        }
+    }
+
+    //ausiliaria per toRegex
+    checkAcceptinStates(){
+        //to do, sotto alcune ipotesi si potrebbe iterare solo sugli archi
+        //deve anche controllare che ci sia almeno uno stato finale e se non c'è la cosa va gestita
+    }
+  
+    //ausiliaria per toRegex
+    addNewEnd(){
+        var newEnd = //nuovo nodo di successo
+        this.nodes.push(newEnd);
+        for (node of this.nodes){
+            if(this.isSuccess(node)){
+                //TO DO: rendilo non di successo
+                var newEdge = //arco da node a newEnd con transizione vuota
+                this.nodes.push(newEdge);
+            }
+        }
+    }
+
+    //ausiliaria per toRegex
+    hasLoop(node){
+        for (edge of this.edges){
+            if(edge.source == node && edge.source==node){
+                return //edge.transition
+            }
+        }
+        return ""; //assumendo che nell'automa non ci siano cappi con transizioni nulle
+    }
+
+    //Seguendo lo state elimination method
+    toRegex(){
+        var a = Automaton();
+        if(isSuccess(a.nodes[0]) || isATarget(a.nodes[0])){ //sempre immaginando che la radice sia il primo nodo
+            newStart = //classe nodo?
+            a.nodes.unshift(newStart) //aggiunge in testa
+            newEdge = //arco da newStart a vecchio inizio con una transizione vuota
+            a.edges.push(newEdge)
+        }
+        if(!checkAcceptingState()){
+            a.addNewEnd();
+        }
+        for(let i = 1; i<a.nodes.length-1; i++){ //itera escludendo nodo inizale e nodo finale
+            var transition = hasLoop(a.nodes[i]);
+            if(transition!=""){
+                //TO DO: aggiorna le transizioni in entrata concatenando (transition)*
+            }
+            //TO DO:per ogni coppia entrata/uscita del nodo crea un arco con opportuna transizione
+            //Leva il nodo e gli archi che lo riguardano
+        }
+        return //la transizione dell'unico arco rimasto
     }
 
 }
