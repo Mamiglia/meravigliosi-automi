@@ -1,41 +1,171 @@
 //import * as vNG from "v-network-graph"
 import data from "./data"
 
-class automaton{
+class Node{
+    name; //identificatore
 
-    constructor(){ //Da controllare se aggiungere i nodi così ha senso
-        const myNodes = Array();
-        const myEdges = Array();
-        for (node of data.nodes) {
-            myNodes.push(node);
-        }
-        for (edge of data.edges) {
-            myEdges.push(edge);
-        }
-        this.nodes = myNodes;
-        this.edges = myEdges;
+    constructor(myName){
+        this.name = myName;
+    }
+
+    getName(){
+        return this.name;
+    }
+
+    setName(newName){
+        this.name = newName;
     }
 
     toString(){
-        ris = "";
-        ris += "NODES: ";
-        for (node of nodes){
-            ris += node.name;
-            ris += " ";
-        }
-        ris += "\n";
-        ris += "EDGES: (Source, Target, Label) ";
-        for (edge of edges){
-            ris += edge.source;
-            ris += edge.target;
-            ris += edge.label;
-            ris += "\n";
+        ris = "NODEID: "+this.name;
+        if(this.success){
+            ris += "(S)";
         }
         return ris;
     }
 
-    isSuccess(node){
-        if (true){ //to do
+}
+
+class Edge{
+    source;
+    target;
+    label;
+
+    constructor(mySource, myTarget, myLabel){
+        this.source=mySource; //oggetto di tipo nodo
+        this.target=myTarget; //oggetto di tipo nodo
+        this.label=myLabel;
+    }
+
+    getSource(){
+        return this.source;
+    }
+
+    getTarget(){
+        return this.target;
+    }
+
+    getLabel(){
+        return this.label;
+    }
+
+    setSource(newSource){
+        this.source=newSource;
+    }
+
+    setTarget(newTarget){
+        this.target=newTarget;
+    }
+
+    setLabel(newLabel){
+        this.label = newLabel;
+    }
+
+    toString(){
+        return "SOURCEID: "+this.source.toString()+" TARGETID: "+this.target.toString()+" LABEL: "+this.label;
+    }
+}
+
+class Automaton{
+    nodes;
+    edges;
+    initialNode;
+    finalNodes;
+    alphabet;
+
+    constructor(myAlphabet){
+        //to do, inizializzazione di initialNode e finalNode
+        const myNodes = Array();
+        const myEdges = Array();
+        for (const key of data.nodes) {
+            myNode = Node(data.nodes[key][name]);
+            myNodes.push(myNode);
+        }
+        for (const key of data.edges) {
+            myEdge = Edge( data.edges[key][source] , data.edges[key][target] , data.edges[key][label] )
+            myEdges.push(myEdge);
+        }
+        this.alphabet = myAlphabet
+        this.nodes = myNodes;
+        this.edges = myEdges;
+    }
+
+    //UN PO' DI GETTER E SETTER
+
+    getNodes(){
+        return JSON.parse(JSON.stringify(this.nodes)); //sta cosa dovrebbe fare una copia profonda MA si accettano idee più leggibili
+    }
+
+    getEdges(){
+        return JSON.parse(JSON.stringify(this.edges));
+    }
+
+    getInitialNode(){
+        return JSON.parse(JSON.stringify(this.InitialNode));
+    }
+
+    getFinalNodes(){
+        return JSON.parse(JSON.stringify(this.FinalNodes));
+    }
+
+    getAlphabet(){
+        return this.alphanbet;
+    }
+
+    //Eventualmente si occupa anche di modificare nodo iniziale
+    //e/o di aggiungere ai nodi finali
+    addNode(myNode, isInitial, isFinal){
+        if (isInitial){
+            this.nodes.shift(myNode);
+            setInitialNode(myNode);
+        }
+        else{
+            this.nodes.push(myNode);
+        }
+        if(isFinal){
+            addFinalNode(myNode);
+        }
+    }
+
+    addEdge(myEdge){
+        this.edges.push(myEdge);
+    }
+
+    setInitialNode(newInitialNode){
+        this.initialNode = newInitialNode;
+    }
+
+    addFinalNode(myNode){
+        this.finalNodes.push(myNode);
+    }
+
+    setAlphabet(newAlphabet){
+        this.alphabet = newAlphabet;
+    }
+
+    //FINE GETTER E SETTER (Per ora ho saltato i remove che sono meno banali, poi se serve si fanno)
+
+    toString(){
+        ris = "INITIAL NODE: "+this.initialNode.toString()+"\n";
+        ris += "NODES: ";
+        for (node of this.nodes){
+            ris += node.toString();
+            if(this.finalNodes.includes(node)){ //forse per far funzionare questa cosa bisogna definite un operatore di confronto tra nodi
+                ris+="(final)"
+            }
+            ris += "\n";
+        }
+        ris += "EDGES:\n";
+        for (edge of this.edges){
+            ris += edge.toString();
+            ris += "\n";
+        }
+        ris+="ALPHABET: "+this.alphabet;
+        return ris;
+    }
+
+    isSuccess(myNode){
+        if(this.finalNodes.includes(myNode)){
             return true;
         }
         return false;
@@ -52,15 +182,6 @@ class automaton{
     }
 
     //ausiliaria per evaluate
-    checkContains(myNode, myNodes){
-        for (node of myNodes){
-            if (node==myNode){
-                return true;
-            }
-        }
-    }
-
-    //ausiliaria per evaluate
     checkTransition(myString, path){
         //todo
         return false;
@@ -68,8 +189,9 @@ class automaton{
 
     evaluate(myString){
         const myAutomaton = new Automaton();
-        myNodes = Array(myAutomaton.nodes[0]);                    //assumendo che la radice sia il primo nodo di nodes
-        return ricorsiveEvaluate(myAutomaton, myNodes, myString); //nodes è l'insieme dei nodi "attivi", inizialmente la sola radice
+        const myNodes = Array();
+        myNodes.push(myAutomaton.initialNode);
+        return ricorsiveEvaluate(myAutomaton, myNodes, myString); //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
     }
 
     //A ogni ricorsione viene consumato un carattere di myString e
@@ -79,7 +201,7 @@ class automaton{
     //rappresenti effettivamente un automa a stati finiti.
     //Ho provato a usare il commento multiriga ma ho fallito :)
     ricorsiveEvaluate(myAutomaton, myNodes, myString){
-        if (myString==""){                               //caso base
+        if (myString===""){                              //caso base
             if(checkSucces(myNodes)){                    //se nodes contiene uno stato finale
                 return true;
             }
@@ -87,48 +209,19 @@ class automaton{
         }
         const newNodes = Array();
         for(edge of myAutomaton.edges){
-            if( checkContains(edge.source, myNodes) && checkTransition(edge) && !checkContains(edge.target, newNodes) ){
-                newNodes.push(edge.target);    //aggiungo il nodo di arrivo di edge a newNodes
-
+            if( myNodes.includes(edge.source) && checkTransition(edge) && !newNodes.contains(edge.target) ){
+                newNodes.push(edge.target);
+            }
         }
-        const newString = myString.slice(1)
+        const newString = myString.slice(1); //dovrebbe scartare il primo carattere, ossia quello usato per la transizione
         return ricorsiveEvaluate(myAutomaton, newNodes, newString);
-    }
-
-    //ausiliaria per toRegex
-    isATarget(node){
-        for (edge of edges){
-            if (edge.target == a){ //da vedere come controllare l'uguaglianza
-                return true;
-            }
-            return false
-        }
-    }
-
-    //ausiliaria per toRegex
-    checkAcceptinStates(){
-        //to do, sotto alcune ipotesi si potrebbe iterare solo sugli archi
-        //deve anche controllare che ci sia almeno uno stato finale e se non c'è la cosa va gestita
-    }
-  
-    //ausiliaria per toRegex
-    addNewEnd(){
-        var newEnd = //nuovo nodo di successo
-        this.nodes.push(newEnd);
-        for (node of this.nodes){
-            if(this.isSuccess(node)){
-                //TO DO: rendilo non di successo
-                var newEdge = //arco da node a newEnd con transizione vuota
-                this.nodes.push(newEdge);
-            }
-        }
     }
 
     //ausiliaria per toRegex
     hasLoop(node){
         for (edge of this.edges){
-            if(edge.source == node && edge.source==node){
-                return //edge.transition
+            if(edge.source === node && edge.source===node){
+                return; //edge.transition
             }
         }
         return ""; //assumendo che nell'automa non ci siano cappi con transizioni nulle
@@ -136,16 +229,24 @@ class automaton{
 
     //Seguendo lo state elimination method
     toRegex(){
-        var a = Automaton();
-        if(isSuccess(a.nodes[0]) || isATarget(a.nodes[0])){ //sempre immaginando che la radice sia il primo nodo
-            newStart = //classe nodo?
-            a.nodes.unshift(newStart) //aggiunge in testa
-            newEdge = //arco da newStart a vecchio inizio con una transizione vuota
-            a.edges.push(newEdge)
+        const a = Automaton();
+        
+        const originalStart = a.initialNode;
+        const newStart = Node("TemporaryStart");
+        a.addNode(newStart,true,false);
+        const newEdge = Edge(newStart,originalStart,"");
+        a.edges.push(newEdge);
+
+        const originalEnds = a.getFinalNodes();
+        const newEnd = Node("TemporaryEnd");
+        a.addNode(newStart,false,true);
+        a.finalNodes = Array(newEnd);
+        for (node of originalEnds){
+            newEdge = Edge(node,newEnd,"");
+            a.edges.push(newEdge);
         }
-        if(!checkAcceptingState()){
-            a.addNewEnd();
-        }
+
+
         for(let i = 1; i<a.nodes.length-1; i++){ //itera escludendo nodo inizale e nodo finale
             var transition = hasLoop(a.nodes[i]);
             if(transition!=""){
@@ -154,6 +255,7 @@ class automaton{
             //TO DO:per ogni coppia entrata/uscita del nodo crea un arco con opportuna transizione
             //Leva il nodo e gli archi che lo riguardano
         }
+        //si possono resettare nodi iniziali e finali ma forse non serve
         return //la transizione dell'unico arco rimasto
     }
 
