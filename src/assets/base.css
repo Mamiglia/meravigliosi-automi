@@ -19,14 +19,14 @@
     --vt-c-text-dark-1: var(--vt-c-white);
     --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 
-    --main: #FE8529 ;
-    --main-light: #fe9a29;
-    --main-dark: #fe7029;
+    --main: #41b883 ;
+    --main-light: #41b877;
+    --main-dark: #41b88f;
 
-    --complement: #29a2fe;
+    --complement: #b84176;
 
-    --triadic-plus: #29fe85;
-    --triadic-minus: #8529fe;
+    --triadic-plus: #8341b8;
+    --triadic-minus: #b88341;
 
     --fast-animation: 0.35s;
     --normal-animation: 0.75s;

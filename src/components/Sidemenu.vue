@@ -22,7 +22,8 @@ export default {
         <li><a href ="wiki.html">Wiki</a></li>
         <li><a href="source.html">Source Code</a></li>
     </ul>
-    <button type="button" @click="hasFocus=false" >&lt;</button>
+    <span></span>
+    <button type="button" @click="hasFocus=false" >start ></button>
 </div>
 <div class="menu-btn" @click="hasFocus=true">
     <button type="button" ></button>
@@ -41,6 +42,8 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
+    display: flex;
+    flex-direction: column;
     transition: transform var(--normal-animation) ease;
     overflow: hidden;
     transform: translateX(0%);
@@ -52,6 +55,19 @@ export default {
 
 button {
     border: none;
+}
+#sidemenu>span {
+    height: 100%;
+}
+#sidemenu>button{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5em;
+    width: 100%;
+    height: 20vh;
+    padding: 0;
+}
+#sidemenu>button:hover{
+    cursor: pointer;
 }
 
 ul {
