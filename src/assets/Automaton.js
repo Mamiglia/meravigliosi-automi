@@ -66,7 +66,7 @@ class Edge{
     }
 }
 
-class Automaton{
+export class Automaton{
     nodes;
     edges;
     initialNode;

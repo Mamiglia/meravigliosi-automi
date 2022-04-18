@@ -6,12 +6,24 @@ export default {
     components : {
         Action
     },
-    emits: ["addNode", "remove", "addEdge", "validate"],
     data() {
         return {
-            openSettings: false // variabile che indica se i popup settings devono essere aperti o meno
+            animated: true,
+            alphabet: [],
+            determinism: true,
+        }
+    },
+    emits: ["addNode", "remove", "addEdge", "validate"],
+    computed: {
+        options() {
+            return {
+                "determinism": this.determinism,
+                "alphabet": [...this.alphabet],
+                "animated" : this.animated
+            }
         }
     }
+    
 
 }
 </script>
@@ -19,12 +31,20 @@ export default {
 <template>
 <div id="footer">
     <div class="popupMenu">
-        <Action text="*" @hover="openSettings=true"/>
+        <Action text="*"/>
         <div class="settings">
             <button>Alfabeto</button>
             <div>
-                <label for="determinismCheckbox">Determinstic Automa</label>
-                <input type="checkbox" id="determinismCheckbox" v-model="determinism"/>
+                <label for="determinismCheckbox">
+                    Determinstic Automa&nbsp;<input type="checkbox" id="determinismCheckbox" v-model="determinism"/>
+
+                </label>
+            </div>
+            <div>
+                <label for="animateCheckbox">
+                    Animate Evaluation&nbsp;<input type="checkbox" id="animateCheckbox" v-model="animated"/>
+                </label>
+                
             </div>
             <!-- Altro? -->
         </div>
@@ -36,7 +56,7 @@ export default {
         type="text" 
         placeholder="Inserisci la stringa da validare"
         v-model="inputText"> <!--v-model associa la stringa nell'input alla variabile inputText-->
-    <Action text=">" @click="$emit('validate', inputText, )"/> <!--emette l'evento "validate" con associata la stringa in input-->
+    <Action text=">" @click="$emit('validate', inputText, options)"/> <!--emette l'evento "validate" con associata la stringa in input-->
 </div>
 </template>
 
@@ -84,13 +104,27 @@ input:focus-visible{
     flex-direction: column;
     padding: .5em;
     gap: .3em;
-    transition: opacity var(--normal-animation) ease, transform var(--normal-animation) ease-out;
+    transition: opacity var(--fast-animation) ease, transform var(--normal-animation) ease-out;
     opacity: 0;
     transform: translateX(-100%);
+    min-width: max-content;
+    width: 25vw;
+    
 }
 
 .popupMenu:hover>.settings {
     opacity: 100%;
     transform: translateX(0%);
+}
+
+.settings input[type="checkbox"] {
+    vertical-align: middle;
+    display:inline-block;
+    width: min-content;
+}
+
+.settings label {
+    white-space: nowrap;
+    display:inline-block;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-<button class='btn' @click="func()">
+<button class='btn'>
     {{text}}
 </button>
 </template>
@@ -9,7 +9,6 @@ export default {
     name:"action-component",
     props: {
         text: String,
-        func: Function,
         icon: String
     }
 }

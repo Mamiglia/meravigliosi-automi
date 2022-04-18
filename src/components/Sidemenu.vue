@@ -55,6 +55,7 @@ export default {
 
 button {
     border: none;
+    background-color: var(--color-background-soft);
 }
 #sidemenu>span {
     height: 100%;
@@ -97,6 +98,7 @@ h1 {
     border: none;
     border-top: 2.2px solid;
     border-bottom: 2.2px solid;
+    border-color: var(--color-text);
     position: relative;
     display: block;
     width: 50%;
@@ -139,7 +141,7 @@ h1 {
     width: 100vw;
     height: 100vh;
     z-index: 2;
-    background-color: var(--color-text);
+    background-color: var(--color-background);
     opacity: 50%;
     backdrop-filter: blur(10px);
     transition: all var(--normal-animation) ease;

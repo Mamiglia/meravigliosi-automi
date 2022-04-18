@@ -2,7 +2,6 @@
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
 import { configs } from "./assets/v-network-graph-configs.js";
-import { Automaton } from "./assets/Automaton";
 // import { Automaton } from "./assets/Automaton"
 
 export default {
@@ -30,9 +29,12 @@ export default {
         edge2: { source: "node2", target: "node3" },
         edge3: { source: "node3", target: "node4" },
       },
-      automata: new Automaton(nodes, edges),
+      // automata: new Automaton(nodes, edges),
 
     }
+  },
+  computed: {
+    console: () => console,
   }
 };
 </script>
@@ -42,11 +44,13 @@ export default {
 <div>
   <v-network-graph :nodes="nodes" :edges="edges" :configs="networkConfigs"/>
   <Footbar
-    @validate=""
-    @addNode=""
-    @addEdge=""
-    @remove=""
+    @validate="(text,options) => console.log(`validate: ${text}`,options) "
+
   />
+  <!-- @validate="automata.validate"
+    @addNode="automata.addNode"
+    @addEdge="automata.addEdge"
+    @remove="automata.removeSelected" -->
 </div>
 
 </template>
