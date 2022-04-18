@@ -6,18 +6,37 @@ export default {
     components : {
         Action
     },
+    emits: ["addNode", "remove", "addEdge", "validate"],
+    data() {
+        return {
+            openSettings: false // variabile che indica se i popup settings devono essere aperti o meno
+        }
+    }
 
 }
 </script>
 
 <template>
 <div id="footer">
-    <Action text="*"/>
-    <Action text="+" :func="addNode"/>
-    <Action text="rem."/>
-    <Action text="-" :func="addEdge"/>
-    <input type="text" placeholder="Inserisci la stringa da validare">
-    <Action text=">" :func="validate"/>
+    <div class="popupMenu">
+        <Action text="*" @hover="openSettings=true"/>
+        <div class="settings">
+            <button>Alfabeto</button>
+            <div>
+                <label for="determinismCheckbox">Determinstic Automa</label>
+                <input type="checkbox" id="determinismCheckbox" v-model="determinism"/>
+            </div>
+            <!-- Altro? -->
+        </div>
+    </div>
+    <Action text="+" @click="$emit('addNode')"/>
+    <Action text="rem."  @click="$emit('remove')"/>
+    <Action text="-"  @click="$emit('addEdge')"/>
+    <input 
+        type="text" 
+        placeholder="Inserisci la stringa da validare"
+        v-model="inputText"> <!--v-model associa la stringa nell'input alla variabile inputText-->
+    <Action text=">" @click="$emit('validate', inputText, )"/> <!--emette l'evento "validate" con associata la stringa in input-->
 </div>
 </template>
 
@@ -49,5 +68,29 @@ input:hover{
 
 input:focus-visible{
     border-style: none;
+}
+
+.popupMenu {
+    aspect-ratio: 1/1;
+    flex-shrink: 0;
+}
+
+.popupMenu>.settings {
+    position: absolute;
+    bottom: 10vh;
+    background-color: var(--color-background-mute);
+    /* border:1px solid var(--color-text); */
+    display: flex;
+    flex-direction: column;
+    padding: .5em;
+    gap: .3em;
+    transition: opacity var(--normal-animation) ease, transform var(--normal-animation) ease-out;
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+.popupMenu:hover>.settings {
+    opacity: 100%;
+    transform: translateX(0%);
 }
 </style>

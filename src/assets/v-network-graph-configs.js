@@ -7,6 +7,6 @@ export const configs = {
         }
     },
     node :{
-        color: "transparent"
+        color: "#41b883"
     }
 }

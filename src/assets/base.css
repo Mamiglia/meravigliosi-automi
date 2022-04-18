@@ -74,7 +74,8 @@
   box-sizing: border-box;
   margin: 0;
   font-weight: normal;
-  
+  color: var(--color-text);
+
 }
 
 *::selection {

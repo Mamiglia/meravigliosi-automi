@@ -2,7 +2,8 @@
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
 import { configs } from "./assets/v-network-graph-configs.js";
-import { Automaton } from "./assets/Automaton"
+import { Automaton } from "./assets/Automaton";
+// import { Automaton } from "./assets/Automaton"
 
 export default {
   name: 'App',
@@ -12,7 +13,7 @@ export default {
     },
   setup() {
     const networkConfigs = configs;
-    
+      
     return { networkConfigs };
   },
   data() {
@@ -28,7 +29,9 @@ export default {
         edge1: { source: "node1", target: "node2" },
         edge2: { source: "node2", target: "node3" },
         edge3: { source: "node3", target: "node4" },
-      }
+      },
+      automata: new Automaton(nodes, edges),
+
     }
   }
 };
@@ -38,7 +41,12 @@ export default {
 <Sidemenu/>
 <div>
   <v-network-graph :nodes="nodes" :edges="edges" :configs="networkConfigs"/>
-  <Footbar/>
+  <Footbar
+    @validate=""
+    @addNode=""
+    @addEdge=""
+    @remove=""
+  />
 </div>
 
 </template>

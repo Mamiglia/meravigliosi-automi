@@ -95,8 +95,8 @@ h1 {
     height: 30%;
     background: transparent;
     border: none;
-    border-top: 1px solid;
-    border-bottom: 1px solid;
+    border-top: 2.2px solid;
+    border-bottom: 2.2px solid;
     position: relative;
     display: block;
     width: 50%;
@@ -104,13 +104,14 @@ h1 {
     color: inherit;
     font-size: 0;
     transition: 0.35s;
+    overflow-x: hidden;
 }
 .menu-btn>button::before , .menu-btn>button::after{
     position: absolute;
-    left: 49%;
+    left: 50%;
     display: block;
     width: 100%;
-    height: 1px;
+    height: 2px;
     background: currentColor;
     content: "";
     transition: transform var(--fast-animation);
