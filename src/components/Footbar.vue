@@ -11,6 +11,7 @@ export default {
             animated: true,
             alphabet: [],
             determinism: true,
+            inputText: "",
         }
     },
     emits: ["addNode", "remove", "addEdge", "validate"],

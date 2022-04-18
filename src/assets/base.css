@@ -47,8 +47,6 @@
 
     --accent-2: var(--main-light);
     --accent: var(--main);
-
-    --section-gap: 160px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -75,6 +73,7 @@
   margin: 0;
   font-weight: normal;
   color: var(--color-text);
+  accent-color: var(--accent);
 
 }
 

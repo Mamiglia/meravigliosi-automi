@@ -25,6 +25,7 @@ button {
 }
 button:hover {
     background-color: var(--accent);
+    color: var(--color-background-mute);
     cursor: pointer;
 }
 </style>

@@ -66,9 +66,13 @@ button {
     width: 100%;
     height: 20vh;
     padding: 0;
+    color: var(--color-background);
+    background-color: var(--accent);
+    transition: background var(--fast-animation) ease;
 }
 #sidemenu>button:hover{
     cursor: pointer;
+    background-color: var(--accent-2);
 }
 
 ul {

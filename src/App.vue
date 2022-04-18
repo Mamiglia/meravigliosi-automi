@@ -29,12 +29,24 @@ export default {
         edge2: { source: "node2", target: "node3" },
         edge3: { source: "node3", target: "node4" },
       },
-      // automata: new Automaton(nodes, edges),
+      initialNode : null,
+      finalNodes: [],
+
 
     }
   },
   computed: {
     console: () => console,
+    // automata: new Automaton(this.nodes, this.edges, this.initialNode, this.finalNodes),
+
+  },
+  methods: {
+    addNode() {
+      let size = Object.keys(this.nodes).length
+      this.nodes[size] = {
+        name: new String(size)
+      }
+    }
   }
 };
 </script>
@@ -45,7 +57,7 @@ export default {
   <v-network-graph :nodes="nodes" :edges="edges" :configs="networkConfigs"/>
   <Footbar
     @validate="(text,options) => console.log(`validate: ${text}`,options) "
-
+    @addNode="addNode()"
   />
   <!-- @validate="automata.validate"
     @addNode="automata.addNode"
