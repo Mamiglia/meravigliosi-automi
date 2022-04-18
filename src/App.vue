@@ -1,7 +1,8 @@
 <script>
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
-
+import { configs } from "./assets/v-network-graph-configs.js";
+import { Automaton } from "./assets/Automaton"
 
 export default {
   name: 'App',
@@ -9,6 +10,11 @@ export default {
     Sidemenu,
     Footbar
     },
+  setup() {
+    const networkConfigs = configs;
+    
+    return { networkConfigs };
+  },
   data() {
     return {
       sidemenuVisibility : true,
@@ -23,16 +29,15 @@ export default {
         edge2: { source: "node2", target: "node3" },
         edge3: { source: "node3", target: "node4" },
       }
-
     }
   }
 };
 </script>
 
 <template>
-<Sidemenu :visible="sidemenuVisibility" />
+<Sidemenu/>
 <div>
-  <v-network-graph :nodes="nodes" :edges="edges"/>
+  <v-network-graph :nodes="nodes" :edges="edges" :configs="networkConfigs"/>
   <Footbar/>
 </div>
 
