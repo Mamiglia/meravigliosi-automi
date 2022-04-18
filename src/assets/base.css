@@ -28,6 +28,9 @@
     --triadic-plus: #29fe85;
     --triadic-minus: #8529fe;
 
+    --fast-animation: 0.35s;
+    --normal-animation: 0.75s;
+
 }
 
     /* semantic color variables for this project */

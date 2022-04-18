@@ -31,8 +31,11 @@ export default {
 
 <template>
 <Sidemenu :visible="sidemenuVisibility" />
-<v-network-graph :nodes="nodes" :edges="edges"/>
-<Footbar/>
+<div>
+  <v-network-graph :nodes="nodes" :edges="edges"/>
+  <Footbar/>
+</div>
+
 </template>
 
 <style>

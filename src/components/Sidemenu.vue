@@ -1,31 +1,20 @@
 <script>
 export default {
     name:"side-menu",
-    props: {
-        visible: {
-            type: Boolean,
-            required:true
-        }
-    },
     data() {
         return {
             hasFocus : true
         }
     },
     computed: {
-        visibility() {
-            return `transform: translateX(${this.hasFocus? "0" : "-100%"});`;
-        }
-    }
+    },
 }
 </script>
 
 <template >
 <div 
     id="sidemenu" 
-    :style="visibility"   
-    @focus="hasFocus = true"
-    @blur="hasFocus = false">
+    :hide="!hasFocus">
 
     <h1 class="title" id="title">Meravigliosi Automi</h1>
     <ul>
@@ -38,11 +27,13 @@ export default {
 <div class="menu-btn" @click="hasFocus=true">
     <button type="button" ></button>
 </div>
+<span class="outside" @click="hasFocus=false" :hide="!hasFocus"></span>
 </template>
 
 <style scoped>
+
 #sidemenu {
-    z-index: 2;
+    z-index: 3;
     background-color: var(--color-background-mute);
     width: 33%;
     height: 100vh;
@@ -50,8 +41,13 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
-    transition: all .75s ease;
+    transition: transform var(--normal-animation) ease;
     overflow: hidden;
+    transform: translateX(0%);
+}
+
+#sidemenu[hide=true] {
+    transform: translateX(-100%);
 }
 
 button {
@@ -74,7 +70,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background .35s ease;
+    transition: background var(--fast-animation) ease;
     cursor: pointer;
     position: absolute;
     z-index:1;
@@ -101,7 +97,7 @@ h1 {
     height: 1px;
     background: currentColor;
     content: "";
-    transition: transform 0.35s;
+    transition: transform var(--fast-animation);
     top: 50%;
     transform: translate(-50%, -50%);
     transform-origin: 0% 0%;
@@ -120,6 +116,24 @@ h1 {
     transform: translate(-50%, -50%) rotate(30deg) scaleX(0.9);
     color: var(--color-background);
 }
+
+.outside {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background-color: var(--color-text);
+    opacity: 50%;
+    backdrop-filter: blur(10px);
+    transition: all var(--normal-animation) ease;
+}
+
+.outside[hide=true] {
+    opacity: 0%;
+    z-index: -1;
+}
+
+
 </style>
 
 
