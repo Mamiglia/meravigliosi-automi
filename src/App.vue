@@ -2,7 +2,10 @@
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
 import { configs } from "./assets/v-network-graph-configs.js";
+//import {ref } from "vue"
 // import { Automaton } from "./assets/Automaton"
+
+
 
 export default {
   name: 'App',
@@ -46,6 +49,23 @@ export default {
       this.nodes[size] = {
         name: new String(size)
       }
+    },
+    remove() {
+     // nodes: Nodes = reactive({ ...data.nodes })
+      for (this.nodeId of this.selectedNodes.value) {
+        delete this.nodes[this.nodeId]
+      }
+    },
+    addEdge() {
+      //let selectedNodes = ref<String>([])
+      if (this.selectedNodes.value.length !== 2) return
+      let [souce, target] = this.selectedNode.value
+      let edgeId = this.nextEdgeIndex.value
+      this.edges[edgeId] = {
+        souce,
+        target
+      }
+      this.nextEdgeIndex.value++
     }
   }
 };
@@ -58,6 +78,8 @@ export default {
   <Footbar
     @validate="(text,options) => console.log(`validate: ${text}`,options) "
     @addNode="addNode()"
+    @remove ="remove()"
+    @addEdge="addEdge()"
   />
   <!-- @validate="automata.validate"
     @addNode="automata.addNode"
