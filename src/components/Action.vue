@@ -4,14 +4,14 @@
 </button>
 </template>
 
-<script>
-export default {
-    name:"action-component",
-    props: {
-        text: String,
-        icon: String
-    }
-}
+<script setup lang="ts">
+import { defineProps } from 'vue';
+
+const props = defineProps({
+    text: String,
+    icon: String
+})
+
 </script>
 
 <style scoped>

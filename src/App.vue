@@ -1,85 +1,72 @@
-<script>
+<script setup lang="ts" >
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
-import { configs } from "./assets/v-network-graph-configs.js";
-//import {ref } from "vue"
+import { networkGraphConfigs } from "./assets/v-network-graph-configs";
+import { Nodes, Edges } from "v-network-graph"
+import { ref,reactive } from "vue";
 // import { Automaton } from "./assets/Automaton"
 
+const nodes : Nodes = reactive({
+  0: { name: "Node 0" },
+  1: { name: "Node 1" },
+  2: { name: "Node 2" },
+  3: { name: "Node 3" },
+});
+const edges : Edges = reactive({
+  edge1: { source: "0", target: "1" },
+  edge2: { source: "1", target: "2" },
+  edge3: { source: "2", target: "3" },
+});
+const selectedNodes = ref<string[]>([]);
+const selectedEdge = ref<string[]>([]);
+// var initialNode: any;
+// var finalNodes = ref<string[]>([]);
+//const automata = computed(()=>new Automaton(nodes, edges, initialNode.value, finalNodes.value))
 
-
-export default {
-  name: 'App',
-  components: {
-    Sidemenu,
-    Footbar
-    },
-  setup() {
-    const networkConfigs = configs;
-      
-    return { networkConfigs };
-  },
-  data() {
-    return {
-      sidemenuVisibility : true,
-      nodes : {
-        node1: { name: "Node 1" },
-        node2: { name: "Node 2" },
-        node3: { name: "Node 3" },
-        node4: { name: "Node 4" },
-      },
-      edges : {
-        edge1: { source: "node1", target: "node2" },
-        edge2: { source: "node2", target: "node3" },
-        edge3: { source: "node3", target: "node4" },
-      },
-      initialNode : null,
-      finalNodes: [],
-
-
-    }
-  },
-  computed: {
-    console: () => console,
-    // automata: new Automaton(this.nodes, this.edges, this.initialNode, this.finalNodes),
-
-  },
-  methods: {
-    addNode() {
-      let size = Object.keys(this.nodes).length
-      this.nodes[size] = {
-        name: new String(size)
-      }
-    },
-    remove() {
-     // nodes: Nodes = reactive({ ...data.nodes })
-      for (this.nodeId of this.selectedNodes.value) {
-        delete this.nodes[this.nodeId]
-      }
-    },
-    addEdge() {
-      //let selectedNodes = ref<String>([])
-      if (this.selectedNodes.value.length !== 2) return
-      let [souce, target] = this.selectedNode.value
-      let edgeId = this.nextEdgeIndex.value
-      this.edges[edgeId] = {
-        souce,
-        target
-      }
-      this.nextEdgeIndex.value++
-    }
+function addNode() {
+  // currently nodeID can be assigned to an already existing ID, causing problems
+  let size = Object.keys(nodes).length
+  nodes[size] = {
+    name: String(size)
   }
-};
+  //add: if node is selected during node creation, then create also an edge
+}
+/* removes any selected node or edge */
+function remove() {     
+  //delete selected nodes
+  for (let nodeId of selectedNodes.value) {
+    delete nodes[nodeId]
+  }
+
+  for (let edgeID of selectedEdge.value) {
+    delete edges[edgeID]
+  }
+}
+
+
+function addEdge() {
+  // currently edgeID can be assigned to an already existing ID, causing problems
+  if (selectedNodes.value.length !== 2) return
+  let [source, target] = selectedNodes.value
+  let edgeId  = edges.length
+  edges[edgeId] = { source, target }
+}
 </script>
 
 <template>
 <Sidemenu/>
 <div>
-  <v-network-graph :nodes="nodes" :edges="edges" :configs="networkConfigs"/>
+  <v-network-graph 
+    :nodes="nodes" 
+    :edges="edges" 
+    :configs="networkGraphConfigs"
+    v-model:selected-edges="selectedEdge"
+    v-model:selected-nodes="selectedNodes"/>
   <Footbar
-    @validate="(text,options) => console.log(`validate: ${text}`,options) "
+    @validate="(text:string,options:Object) => console.log(`validate: ${text}`,options) "
     @addNode="addNode()"
-    @remove ="remove()"
-    @addEdge="addEdge()"
+    @remove ="remove"
+    @addEdge="addEdge"
   />
   <!-- @validate="automata.validate"
     @addNode="automata.addNode"

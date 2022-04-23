@@ -1,14 +1,8 @@
-<script>
-export default {
-    name:"side-menu",
-    data() {
-        return {
-            hasFocus : true
-        }
-    },
-    computed: {
-    },
-}
+<script setup lang="ts">
+import {ref} from "vue"
+
+const hasFocus = ref(true)
+
 </script>
 
 <template >

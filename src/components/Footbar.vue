@@ -1,32 +1,21 @@
-<script>
+<script setup lang="ts">
 import Action from './Action.vue'
+import { computed, ref , defineEmits } from 'vue'
 
-export default {
-    name: "foot-bar",
-    components : {
-        Action
-    },
-    data() {
-        return {
-            animated: true,
-            alphabet: [],
-            determinism: true,
-            inputText: "",
-        }
-    },
-    emits: ["addNode", "remove", "addEdge", "validate"],
-    computed: {
-        options() {
-            return {
-                "determinism": this.determinism,
-                "alphabet": [...this.alphabet],
-                "animated" : this.animated
-            }
-        }
+const emits = defineEmits(["addNode", "remove", "addEdge", "validate"])
+
+const animated = ref(true)
+const alphabet = ref<string[]>([]);
+const determinism = ref(true);
+const inputText = ref("")
+
+const options = computed(()=>{
+    return {
+        "animated": animated.value,
+        "alphabet": alphabet.value,
+        "determinism" : determinism.value
     }
-    
-
-}
+})
 </script>
 
 <template>

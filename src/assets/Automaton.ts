@@ -248,7 +248,7 @@ export class Automaton{
 
 
         for(let i = 1; i<a.nodes.length-1; i++){ //itera escludendo nodo inizale e nodo finale
-            var transition = hasLoop(a.nodes[i]);
+            const transition = hasLoop(a.nodes[i]);
             if(transition!=""){
                 //TO DO: aggiorna le transizioni in entrata concatenando (transition)*
             }

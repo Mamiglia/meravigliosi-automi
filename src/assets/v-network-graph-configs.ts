@@ -1,5 +1,7 @@
 //  reference: https://dash14.github.io/v-network-graph/reference.html#configurations
-export const configs = {
+import { defineConfigs } from "v-network-graph"
+
+export const networkGraphConfigs = defineConfigs({
     view : {
         zoomEnabled: false,
         grid: {
@@ -48,15 +50,8 @@ export const configs = {
             color: "var(--accent)",
 
         },
-        hover: {
-            color: "var(--accent-2)",
-        },
-        selected:{
-            color: "var(--complement)"
-        },
         selectable: 1,
-        gap: 1,
-        type:"curve",
+        // type:"curve",
         marker: {
             target:{
                 type:"arrow",
@@ -64,4 +59,4 @@ export const configs = {
             }
         }
     }
-}
+})
