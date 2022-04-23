@@ -9,12 +9,12 @@ export const networkGraphConfigs = defineConfigs({
             interval: 40,
             // thickIncrements: 10,
             line: {                   // normal line style
-                color: "#a9a9a9" ,         //   default: "#e0e0e0"
-                width: .8,          //   default: 1,
+                color: "var(--color-grid)" ,         //   default: "#e0e0e0"
+                width: 1,          //   default: 1,
                 dasharray: 5    
             },
             thick: {
-                color:"#a9a9a9",
+                color:"var(--color-grid)",
                 width: 1
             }
         }
@@ -22,14 +22,16 @@ export const networkGraphConfigs = defineConfigs({
     node :{
         normal: {
             color: "var(--accent)",
-            radius: 24, 
+            radius: 25, 
         },
         hover: {
-            color: "var(--accent-2)"
+            color: "var(--complement)"
         },
         // selected: {
-        //     color: "white"
-        // },
+        //     color: "var(--complement)"
+        // }, 
+        // se abilitato causa uno strano errore quando si seleziona un nodo
+
         selectable: 2,
         label: {
             direction: "center",
@@ -37,10 +39,7 @@ export const networkGraphConfigs = defineConfigs({
             text: "name"
         },
         focusring: {
-            // visible: true // whether the focus ring is visible or not.     default: true
-            // width: 4    // line width of the focus ring.                 default: 4
-            // padding: 3  // distance between the focus ring and the node. default: 3
-            color: "var(--complement)"  //per qualche motivo non funge   // fill color.                                   default: "#eebb00"
+            color: "var(--complement)"  
         },
     },
     
@@ -51,6 +50,12 @@ export const networkGraphConfigs = defineConfigs({
 
         },
         selectable: 1,
+        selected: {
+            color: "var(--complement)"
+        },
+        hover:{
+            color: "var(--complement)"
+        },
         // type:"curve",
         marker: {
             target:{
