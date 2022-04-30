@@ -60,6 +60,11 @@ function addEdge() {
   edges[edgeId] = { source, target }
   nextEdgeIndex.value++
 }
+
+function validate(text:string,options:Object){
+  console.log(`validate: ${text}`,options);
+  console.log(automata.value.toString());
+}
 </script>
 
 <template>
@@ -72,7 +77,7 @@ function addEdge() {
     v-model:selected-edges="selectedEdge"
     v-model:selected-nodes="selectedNodes"/>
   <Footbar
-    @validate="(text:string,options:Object) => console.log(`validate: ${text}`,options) "
+    @validate="(text:string,options:Object)=>validate(text,options)"
     @addNode="addNode()"
     @remove ="remove"
     @addEdge="addEdge"

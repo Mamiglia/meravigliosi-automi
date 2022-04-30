@@ -1,28 +1,30 @@
-import {Edge} from "v-network-graph"
-//import data from "./data"
+import {Edge, Node} from "v-network-graph"
 
 //type Node = {id:string}
 //type Edge = {id:string, source: Node, target: Node, label:String}
+type Nodes = {[key:string] : Node}
+type Edges = {[key:string] : Edge}
 
 export class Automaton{
-    nodes: Array<string>;
-    edges: Array<Edge>;
+    nodes: Nodes;
+    edges: Edges;
     initialNode: string;
     finalNodes: Array<string>;
     alphabet: Array<string>;
 
-    constructor(myNodes: Array<string>, myEdges: Array<Edge>, myInitialNode: string, myFinalNodes: Array<string>, myAlphabet: Array<string>){
+    constructor(myNodes: Nodes, myEdges: Edges, myInitialNode: string, myFinalNodes: Array<string>, myAlphabet: Array<string>){
         this.nodes = myNodes;
         this.edges = myEdges;
         this.initialNode = myInitialNode;
         this.finalNodes = myFinalNodes;
         this.alphabet = myAlphabet;
+
     }
 
     toString(){
         let ris: string = "INITIAL NODE: " + this.initialNode + "\n"; //spero che le classi Nodes e Edges abbiano toString
         ris += "NODES: ";
-        for (let n of this.nodes){
+        for (let n in this.nodes){
             ris += n;
             if(this.finalNodes.includes(n)){
                 ris+="(final)"
@@ -30,7 +32,7 @@ export class Automaton{
             ris += "\n";
         }
         ris += "EDGES:\n";
-        for (let e of this.edges){
+        for (let e in this.edges){
             ris += e.toString();
             ris += "\n";
         }
