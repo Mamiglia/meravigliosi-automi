@@ -19,6 +19,7 @@ const edges : Edges = reactive({
 });
 const selectedNodes = ref<string[]>([]);
 const selectedEdge = ref<string[]>([]);
+const nextEdgeIndex = ref(Object.keys(edges).length + 1);
 // var initialNode: any;
 // var finalNodes = ref<string[]>([]);
 //const automata = computed(()=>new Automaton(nodes, edges, initialNode.value, finalNodes.value))
@@ -48,8 +49,10 @@ function addEdge() {
   // currently edgeID can be assigned to an already existing ID, causing problems
   if (selectedNodes.value.length !== 2) return
   let [source, target] = selectedNodes.value
-  let edgeId  = edges.length
+  //let edgeId  = edges.length
+  let edgeId = 'edge${nextEdgeIndex.value}'
   edges[edgeId] = { source, target }
+  nextEdgeIndex.value++
 }
 </script>
 

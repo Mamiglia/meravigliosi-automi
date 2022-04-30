@@ -6,6 +6,7 @@ export const networkGraphConfigs = defineConfigs({
         zoomEnabled: false,
         grid: {
             visible:true,
+            margin: 0, //aggiunto questo elemento per avere il grafo iniziale esattamente al centro
             interval: 40,
             // thickIncrements: 10,
             line: {                   // normal line style
