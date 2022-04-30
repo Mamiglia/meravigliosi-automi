@@ -146,3 +146,7 @@ export class Automaton{
 }
 
 //const, var, let
+
+export function unreactiveCopy(obj:any){
+    return JSON.parse(JSON.stringify(obj))
+}

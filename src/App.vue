@@ -3,8 +3,8 @@ import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
 import { networkGraphConfigs } from "./assets/v-network-graph-configs";
 import { Nodes, Edges } from "v-network-graph"
-import { ref,reactive } from "vue";
-// import { Automaton } from "./assets/Automaton"
+import { ref,reactive,computed} from "vue";
+import { Automaton, unreactiveCopy } from "./assets/Automaton"
 
 const nodes : Nodes = reactive({
   0: { name: "Node 0" },
@@ -20,9 +20,15 @@ const edges : Edges = reactive({
 const selectedNodes = ref<string[]>([]);
 const selectedEdge = ref<string[]>([]);
 const nextEdgeIndex = ref(Object.keys(edges).length + 1);
-// var initialNode: any;
-// var finalNodes = ref<string[]>([]);
-//const automata = computed(()=>new Automaton(nodes, edges, initialNode.value, finalNodes.value))
+const initialNode = ref("0");
+const finalNodes = ref<string[]>(["3"]);
+const automata = computed(()=>new Automaton(
+  unreactiveCopy(nodes), 
+  unreactiveCopy(edges), 
+  initialNode.value, 
+  unreactiveCopy(finalNodes.value),
+  []
+  ))
 
 function addNode() {
   // currently nodeID can be assigned to an already existing ID, causing problems

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Action from './Action.vue'
+import { unreactiveCopy } from '@/assets/Automaton'
 import { computed, ref , defineEmits } from 'vue'
 
 const emits = defineEmits(["addNode", "remove", "addEdge", "validate"])
@@ -12,7 +13,7 @@ const inputText = ref("")
 const options = computed(()=>{
     return {
         "animated": animated.value,
-        "alphabet": alphabet.value,
+        "alphabet": unreactiveCopy(alphabet.value),
         "determinism" : determinism.value
     }
 })
