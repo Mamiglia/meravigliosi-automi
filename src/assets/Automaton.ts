@@ -1,7 +1,5 @@
 import {Edge, Node} from "v-network-graph"
 
-//type Node = {id:string}
-//type Edge = {id:string, source: Node, target: Node, label:String}
 type Nodes = {[key:string] : Node}
 type Edges = {[key:string] : Edge}
 
@@ -18,22 +16,22 @@ export class Automaton{
         this.initialNode = myInitialNode;
         this.finalNodes = myFinalNodes;
         this.alphabet = myAlphabet;
-
     }
 
     toString(){
         let ris: string = "INITIAL NODE: " + this.initialNode + "\n"; //spero che le classi Nodes e Edges abbiano toString
         ris += "NODES: ";
-        for (let n in this.nodes){
-            ris += n;
-            if(this.finalNodes.includes(n)){
-                ris+="(final)"
+        for (let key in this.nodes){
+            ris += key;
+            if(this.finalNodes.includes(key)){
+                ris+=" (final)"
             }
             ris += "\n";
         }
         ris += "EDGES:\n";
-        for (let e in this.edges){
-            ris += e.toString();
+        for (let key in this.edges){
+            let e = this.edges[key];
+            ris += key.toString() + ": source = " + e.source + " target = " + e.target + " label = " + e.label; //forse label si chiamerà cost o in qualche altro modo
             ris += "\n";
         }
         ris += "ALPHABET: " + this.alphabet.toString();
@@ -41,7 +39,7 @@ export class Automaton{
     }
 
     //ausiliaria per evaluate
-    isSuccess(myNode: Node){
+    isSuccess(myNode: string){
         if(this.finalNodes.includes(myNode)){
             return true;
         }
@@ -49,19 +47,9 @@ export class Automaton{
     }
 
     //ausiliaria per evaluate
-    checkSuccess(myNodes: Array<Node>){
+    checkSuccess(myNodes: Array<string>){
         for (let n of myNodes){
             if(this.isSuccess(n)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    //ausiliaria per evaluate
-    contains(myNodes: Array<Node>, myNode: Node){
-        for (let n of myNodes){
-            if (n.key === myNode.key){
                 return true;
             }
         }
@@ -76,7 +64,7 @@ export class Automaton{
 
     evaluate(myString: string){
         //const myAutomaton = new Automaton(); Non è evaluate a chiamare il costruttore, giusto?
-        let activeNodes: Array<Node> = [this.initialNode] //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
+        let activeNodes: Array<string> = [this.initialNode] //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
         return this.ricorsiveEvaluate(activeNodes, myString);
     }
 
@@ -86,23 +74,25 @@ export class Automaton{
     //Con un check si può usare quest'ultimo fatto anche per verificare che il automaton in input
     //rappresenti effettivamente un automa a stati finiti.
     //Ho provato a usare il commento multiriga ma ho fallito :)
-    ricorsiveEvaluate(myNodes: Array<Node>, myString: string){
+    ricorsiveEvaluate(myNodes: Array<string>, myString: string): boolean{
         if (myString===""){                              //caso base
             if(this.checkSuccess(myNodes)){              //se nodes contiene uno stato finale
                 return true;
             }
             return false;
         }
-        let newNodes: Array<Node> = [];
-        for(let e of this.edges){
-            if( myNodes.includes(e.source) && this.checkTransition(e, myString) && !newNodes.contains(e.target) ){
+        let newNodes: Array<string> = [];
+        for(let key in this.edges){
+            let e = this.edges[key];
+            if( myNodes.includes(e.source) && this.checkTransition(e.label, myString) && !newNodes.includes(e.target) ){ //label non so se si chiama davvero label
                 newNodes.push(e.target);
             }
         }
         const newString = myString.slice(1); //dovrebbe scartare il primo carattere, ossia quello usato per la transizione
-        return ricorsiveEvaluate(myAutomaton, newNodes, newString);
+        return this.ricorsiveEvaluate(newNodes, newString);
     }
 
+    /*
     //ausiliaria per toRegex
     hasLoop(node){
         for (edge of this.edges){
@@ -143,7 +133,7 @@ export class Automaton{
         }
         //si possono resettare nodi iniziali e finali ma forse non serve
         return //la transizione dell'unico arco rimasto
-    }
+    }*/
 
 }
 
