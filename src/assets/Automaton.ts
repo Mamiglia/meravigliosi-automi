@@ -1,170 +1,45 @@
-//import * as vNG from "v-network-graph"
-import data from "./data"
+import {Edge} from "v-network-graph"
+//import data from "./data"
 
-class Node{
-    name; //identificatore
-
-    constructor(myName){
-        this.name = myName;
-    }
-
-    getName(){
-        return this.name;
-    }
-
-    setName(newName){
-        this.name = newName;
-    }
-
-    toString(){
-        ris = "NODEID: "+this.name;
-        if(this.success){
-            ris += "(S)";
-        }
-        return ris;
-    }
-
-}
-
-class Edge{
-    source;
-    target;
-    label;
-
-    constructor(mySource, myTarget, myLabel){
-        this.source=mySource; //oggetto di tipo nodo
-        this.target=myTarget; //oggetto di tipo nodo
-        this.label=myLabel;
-    }
-
-    getSource(){
-        return this.source;
-    }
-
-    getTarget(){
-        return this.target;
-    }
-
-    getLabel(){
-        return this.label;
-    }
-
-    setSource(newSource){
-        this.source=newSource;
-    }
-
-    setTarget(newTarget){
-        this.target=newTarget;
-    }
-
-    setLabel(newLabel){
-        this.label = newLabel;
-    }
-
-    toString(){
-        return "SOURCEID: "+this.source.toString()+" TARGETID: "+this.target.toString()+" LABEL: "+this.label;
-    }
-}
+//type Node = {id:string}
+//type Edge = {id:string, source: Node, target: Node, label:String}
 
 export class Automaton{
-    nodes;
-    edges;
-    initialNode;
-    finalNodes;
-    alphabet;
+    nodes: Array<string>;
+    edges: Array<Edge>;
+    initialNode: string;
+    finalNodes: Array<string>;
+    alphabet: Array<string>;
 
-    constructor(myAlphabet){
-        //to do, inizializzazione di initialNode e finalNode
-        const myNodes = Array();
-        const myEdges = Array();
-        for (const key of data.nodes) {
-            myNode = Node(data.nodes[key][name]);
-            myNodes.push(myNode);
-        }
-        for (const key of data.edges) {
-            myEdge = Edge( data.edges[key][source] , data.edges[key][target] , data.edges[key][label] )
-            myEdges.push(myEdge);
-        }
-        this.alphabet = myAlphabet
+    constructor(myNodes: Array<string>, myEdges: Array<Edge>, myInitialNode: string, myFinalNodes: Array<string>, myAlphabet: Array<string>){
         this.nodes = myNodes;
         this.edges = myEdges;
+        this.initialNode = myInitialNode;
+        this.finalNodes = myFinalNodes;
+        this.alphabet = myAlphabet;
     }
-
-    //UN PO' DI GETTER E SETTER
-
-    getNodes(){
-        return JSON.parse(JSON.stringify(this.nodes)); //sta cosa dovrebbe fare una copia profonda MA si accettano idee più leggibili
-    }
-
-    getEdges(){
-        return JSON.parse(JSON.stringify(this.edges));
-    }
-
-    getInitialNode(){
-        return JSON.parse(JSON.stringify(this.InitialNode));
-    }
-
-    getFinalNodes(){
-        return JSON.parse(JSON.stringify(this.FinalNodes));
-    }
-
-    getAlphabet(){
-        return this.alphanbet;
-    }
-
-    //Eventualmente si occupa anche di modificare nodo iniziale
-    //e/o di aggiungere ai nodi finali
-    addNode(myNode, isInitial, isFinal){
-        if (isInitial){
-            this.nodes.shift(myNode);
-            setInitialNode(myNode);
-        }
-        else{
-            this.nodes.push(myNode);
-        }
-        if(isFinal){
-            addFinalNode(myNode);
-        }
-    }
-
-    addEdge(myEdge){
-        this.edges.push(myEdge);
-    }
-
-    setInitialNode(newInitialNode){
-        this.initialNode = newInitialNode;
-    }
-
-    addFinalNode(myNode){
-        this.finalNodes.push(myNode);
-    }
-
-    setAlphabet(newAlphabet){
-        this.alphabet = newAlphabet;
-    }
-
-    //FINE GETTER E SETTER (Per ora ho saltato i remove che sono meno banali, poi se serve si fanno)
 
     toString(){
-        ris = "INITIAL NODE: "+this.initialNode.toString()+"\n";
+        let ris: string = "INITIAL NODE: " + this.initialNode + "\n"; //spero che le classi Nodes e Edges abbiano toString
         ris += "NODES: ";
-        for (node of this.nodes){
-            ris += node.toString();
-            if(this.finalNodes.includes(node)){ //forse per far funzionare questa cosa bisogna definite un operatore di confronto tra nodi
+        for (let n of this.nodes){
+            ris += n;
+            if(this.finalNodes.includes(n)){
                 ris+="(final)"
             }
             ris += "\n";
         }
         ris += "EDGES:\n";
-        for (edge of this.edges){
-            ris += edge.toString();
+        for (let e of this.edges){
+            ris += e.toString();
             ris += "\n";
         }
-        ris+="ALPHABET: "+this.alphabet;
+        ris += "ALPHABET: " + this.alphabet.toString();
         return ris;
     }
 
-    isSuccess(myNode){
+    //ausiliaria per evaluate
+    isSuccess(myNode: Node){
         if(this.finalNodes.includes(myNode)){
             return true;
         }
@@ -172,9 +47,9 @@ export class Automaton{
     }
 
     //ausiliaria per evaluate
-    checkSuccess(myNodes){
-        for (node of myNodes){
-            if(isSuccess(node)){
+    checkSuccess(myNodes: Array<Node>){
+        for (let n of myNodes){
+            if(this.isSuccess(n)){
                 return true;
             }
         }
@@ -182,16 +57,25 @@ export class Automaton{
     }
 
     //ausiliaria per evaluate
-    checkTransition(myString, path){
+    contains(myNodes: Array<Node>, myNode: Node){
+        for (let n of myNodes){
+            if (n.key === myNode.key){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //ausiliaria per evaluate
+    checkTransition(myString: string, path: string){
         //todo
         return false;
     }
 
-    evaluate(myString){
-        const myAutomaton = new Automaton();
-        const myNodes = Array();
-        myNodes.push(myAutomaton.initialNode);
-        return ricorsiveEvaluate(myAutomaton, myNodes, myString); //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
+    evaluate(myString: string){
+        //const myAutomaton = new Automaton(); Non è evaluate a chiamare il costruttore, giusto?
+        let activeNodes: Array<Node> = [this.initialNode] //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
+        return this.ricorsiveEvaluate(activeNodes, myString);
     }
 
     //A ogni ricorsione viene consumato un carattere di myString e
@@ -200,17 +84,17 @@ export class Automaton{
     //Con un check si può usare quest'ultimo fatto anche per verificare che il automaton in input
     //rappresenti effettivamente un automa a stati finiti.
     //Ho provato a usare il commento multiriga ma ho fallito :)
-    ricorsiveEvaluate(myAutomaton, myNodes, myString){
+    ricorsiveEvaluate(myNodes: Array<Node>, myString: string){
         if (myString===""){                              //caso base
-            if(checkSucces(myNodes)){                    //se nodes contiene uno stato finale
+            if(this.checkSuccess(myNodes)){              //se nodes contiene uno stato finale
                 return true;
             }
             return false;
         }
-        const newNodes = Array();
-        for(edge of myAutomaton.edges){
-            if( myNodes.includes(edge.source) && checkTransition(edge) && !newNodes.contains(edge.target) ){
-                newNodes.push(edge.target);
+        let newNodes: Array<Node> = [];
+        for(let e of this.edges){
+            if( myNodes.includes(e.source) && this.checkTransition(e, myString) && !newNodes.contains(e.target) ){
+                newNodes.push(e.target);
             }
         }
         const newString = myString.slice(1); //dovrebbe scartare il primo carattere, ossia quello usato per la transizione
