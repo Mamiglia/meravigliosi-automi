@@ -50,7 +50,6 @@ function remove() {
   }
 }
 
-
 function addEdge() {
   // currently edgeID can be assigned to an already existing ID, causing problems
   if (selectedNodes.value.length !== 2) return

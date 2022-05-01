@@ -13,7 +13,7 @@ const hasFocus = ref(true)
     <h1 class="title" id="title">Meravigliosi Automi</h1>
     <ul>
         <li><a href="start.html">Start</a></li>
-        <li><a href ="wiki.html">Wiki</a></li>
+        <li><a href="wiki.html">Wiki</a></li>
         <li><a href="source.html">Source Code</a></li>
     </ul>
     <span></span>

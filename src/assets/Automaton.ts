@@ -20,7 +20,7 @@ export class Automaton{
 
     toString(){
         let ris: string = "INITIAL NODE: " + this.initialNode + "\n"; //spero che le classi Nodes e Edges abbiano toString
-        ris += "NODES: ";
+        ris += "NODES: \n";
         for (let key in this.nodes){
             ris += key;
             if(this.finalNodes.includes(key)){
@@ -57,8 +57,17 @@ export class Automaton{
     }
 
     //ausiliaria per evaluate
-    checkTransition(myString: string, path: string){
-        //todo
+    checkTransition(ruleType: string, charset: Array<string>, myChar: string){
+        if (ruleType === "All"){
+            return true;
+        }
+        if(ruleType === "Include"){
+            return charset.includes(myChar);
+        }
+        if(ruleType === "Exclude"){
+            return !charset.includes(myChar);
+        }
+        console.log("Error: unrecognized ruleType");
         return false;
     }
 
@@ -84,7 +93,7 @@ export class Automaton{
         let newNodes: Array<string> = [];
         for(let key in this.edges){
             let e = this.edges[key];
-            if( myNodes.includes(e.source) && this.checkTransition(e.label, myString) && !newNodes.includes(e.target) ){ //label non so se si chiama davvero label
+            if( myNodes.includes(e.source) && this.checkTransition(e.ruleType, e.charset, myString.charAt(0)) && !newNodes.includes(e.target) ){ //label non so se si chiama davvero label
                 newNodes.push(e.target);
             }
         }
