@@ -14,7 +14,7 @@ const hasFocus = ref(true)
     <ul>
         <li><a href="start.html">Start</a></li>
         <li><a href="wiki.html">Wiki</a></li>
-        <li><a href="source.html">Source Code</a></li>
+        <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
     </ul>
     <span></span>
     <button type="button" @click="hasFocus=false" >start ></button>

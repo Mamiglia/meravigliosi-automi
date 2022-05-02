@@ -58,7 +58,9 @@ export const networkGraphConfigs = defineConfigs({
         hover:{
             color: "var(--secondary)"
         },
-        // type:"curve",
+        margin:2,
+        gap:25,
+        type:"curve",
         marker: {
             target:{
                 type:"arrow",

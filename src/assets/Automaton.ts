@@ -6,7 +6,7 @@ export interface AutEdge extends Edge {
     charset: string[]
 }
 type Nodes = {[key:string] : Node}
-type Edges = {[key:string] : Edge}
+type Edges = {[key:string] : AutEdge}
 
 export class Automaton{
     nodes: Nodes;
@@ -78,8 +78,14 @@ export class Automaton{
     }
 
     evaluate(myString: string){
+        for (const i of myString){
+            if (!this.alphabet.includes(i)){
+                console.log("Rifiutato per carattere non in alfabeto")
+                return false;
+            }
+        }
         //const myAutomaton = new Automaton(); Non è evaluate a chiamare il costruttore, giusto?
-        let activeNodes: Array<string> = [this.initialNode] //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
+        let activeNodes: Array<string> = [this.initialNode]; //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
         return this.ricorsiveEvaluate(activeNodes, myString);
     }
 

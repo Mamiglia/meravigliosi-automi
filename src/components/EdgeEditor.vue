@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="edgeEditor">
         <input type="radio" value="ALL" nane="ruleType" v-model="ruleType">
@@ -16,15 +14,15 @@
     import {AutEdge} from "../assets/Automaton"
 
     const emits = defineEmits(["update:modelValue"]);
-
-    const ruleType = ref<"ALL"|"INCLUDE"|"EXCLUDE">("ALL");
-
-    const textInclude = ref("");
-    const textExclude = ref("");
-
     const props = defineProps<{
-    modelValue: AutEdge;    
+        modelValue: AutEdge;    
     }>()
+
+    const ruleType = ref<"ALL"|"INCLUDE"|"EXCLUDE">(props.modelValue.ruleType);
+
+    const textInclude = ref(props.modelValue.charset.join(","));
+    const textExclude = ref(props.modelValue.charset.join(","));
+
 
     const charset = computed(()=>{
         if (ruleType.value === "INCLUDE"){

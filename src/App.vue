@@ -3,26 +3,17 @@ import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
 import { networkGraphConfigs } from "./assets/v-network-graph-configs";
 import { Nodes, Edges } from "v-network-graph"
-import { ref,reactive,computed} from "vue";
-import { Automaton, unreactiveCopy } from "./assets/Automaton"
+import { ref,reactive,computed, onMounted} from "vue";
+import { AutEdge,Automaton, unreactiveCopy } from "./assets/Automaton"
 import EdgeEditor from "./components/EdgeEditor.vue"
 
-const nodes : Nodes = reactive({
-  0: { name: "Node 0" },
-  1: { name: "Node 1" },
-  2: { name: "Node 2" },
-  3: { name: "Node 3" },
-});
-const edges : Edges = reactive({
-  edge1: { source: "0", target: "1" },
-  edge2: { source: "1", target: "2" },
-  edge3: { source: "2", target: "3" },
-});
+const nodes : Nodes = reactive({});
+const edges : Edges = reactive({});
 const selectedNodes = ref<string[]>([]);
 const selectedEdge = ref<string[]>([]);
 const nextEdgeIndex = ref(Object.keys(edges).length + 1);
 const initialNode = ref("0");
-const finalNodes = ref<string[]>(["3"]);
+const finalNodes = ref<string[]>(["4"]);
 const options = reactive({
   alphabet: "a,c",
   determinism: true,
@@ -39,7 +30,7 @@ const automata = computed(()=>new Automaton(
 function addNode() {
   // currently nodeID can be assigned to an already existing ID, causing problems
   let size = Object.keys(nodes).length
-  nodes[size] = {
+  nodes[`${size}`] = {
     name: String("Node"+" "+size)
   }
   //add: if node is selected during node creation, then create also an edge
@@ -56,20 +47,51 @@ function remove() {
   }
 }
 
-function addEdge() {
+function addEdge(src:string, trgt:string) {
   // currently edgeID can be assigned to an already existing ID, causing problems
-  if (selectedNodes.value.length !== 2) return
-  let [source, target] = selectedNodes.value
-  //let edgeId  = edges.length
-  let edgeId = 'edge${nextEdgeIndex.value}'
-  edges[edgeId] = { source, target }
+  let source, target 
+
+  if (selectedNodes.value.length === 0) {
+    source = src;
+    target = trgt;
+  } else if (selectedNodes.value.length===1) {
+    source = selectedNodes.value[0];
+    target = source;
+  } else {
+    [source,target] =  selectedNodes.value;
+  }
+  // let edgeId  = edges.length
+  let edgeId = `edge${nextEdgeIndex.value}`
+  let newEdge :AutEdge = {
+    source:source,
+    target:target,
+    label: "*",
+    ruleType: "ALL",
+    charset: [],
+    marker: {
+      target:{
+        type: "circle"
+      }
+    }
+  }
+  edges[edgeId] = newEdge
   nextEdgeIndex.value++
 }
 
 function validate(text:string){
   console.log(`validate: ${text}`);
   console.log(automata.value.toString());
+  console.log(automata.value.evaluate(text))
 }
+
+onMounted(()=>{
+  for (let i=0;i<5;i++) {
+    addNode()
+  }
+  for (let i=0;i<4;i++) {
+    addEdge(`${i}`,`${i+1}`)
+  }
+})
 </script>
 
 <template>
@@ -80,8 +102,12 @@ function validate(text:string){
     :edges="edges" 
     :configs="networkGraphConfigs"
     v-model:selected-edges="selectedEdge"
-    v-model:selected-nodes="selectedNodes"/>
-  <EdgeEditor v-model="edges['edge1']"/>
+    v-model:selected-nodes="selectedNodes">
+    <template #edge-label="{ edge, ...slotProps }">
+      <v-edge-label :text="edge.label" align="center" vertical-align="above" v-bind="slotProps"/>
+    </template>
+  </v-network-graph>
+  <EdgeEditor v-if="selectedEdge.length !== 0" v-model="edges[selectedEdge[0]]" />
   <Footbar
     @validate="(text:string)=>validate(text)"
     @addNode="addNode()"
