@@ -22,19 +22,24 @@ const selectedEdge = ref<string[]>([]);
 const nextEdgeIndex = ref(Object.keys(edges).length + 1);
 const initialNode = ref("0");
 const finalNodes = ref<string[]>(["3"]);
+const options = reactive({
+  alphabet: "a,c",
+  determinism: true,
+  animated: true
+});
 const automata = computed(()=>new Automaton(
   unreactiveCopy(nodes), 
   unreactiveCopy(edges), 
   initialNode.value, 
   unreactiveCopy(finalNodes.value),
-  []
+  unreactiveCopy(options).alphabet,
   ))
 
 function addNode() {
   // currently nodeID can be assigned to an already existing ID, causing problems
   let size = Object.keys(nodes).length
   nodes[size] = {
-    name: String(size)
+    name: String("Node"+" "+size)
   }
   //add: if node is selected during node creation, then create also an edge
 }
@@ -60,8 +65,8 @@ function addEdge() {
   nextEdgeIndex.value++
 }
 
-function validate(text:string,options:Object){
-  console.log(`validate: ${text}`,options);
+function validate(text:string){
+  console.log(`validate: ${text}`);
   console.log(automata.value.toString());
 }
 </script>
@@ -76,10 +81,11 @@ function validate(text:string,options:Object){
     v-model:selected-edges="selectedEdge"
     v-model:selected-nodes="selectedNodes"/>
   <Footbar
-    @validate="(text:string,options:Object)=>validate(text,options)"
+    @validate="(text:string)=>validate(text)"
     @addNode="addNode()"
     @remove ="remove"
     @addEdge="addEdge"
+    v-model="options"
   />
   <!-- @validate="automata.validate"
     @addNode="automata.addNode"

@@ -10,12 +10,13 @@ export class Automaton{
     finalNodes: Array<string>;
     alphabet: Array<string>;
 
-    constructor(myNodes: Nodes, myEdges: Edges, myInitialNode: string, myFinalNodes: Array<string>, myAlphabet: Array<string>){
+    constructor(myNodes: Nodes, myEdges: Edges, myInitialNode: string, myFinalNodes: Array<string>, myAlphabet: String){
         this.nodes = myNodes;
         this.edges = myEdges;
         this.initialNode = myInitialNode;
         this.finalNodes = myFinalNodes;
-        this.alphabet = myAlphabet;
+        this.alphabet = myAlphabet.replaceAll(/\s/g, "").split(",");
+        //console.log(this.alphabet);
     }
 
     toString(){

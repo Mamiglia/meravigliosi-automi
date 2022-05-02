@@ -1,24 +1,26 @@
 <script setup lang="ts">
 import Action from './Action.vue'
 import { unreactiveCopy } from '@/assets/Automaton'
-import { computed, ref , defineEmits } from 'vue'
-import AlfPopup from '/AlfPopup.vue'
+import { computed, ref , defineEmits, reactive} from 'vue'
 
-const emits = defineEmits(["addNode", "remove", "addEdge", "validate"])
 
-const animated = ref(true)
-const alphabet = ref<string[]>([]);
-const determinism = ref(true);
-const inputText = ref("")
-const popup = ref(false);
+const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:modelValue"])
 
-const options = computed(()=>{
-    return {
-        "animated": animated.value,
-        "alphabet": unreactiveCopy(alphabet.value),
-        "determinism" : determinism.value
-    }
-})
+type Options = {
+    animated: Boolean,
+    determinism: Boolean,
+    alphabet: String[]
+}
+
+const props = defineProps<{
+    modelValue: Options    
+}>()
+
+const options = reactive<Options>(props.modelValue)
+
+function handlderInput() {
+    emits("update:modelValue", options);
+}
 </script>
 
 <template>
@@ -26,16 +28,19 @@ const options = computed(()=>{
     <div class="popupMenu">
         <Action icon="settings"/>
         <div class="settings">
-            <button>Alfabeto</button>
+            <label for="alphabetInput">
+                Alfabeto:&nbsp;<br><input type="textarea" id="alphabetInput" placeholder="Inserisci qui l'alfabeto" :value="props.modelValue.alphabet" @input="handlerInput" v-model="options.alphabet">
+            </label>
+            
             <div>
                 <label for="determinismCheckbox">
-                    Determinstic Automa&nbsp;<input type="checkbox" id="determinismCheckbox" v-model="determinism"/>
+                    Determinstic Automa&nbsp;<input type="checkbox" id="determinismCheckbox" :value="props.modelValue.determinism" @input="handlerInput" v-model="options.determinism" />
 
                 </label>
             </div>
             <div>
                 <label for="animateCheckbox">
-                    Animate Evaluation&nbsp;<input type="checkbox" id="animateCheckbox" v-model="animated"/>
+                    Animate Evaluation&nbsp;<input type="checkbox" id="animateCheckbox" :value="props.modelValue.animated" @input="hanlderInput" v-model="options.animate"/>
                 </label>
                 
             </div>
