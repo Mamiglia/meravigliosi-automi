@@ -22,7 +22,7 @@ const options = computed(()=>{
 <template>
 <div id="footer">
     <div class="popupMenu">
-        <Action text="*"/>
+        <Action icon="settings"/>
         <div class="settings">
             <button>Alfabeto</button>
             <div>
@@ -40,14 +40,14 @@ const options = computed(()=>{
             <!-- Altro? -->
         </div>
     </div>
-    <Action text="+" @click="$emit('addNode')"/>
-    <Action text="rem."  @click="$emit('remove')"/>
-    <Action text="-"  @click="$emit('addEdge')"/>
+    <Action icon="delete_forever"  @click="$emit('remove')"/>
+    <Action icon="add_circle"  @click="$emit('addNode')"/>
+    <Action icon="commit"  @click="$emit('addEdge')"/>
     <input 
         type="text" 
         placeholder="Inserisci la stringa da validare"
         v-model="inputText"> <!--v-model associa la stringa nell'input alla variabile inputText-->
-    <Action text=">" @click="$emit('validate', inputText, options)"/> <!--emette l'evento "validate" con associata la stringa in input-->
+    <Action icon="skip_next" @click="$emit('validate', inputText, options)"/> <!--emette l'evento "validate" con associata la stringa in input-->
 </div>
 </template>
 
