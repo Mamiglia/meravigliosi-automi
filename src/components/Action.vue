@@ -19,13 +19,13 @@ button {
     aspect-ratio: 1/1;
     height: 100%;
     max-height: 20vh;
-    background-color: var(--color-background-mute);
+    background-color: var(--background-alternative);
     border-style: none;
     transition: background var(--fast-animation) ease;
 }
 button:hover {
     background-color: var(--accent);
-    color: var(--color-background-mute);
+    color: var(--background-alternative);
     cursor: pointer;
 }
 </style>

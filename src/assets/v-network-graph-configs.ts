@@ -26,10 +26,10 @@ export const networkGraphConfigs = defineConfigs({
             radius: 25, 
         },
         hover: {
-            color: "var(--complement)"
+            color: "var(--secondary)"
         },
         // selected: {
-        //     color: "var(--complement)"
+        //     color: "var(--secondary)"
         // }, 
         // se abilitato causa uno strano errore quando si seleziona un nodo
 
@@ -37,10 +37,11 @@ export const networkGraphConfigs = defineConfigs({
         label: {
             direction: "center",
             fontFamily: "Courier New",
-            text: "name"
+            text: "name",
+            color: "var(--white-ish)"
         },
         focusring: {
-            color: "var(--complement)"  
+            color: "var(--secondary)"  
         },
     },
     
@@ -52,10 +53,10 @@ export const networkGraphConfigs = defineConfigs({
         },
         selectable: 1,
         selected: {
-            color: "var(--complement)"
+            color: "var(--secondary)"
         },
         hover:{
-            color: "var(--complement)"
+            color: "var(--secondary)"
         },
         // type:"curve",
         marker: {

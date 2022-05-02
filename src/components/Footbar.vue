@@ -62,7 +62,7 @@ const options = computed(()=>{
     left:0;
     bottom:0;
     top:auto;
-    background-color: var(--color-background-mute);
+    background-color: var(--background-alternative);
 }
 
 input {
@@ -74,7 +74,7 @@ input {
 }
 
 input:hover{
-    background-color: var(--color-background-soft);
+    background-color: var(--background-alternative);
 }
 
 input:focus-visible{
@@ -89,7 +89,7 @@ input:focus-visible{
 .popupMenu>.settings {
     position: absolute;
     bottom: 10vh;
-    background-color: var(--color-background-mute);
+    background-color: var(--background-alternative);
     /* border:1px solid var(--color-text); */
     display: flex;
     flex-direction: column;

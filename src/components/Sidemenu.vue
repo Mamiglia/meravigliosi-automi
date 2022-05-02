@@ -29,7 +29,7 @@ const hasFocus = ref(true)
 
 #sidemenu {
     z-index: 3;
-    background-color: var(--color-background-mute);
+    background-color: var(--background-alternative);
     width: 33%;
     height: 100vh;
     text-align: center;
@@ -49,7 +49,7 @@ const hasFocus = ref(true)
 
 button {
     border: none;
-    background-color: var(--color-background-soft);
+    background-color: var(--background-alternative);
 }
 #sidemenu>span {
     height: 100%;
@@ -60,13 +60,13 @@ button {
     width: 100%;
     height: 20vh;
     padding: 0;
-    color: var(--color-background);
+    color: var(--background);
     background-color: var(--accent);
     transition: background var(--fast-animation) ease;
 }
 #sidemenu>button:hover{
     cursor: pointer;
-    background-color: var(--accent-2);
+    background-color: var(--secondary);
 }
 
 ul {
@@ -76,7 +76,8 @@ ul {
 
 h1 {
     margin: 0;
-    padding-top: 10%;
+    padding: 10%;
+
 }
 
 .menu-btn {
@@ -127,11 +128,11 @@ h1 {
 }
 .menu-btn:hover>button::after {
     transform: translate(-50%, -50%) rotate(-30deg) scaleX(0.9);
-    color: var(--color-background);
+    color: var(--background);
 }
 .menu-btn:hover>button::before {
     transform: translate(-50%, -50%) rotate(30deg) scaleX(0.9);
-    color: var(--color-background);
+    color: var(--background);
 }
 
 .outside {
@@ -139,7 +140,7 @@ h1 {
     width: 100vw;
     height: 100vh;
     z-index: 2;
-    background-color: var(--color-background);
+    background-color: var(--background);
     opacity: 50%;
     backdrop-filter: blur(10px);
     transition: all var(--normal-animation) ease;
