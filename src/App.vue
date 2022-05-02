@@ -5,6 +5,7 @@ import { networkGraphConfigs } from "./assets/v-network-graph-configs";
 import { Nodes, Edges } from "v-network-graph"
 import { ref,reactive,computed} from "vue";
 import { Automaton, unreactiveCopy } from "./assets/Automaton"
+import EdgeEditor from "./components/EdgeEditor.vue"
 
 const nodes : Nodes = reactive({
   0: { name: "Node 0" },
@@ -80,6 +81,7 @@ function validate(text:string){
     :configs="networkGraphConfigs"
     v-model:selected-edges="selectedEdge"
     v-model:selected-nodes="selectedNodes"/>
+  <EdgeEditor/>
   <Footbar
     @validate="(text:string)=>validate(text)"
     @addNode="addNode()"

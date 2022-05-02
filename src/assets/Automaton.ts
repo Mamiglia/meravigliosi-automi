@@ -1,5 +1,10 @@
 import {Edge, Node} from "v-network-graph"
 
+export interface AutEdge extends Edge {
+    label: string;
+    ruleType: "ALL" | "INCLUDE" | "EXCLUDE" 
+    charset: string[]
+}
 type Nodes = {[key:string] : Node}
 type Edges = {[key:string] : Edge}
 
@@ -59,13 +64,13 @@ export class Automaton{
 
     //ausiliaria per evaluate
     checkTransition(ruleType: string, charset: Array<string>, myChar: string){
-        if (ruleType === "All"){
+        if (ruleType === "ALL"){
             return true;
         }
-        if(ruleType === "Include"){
+        if(ruleType === "INCLUDE"){
             return charset.includes(myChar);
         }
-        if(ruleType === "Exclude"){
+        if(ruleType === "EXCLUDE"){
             return !charset.includes(myChar);
         }
         console.log("Error: unrecognized ruleType");

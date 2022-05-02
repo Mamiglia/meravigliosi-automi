@@ -29,7 +29,7 @@ function handlderInput() {
         <Action icon="settings"/>
         <div class="settings">
             <label for="alphabetInput">
-                Alfabeto:&nbsp;<br><input type="textarea" id="alphabetInput" placeholder="Inserisci qui l'alfabeto" :value="props.modelValue.alphabet" @input="handlerInput" v-model="options.alphabet">
+                Alfabeto:&nbsp;<br><input type="textarea" id="alphabetInput" placeholder="Inserisci qui l'alfabeto"  @input="handlerInput" v-model="options.alphabet">
             </label>
             
             <div>
