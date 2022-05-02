@@ -9,6 +9,7 @@ const animated = ref(true)
 const alphabet = ref<string[]>([]);
 const determinism = ref(true);
 const inputText = ref("")
+const popup = ref(false);
 
 const options = computed(()=>{
     return {
