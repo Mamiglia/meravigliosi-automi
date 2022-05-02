@@ -2,6 +2,7 @@
 import Action from './Action.vue'
 import { unreactiveCopy } from '@/assets/Automaton'
 import { computed, ref , defineEmits } from 'vue'
+import AlfPopup from '/AlfPopup.vue'
 
 const emits = defineEmits(["addNode", "remove", "addEdge", "validate"])
 
