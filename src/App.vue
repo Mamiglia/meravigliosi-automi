@@ -81,11 +81,11 @@ function validate(text:string){
     :configs="networkGraphConfigs"
     v-model:selected-edges="selectedEdge"
     v-model:selected-nodes="selectedNodes"/>
-  <EdgeEditor/>
+  <EdgeEditor v-model="edges['edge1']"/>
   <Footbar
     @validate="(text:string)=>validate(text)"
     @addNode="addNode()"
-    @remove ="remove"
+    @remove="remove"
     @addEdge="addEdge"
     v-model="options"
   />

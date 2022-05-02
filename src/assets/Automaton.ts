@@ -37,7 +37,7 @@ export class Automaton{
         ris += "EDGES:\n";
         for (let key in this.edges){
             let e = this.edges[key];
-            ris += key.toString() + ": source = " + e.source + " target = " + e.target + " label = " + e.label; //forse label si chiamerà cost o in qualche altro modo
+            ris += key.toString() + ": source = " + e.source + " target = " + e.target + " label = " + e.label + " ruleType = " + e.ruleType + " charset = " + e.charset; //forse label si chiamerà cost o in qualche altro modo
             ris += "\n";
         }
         ris += "ALPHABET: " + this.alphabet.toString();

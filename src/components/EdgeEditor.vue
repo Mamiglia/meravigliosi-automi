@@ -1,62 +1,68 @@
 
-<!-- Umile tentativo -->
 
 <template>
     <div class="edgeEditor">
         <input type="radio" value="ALL" nane="ruleType" v-model="ruleType">
         <p>Tutto l'alfabeto</p> 
         <input type="radio" value="INCLUDE" name="ruleType" v-model="ruleType">
-            <input type="text" placeholder="Caratteri da includere" :disabled="ruleType!='INCLUDE'">
+            <input type="text" placeholder="Caratteri da includere" :disabled="ruleType!='INCLUDE'" v-model="textInclude">
         <input type="radio" value="EXCLUDE" name="ruleType" v-model="ruleType"> 
-            <input type="text" placeholder="Caratteri da escludere" :disabled="ruleType!='EXCLUDE'">
+            <input type="text" placeholder="Caratteri da escludere" :disabled="ruleType!='EXCLUDE'" v-model="textExclude">
     </div>
 </template>
 
 <script setup lang="ts">
-    import {ref} from "vue"
+    import {ref, computed, watch} from "vue"
     import {AutEdge} from "../assets/Automaton"
 
-    const ruleType = ref<String>("ALL");
-    
+    const emits = defineEmits(["update:modelValue"]);
+
+    const ruleType = ref<"ALL"|"INCLUDE"|"EXCLUDE">("ALL");
+
+    const textInclude = ref("");
+    const textExclude = ref("");
+
     const props = defineProps<{
     modelValue: AutEdge;    
     }>()
-    
 
-    //Assumo che ogni arco abbia i seguenti campi:
-    //label: l'etichetta mostrata all'utente
-    //ruleType: una striga che indica se la regola dell'arco è di tipo All, Include o Exclude
-    //charset: un array di stringhe (caratteri) da includere (nel caso include) o escludere (nel caso esclude)
-    //La seguente funzione prende i dati dalla form e setta opportunamente i tre campi.
-    
-    /*function updateLabel(){
-        ??.ruleType = edgeLabelForm.ruleType
-        if(edgeLabelForm.ruleType==="All"){
-            ??.label = "*";
+    const charset = computed(()=>{
+        if (ruleType.value === "INCLUDE"){
+            return textInclude.value.replaceAll(/\s/g,"").split(",");
         }
-        elif(edgeLabelForm.ruleType==="Include"){
-            temp = "";
-            for (let c of edgeLabelForm.charset){
-                temp = temp + c + ", ";
-            }
-            temp = temp.slice(-1); //rimuove la virgola finale
-            ??.label = temp;
-            ??.charset = edgeLabelForm.charset;
-        }
-        elif(edgeLabelForm.ruleType==="Exlude"){
-            temp = "- ";
-            for (let c of edgeLabelForm.charset){
-                temp = temp + c + ", -";
-            }
-            temp = temp.slice(-3); //rimuove il ", -" in coda
-            ??.label = temp;
-            ??.charset = edgeLabelForm.charset;
+        else if(ruleType.value === "EXCLUDE"){
+            return textExclude.value.replaceAll(/\s/g,"").split(",");
         }
         else{
-            log.console("Error: edgeLabelForm.ruleType unrecognized");
+            return [];
         }
-        return;
-    }*/
+    })
+
+    const label = computed(()=>{
+        if (ruleType.value === "INCLUDE"){
+            return charset.value.toString();
+        }
+        else if(ruleType.value === "EXCLUDE"){
+            return "¬" + charset.value.join(", ¬");
+        }
+        else{
+            return "*";
+        }
+    })
+
+    const edge = computed<AutEdge>( () => {
+        return{
+            source: props.modelValue.source,
+            target: props.modelValue.target,
+            label: label.value,
+            ruleType: ruleType.value,
+            charset: charset.value
+        }
+    })
+
+    watch(edge,async(newEdge) => {
+        emits("update:modelValue", newEdge);
+    })
 
 </script>
 
