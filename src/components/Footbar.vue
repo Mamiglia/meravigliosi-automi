@@ -1,26 +1,31 @@
 <script setup lang="ts">
+import { ref , defineEmits, defineProps, reactive, computed} from 'vue'
+import Toggle from '@vueform/toggle'
 import Action from './Action.vue'
-import { unreactiveCopy } from '@/assets/Automaton'
-import { computed, ref , defineEmits, reactive} from 'vue'
+import {Options} from '@/assets/types'
+import { parseList } from '@/assets/utilities'
 
+const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:animated", "update:alphabet", "update:determinism"])
 
-const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:modelValue"])
-
-type Options = {
-    animated: Boolean,
-    determinism: Boolean,
-    alphabet: String[]
-}
 
 const props = defineProps<{
-    modelValue: Options    
+    alphabet: string[]
+    determinism:boolean
+    animated:boolean 
 }>()
 
-const options = reactive<Options>(props.modelValue)
+const alphabetInput = ref(props.alphabet.join(','))
+const alphabetModel = computed(()=>
+    parseList(alphabetInput.value)
+)
+const determinismModel = ref(props.determinism)
+const animatedModel = ref(props.animated)
+const inputText= ref("")
 
-function handlderInput() {
-    emits("update:modelValue", options);
+function updateValue(variable:string, value:any) {
+    emits(`update:${variable}`, value)
 }
+
 </script>
 
 <template>
@@ -53,7 +58,7 @@ function handlderInput() {
         type="text" 
         placeholder="Inserisci la stringa da validare"
         v-model="inputText"> <!--v-model associa la stringa nell'input alla variabile inputText-->
-    <Action icon="skip_next" @click="$emit('validate', inputText, options)"/> <!--emette l'evento "validate" con associata la stringa in input-->
+    <Action icon="skip_next" @click="$emit('validate', inputText)"/> <!--emette l'evento "validate" con associata la stringa in input-->
 </div>
 </template>
 
