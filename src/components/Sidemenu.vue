@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import {ref} from "vue"
+
+import { ref , defineEmits} from 'vue'
+import Toggle from '@vueform/toggle'
+import Action from './Action.vue'
+
+const emits = defineEmits(["startTutorial"])
 
 const hasFocus = ref(true)
 
@@ -15,6 +20,7 @@ const hasFocus = ref(true)
         <li><a href="start.html">Start</a></li>
         <li><a href="wiki.html">Wiki</a></li>
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
+        <li><Action icon="skip_next" @click="$emit('startTutorial')"/></li>
     </ul>
     <span></span>
     <button type="button" @click="hasFocus=false" >start ></button>

@@ -81,6 +81,10 @@ function validate(text:string){
   console.log(automata.value.evaluate(text))
 }
 
+function startTutorial(){
+  console.log(`Tutorial starts`);
+}
+
 onMounted(()=>{
 // crea il grafo iniziale
   for (let i=0;i<5;i++) {
@@ -94,7 +98,9 @@ onMounted(()=>{
 </script>
 
 <template>
-<Sidemenu/>
+<Sidemenu
+  @startTutorial = "startTutorial()"
+/>
 <div>
   <div id="worksheet">
     <v-network-graph 
@@ -108,6 +114,7 @@ onMounted(()=>{
       </template>
     </v-network-graph>
     <EdgeEditor v-if="selectedEdge.length !== 0" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
+
   </div>
   <Footbar
     @validate="(text:string)=>validate(text)"
