@@ -27,7 +27,7 @@ const automata = computed(()=>new Automaton(
   initialNode.value, 
   unreactiveCopy(finalNodes.value),
   unreactiveCopy(options).alphabet,
-  ))
+))
 
 function addNode() {
   // currently nodeID can be assigned to an already existing ID, causing problems
@@ -82,6 +82,7 @@ function validate(text:string){
 }
 
 onMounted(()=>{
+// crea il grafo iniziale
   for (let i=0;i<5;i++) {
     addNode()
   }
