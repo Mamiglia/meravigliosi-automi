@@ -97,17 +97,19 @@ onMounted(()=>{
 <template>
 <Sidemenu/>
 <div>
-  <v-network-graph 
-    :nodes="nodes" 
-    :edges="edges" 
-    :configs="networkGraphConfigs"
-    v-model:selected-edges="selectedEdge"
-    v-model:selected-nodes="selectedNodes">
-    <template #edge-label="{ edge, ...slotProps }">
-      <v-edge-label :text="edge.label" align="center" vertical-align="above" v-bind="slotProps"/>
-    </template>
-  </v-network-graph>
-  <EdgeEditor v-if="selectedEdge.length !== 0" v-model="edges[selectedEdge[0]]" />
+  <div id="worksheet">
+    <v-network-graph 
+      :nodes="nodes" 
+      :edges="edges" 
+      :configs="networkGraphConfigs"
+      v-model:selected-edges="selectedEdge"
+      v-model:selected-nodes="selectedNodes">
+      <template #edge-label="{ edge, ...slotProps }">
+        <v-edge-label :text="edge.label" color="#fbfaf5" align="center" vertical-align="above" v-bind="slotProps"/>
+      </template>
+    </v-network-graph>
+    <EdgeEditor v-if="selectedEdge.length !== 0" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
+  </div>
   <Footbar
     @validate="(text:string)=>validate(text)"
     @addNode="addNode()"
@@ -126,4 +128,8 @@ onMounted(()=>{
 <style>
 @import "./assets/base.css";
 
+#worksheet {
+  height: 90vh;
+  width: 100%;
+}
 </style>

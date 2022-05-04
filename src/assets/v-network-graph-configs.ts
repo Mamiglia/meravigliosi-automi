@@ -4,6 +4,9 @@ import { defineConfigs } from "v-network-graph"
 export const networkGraphConfigs = defineConfigs({
     view : {
         zoomEnabled: false,
+        doubleClickZoomEnabled: false,  // Whether to zoom with double click. default: true
+        mouseWheelZoomEnabled:  false,  // Whether to zoom with mouse wheel or not. default: true
+        // autoPanAndZoomOnLoad: "center-content",
         grid: {
             visible:true,
             margin: 0, //aggiunto questo elemento per avere il grafo iniziale esattamente al centro
@@ -66,6 +69,10 @@ export const networkGraphConfigs = defineConfigs({
                 type:"arrow",
 
             }
+        },
+        label:{
+            color: "var(--color-text)",
+            fontSize: 15
         }
     }
 })

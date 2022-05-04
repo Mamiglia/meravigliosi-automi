@@ -1,11 +1,23 @@
 <template>
     <div class="edgeEditor">
-        <input type="radio" value="ALL" nane="ruleType" v-model="ruleType">
-        <p>Tutto l'alfabeto</p> 
-        <input type="radio" value="INCLUDE" name="ruleType" v-model="ruleType">
+        <div class="edgeTitle">
+            <h3>From node {{modelValue.source}} to {{modelValue.target}}</h3>
+        </div>
+        <div class="section" >
+            <input type="radio" value="ALL" id="ruleTypeALL" name="ruleType" v-model="ruleType">
+            <!-- <label for="ruleTypeALL">ALL</label> -->
+            <p @click="ruleType='ALL'">Tutto l'alfabeto</p> 
+        </div>
+        <div class="section" @dblclick="ruleType='INCLUDE'">
+            <input type="radio" value="INCLUDE" id="ruleTypeINCLUDE" name="ruleType" v-model="ruleType">
+            <!-- <label for="ruleTypeINCLUDE">INCLUDE</label> -->
             <input type="text" placeholder="Caratteri da includere" :disabled="ruleType!='INCLUDE'" v-model="textInclude">
-        <input type="radio" value="EXCLUDE" name="ruleType" v-model="ruleType"> 
+        </div>
+        <div class="section" @click="ruleType='EXCLUDE'">
+            <input type="radio" value="EXCLUDE" id="ruleTypeEXCLUDE" name="ruleType" v-model="ruleType"> 
+            <!-- <label for="ruleTypeEXCLUDE">EXCLUDE</label> -->
             <input type="text" placeholder="Caratteri da escludere" :disabled="ruleType!='EXCLUDE'" v-model="textExclude">
+        </div>
     </div>
 </template>
 
