@@ -28,21 +28,20 @@ function handlderInput() {
     <div class="popupMenu">
         <Action icon="settings"/>
         <div class="settings">
-            <label for="alphabetInput">
-                Alfabeto:&nbsp;<br><input type="textarea" id="alphabetInput" placeholder="Inserisci qui l'alfabeto"  @input="handlerInput" v-model="options.alphabet">
-            </label>
-            
-            <div>
-                <label for="determinismCheckbox">
-                    Determinstic Automa&nbsp;<input type="checkbox" id="determinismCheckbox" :value="props.modelValue.determinism" @input="handlerInput" v-model="options.determinism" />
-
+            <div class="section">
+                <label for="alphabetInput">
+                    Alfabeto:
                 </label>
+                <input type="textarea" id="alphabetInput" placeholder="Inserisci qui l'alfabeto"  @input="updateValue('alphabet', alphabetModel)" v-model="alphabetInput">
             </div>
-            <div>
-                <label for="animateCheckbox">
-                    Animate Evaluation&nbsp;<input type="checkbox" id="animateCheckbox" :value="props.modelValue.animated" @input="hanlderInput" v-model="options.animate"/>
-                </label>
-                
+            
+            <div class="section">
+                <label for="determinismCheckbox">Determinstic Automa</label>
+                <Toggle id="determinismCheckbox" class="toggle" @change="updateValue('determinism', determinismModel)" v-model="determinismModel" on-label="on" off-label="off"/>
+            </div>
+            <div class="section">
+                <label for="animateCheckbox">Animate Evaluation</label>
+                <Toggle id="animateCheckbox" class="toggle" @change="updateValue('animated', animatedModel)" v-model="animatedModel" on-label="on" off-label="off"/>
             </div>
             <!-- Altro? -->
         </div>
@@ -59,6 +58,7 @@ function handlderInput() {
 </template>
 
 <style scoped>
+@import '@vueform/toggle/themes/default.css';
 #footer {
     height: 10vh;
     display: flex;
@@ -124,5 +124,26 @@ input:focus-visible{
 .settings label {
     white-space: nowrap;
     display:inline-block;
+}
+
+.section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.toggle {
+    margin-left: 1em;
+    --toggle-bg-on: var(--accent);
+    --toggle-bg-off: var(--background);
+    --toggle-text-on: var(--color-text);
+    --toggle-text-off: var(--color-text);
+    --toggle-handle-enabled: var(--background-alternative);
+    --toggle-ring-color: transparent;
+    --toggle-border-on: transparent;
+    --toggle-border-off: transparent;
+    --toggle-border-on: transparent;
+    --toggle-border-off: transparent;
+    --toggle-width: 4rem;
 }
 </style>
