@@ -1,12 +1,4 @@
-import {Edge, Node} from "v-network-graph"
-
-export interface AutEdge extends Edge {
-    label: string;
-    ruleType: "ALL" | "INCLUDE" | "EXCLUDE" 
-    charset: string[]
-}
-type Nodes = {[key:string] : Node}
-type Edges = {[key:string] : AutEdge}
+import {Nodes,Edges} from './types'
 
 export class Automaton{
     nodes: Nodes;
@@ -15,19 +7,19 @@ export class Automaton{
     finalNodes: Array<string>;
     alphabet: Array<string>;
 
-    constructor(myNodes: Nodes, myEdges: Edges, myInitialNode: string, myFinalNodes: Array<string>, myAlphabet: String){
+    constructor(myNodes: Nodes, myEdges: Edges, myInitialNode: string, myFinalNodes: Array<string>, myAlphabet: string[]){
         this.nodes = myNodes;
         this.edges = myEdges;
         this.initialNode = myInitialNode;
         this.finalNodes = myFinalNodes;
-        this.alphabet = myAlphabet.replaceAll(/\s/g, "").split(",");
-        //console.log(this.alphabet);
+        this.alphabet = myAlphabet//.replaceAll(/\s/g, "").split(",");
+        console.log(this.alphabet);
     }
 
     toString(){
         let ris: string = "INITIAL NODE: " + this.initialNode + "\n"; //spero che le classi Nodes e Edges abbiano toString
         ris += "NODES: \n";
-        for (let key in this.nodes){
+        for (const key in this.nodes){
             ris += key;
             if(this.finalNodes.includes(key)){
                 ris+=" (final)"
@@ -35,8 +27,8 @@ export class Automaton{
             ris += "\n";
         }
         ris += "EDGES:\n";
-        for (let key in this.edges){
-            let e = this.edges[key];
+        for (const key in this.edges){
+            const e = this.edges[key];
             ris += key.toString() + ": source = " + e.source + " target = " + e.target + " label = " + e.label + " ruleType = " + e.ruleType + " charset = " + e.charset; //forse label si chiamerà cost o in qualche altro modo
             ris += "\n";
         }
@@ -80,13 +72,15 @@ export class Automaton{
     evaluate(myString: string){
         for (const i of myString){
             if (!this.alphabet.includes(i)){
-                console.log("Rifiutato per carattere non in alfabeto")
+                alert("Rifiutato per carattere non in alfabeto")
                 return false;
             }
         }
         //const myAutomaton = new Automaton(); Non è evaluate a chiamare il costruttore, giusto?
         let activeNodes: Array<string> = [this.initialNode]; //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
-        return this.ricorsiveEvaluate(activeNodes, myString);
+        let res = this.ricorsiveEvaluate(activeNodes, myString);
+        alert(res)
+        return res
     }
 
     //A ogni ricorsione viene consumato un carattere di myString e
@@ -160,6 +154,3 @@ export class Automaton{
 
 //const, var, let
 
-export function unreactiveCopy(obj:any){
-    return JSON.parse(JSON.stringify(obj))
-}

@@ -1,11 +1,13 @@
 <script setup lang="ts" >
+import { ref,reactive,computed, onMounted} from "vue";
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
-import { networkGraphConfigs } from "./assets/v-network-graph-configs";
-import { Nodes, Edges } from "v-network-graph"
-import { ref,reactive,computed, onMounted} from "vue";
-import { AutEdge,Automaton, unreactiveCopy } from "./assets/Automaton"
 import EdgeEditor from "./components/EdgeEditor.vue"
+import { Nodes, Edges } from "v-network-graph"
+import { Options, Transition } from "./assets/types";
+import { Automaton } from "./assets/Automaton"
+import { unreactiveCopy } from "./assets/utilities";
+import { networkGraphConfigs } from "./assets/v-network-graph-configs";
 
 const nodes : Nodes = reactive({});
 const edges : Edges = reactive({});
@@ -14,8 +16,8 @@ const selectedEdge = ref<string[]>([]);
 const nextEdgeIndex = ref(Object.keys(edges).length + 1);
 const initialNode = ref("0");
 const finalNodes = ref<string[]>(["4"]);
-const options = reactive({
-  alphabet: "a,c",
+const options = reactive<Options>({
+  alphabet: ['a','b','c'],
   determinism: true,
   animated: true
 });
@@ -62,17 +64,12 @@ function addEdge(src:string, trgt:string) {
   }
   // let edgeId  = edges.length
   let edgeId = `edge${nextEdgeIndex.value}`
-  let newEdge :AutEdge = {
+  let newEdge :Transition = {
     source:source,
     target:target,
     label: "*",
     ruleType: "ALL",
     charset: [],
-    marker: {
-      target:{
-        type: "circle"
-      }
-    }
   }
   edges[edgeId] = newEdge
   nextEdgeIndex.value++
@@ -91,6 +88,7 @@ onMounted(()=>{
   for (let i=0;i<4;i++) {
     addEdge(`${i}`,`${i+1}`)
   }
+  nodes[0]['final'] = true;
 })
 </script>
 
@@ -115,12 +113,10 @@ onMounted(()=>{
     @addNode="addNode()"
     @remove="remove"
     @addEdge="addEdge"
-    v-model="options"
+    v-model:animated="options.animated"
+    v-model:determinism="options.determinism"
+    v-model:alphabet="options.alphabet"
   />
-  <!-- @validate="automata.validate"
-    @addNode="automata.addNode"
-    @addEdge="automata.addEdge"
-    @remove="automata.removeSelected" -->
 </div>
 
 </template>

@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 
-const props = defineProps({
+defineProps({
     icon: String //expects icon from https://fonts.google.com/icons?selected=Material+Icons
 })
 
