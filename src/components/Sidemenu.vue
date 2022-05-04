@@ -21,6 +21,8 @@ const hasFocus = ref(true)
         <li><a href="wiki.html">Wiki</a></li>
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
         <li><Action icon="skip_next" @click="$emit('startTutorial')"/></li>
+        <li><a id="hub" href="../assets/hub.php">Hub</a></li>
+       <!-- <li><a href="">Clicca qui per salvare il tuo Grafo sull'Hub</li> -->
     </ul>
     <span></span>
     <button type="button" @click="hasFocus=false" >start ></button>
@@ -157,6 +159,15 @@ h1 {
     z-index: -1;
 }
 
+/*Se non piace questa disposizione, cancellare o modificare a piacimento*/
+#hub {
+    position: absolute;
+    bottom: 275px;
+    left: 120px;
+    font-size: 30px;
+    /*Molto incerto se questo colore vada bene con il sito*/ 
+    background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
+}
 
 </style>
 
