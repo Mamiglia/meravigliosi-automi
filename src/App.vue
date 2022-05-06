@@ -2,12 +2,13 @@
 import { ref,reactive,computed, onMounted} from "vue";
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
-import EdgeEditor from "./components/EdgeEditor.vue"
-import { Nodes, Edges } from "v-network-graph"
+import EdgeEditor from "./components/EdgeEditor.vue";
+import { Nodes, Edges } from "v-network-graph";
 import { Options, Transition } from "./assets/types";
-import { Automaton } from "./assets/Automaton"
+import { Automaton } from "./assets/Automaton";
 import { unreactiveCopy } from "./assets/utilities";
 import { networkGraphConfigs } from "./assets/v-network-graph-configs";
+import TutorialItem from "./components/TutorialItem.vue";
 
 const nodes : Nodes = reactive({});
 const edges : Edges = reactive({});
@@ -114,6 +115,7 @@ onMounted(()=>{
       </template>
     </v-network-graph>
     <EdgeEditor v-if="selectedEdge.length !== 0" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
+    <TutorialItem v-if="selectedEdge.length === 0" />  <!--Questa riga andrà rimossa/cambiata-->
 
   </div>
   <Footbar
