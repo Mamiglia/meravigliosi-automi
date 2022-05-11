@@ -8,7 +8,7 @@
             <!-- <label for="ruleTypeALL">ALL</label> -->
             <p @click="ruleType='ALL'">Tutto l'alfabeto</p> 
         </div>
-        <div class="section" @dblclick="ruleType='INCLUDE'">
+        <div class="section" @click="ruleType='INCLUDE'">
             <input type="radio" value="INCLUDE" id="ruleTypeINCLUDE" name="ruleType" v-model="ruleType">
             <!-- <label for="ruleTypeINCLUDE">INCLUDE</label> -->
             <input type="text" placeholder="Caratteri da includere" :disabled="ruleType!='INCLUDE'" v-model="textInclude">
@@ -39,7 +39,6 @@ updateModel()
 
 
 const charset = computed(()=>{
-    console.log('charset computation', textInclude.value, textExclude.value)
     if (ruleType.value === "INCLUDE"){
         return parseList(textInclude.value);
     }
@@ -52,8 +51,6 @@ const charset = computed(()=>{
 })
 
 const label = computed(()=>{
-    console.log('label computation', charset.value)
-
     if (ruleType.value === "INCLUDE"){
         return charset.value.toString();
     }

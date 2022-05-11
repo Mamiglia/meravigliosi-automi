@@ -108,3 +108,22 @@ body, html {
   width: 100vw;
   overflow: hidden;
 }
+
+/*Toggle library*/
+@import '@vueform/toggle/themes/default.css';
+.toggle {
+  --toggle-bg-on: var(--accent);
+  --toggle-bg-off: var(--background);
+  --toggle-text-on: var(--color-text);
+  --toggle-text-off: var(--color-text);
+  --toggle-handle-enabled: var(--background-alternative);
+  --toggle-ring-color: transparent;
+  --toggle-border-on: var(--accent);
+  --toggle-border-off: var(--background);
+  --toggle-duration: 250ms;
+  --toggle-font-size: 1rem;
+  --toggle-height: 1.5rem;
+  --toggle-width: 4rem;
+  --toggle-border: .2rem;
+  font-family: 'Courier New', Courier, monospace;
+}

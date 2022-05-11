@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref , defineEmits, defineProps, reactive, computed} from 'vue'
+import { ref , defineEmits, defineProps, computed} from 'vue'
 import Toggle from '@vueform/toggle'
 import Action from './Action.vue'
-import {Options} from '@/assets/types'
 import { parseList } from '@/assets/utilities'
 
 const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:animated", "update:alphabet", "update:determinism"])
@@ -63,7 +62,6 @@ function updateValue(variable:string, value:any) {
 </template>
 
 <style scoped>
-@import '@vueform/toggle/themes/default.css';
 #footer {
     height: 10vh;
     display: flex;
@@ -137,18 +135,5 @@ input:focus-visible{
     justify-content: space-between;
 }
 
-.toggle {
-    margin-left: 1em;
-    --toggle-bg-on: var(--accent);
-    --toggle-bg-off: var(--background);
-    --toggle-text-on: var(--color-text);
-    --toggle-text-off: var(--color-text);
-    --toggle-handle-enabled: var(--background-alternative);
-    --toggle-ring-color: transparent;
-    --toggle-border-on: transparent;
-    --toggle-border-off: transparent;
-    --toggle-border-on: transparent;
-    --toggle-border-off: transparent;
-    --toggle-width: 4rem;
-}
+
 </style>
