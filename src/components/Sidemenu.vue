@@ -20,8 +20,8 @@ const hasFocus = ref(true)
         <li><a href="start.html">Start</a></li>
         <li><a href="wiki.html">Wiki</a></li>
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
+        <li><a href="../hub.php">Hub</a></li>
         <li><Action icon="skip_next" @click="$emit('startTutorial')"/></li>
-        <li><a id="hub" href="../assets/hub.php">Hub</a></li>
        <!-- <li><a href="">Clicca qui per salvare il tuo Grafo sull'Hub</li> -->
     </ul>
     <span></span>
