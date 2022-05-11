@@ -3,12 +3,13 @@ import { ref,reactive,computed, onMounted} from "vue";
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
 import EdgeEditor from "./components/EdgeEditor.vue";
-import { Nodes, Edges } from "v-network-graph";
-import { Options, Transition } from "./assets/types";
+import {  } from "v-network-graph";
+import { Options, Transition, Nodes, Edges } from "./assets/types";
 import { Automaton } from "./assets/Automaton";
 import { unreactiveCopy } from "./assets/utilities";
 import { networkGraphConfigs } from "./assets/v-network-graph-configs";
 import TutorialItem from "./components/TutorialItem.vue";
+import NodeEditor from "./components/NodeEditor.vue";
 
 const nodes : Nodes = reactive({});
 const edges : Edges = reactive({});
@@ -16,7 +17,6 @@ const selectedNodes = ref<string[]>([]);
 const selectedEdge = ref<string[]>([]);
 const nextEdgeIndex = ref(Object.keys(edges).length + 1);
 const initialNode = ref("0");
-const finalNodes = ref<string[]>(["4"]);
 const options = reactive<Options>({
   alphabet: ['a','b','c'],
   determinism: true,
@@ -26,15 +26,15 @@ const automata = computed(()=>new Automaton(
   unreactiveCopy(nodes), 
   unreactiveCopy(edges), 
   initialNode.value, 
-  unreactiveCopy(finalNodes.value),
-  unreactiveCopy(options).alphabet,
+  unreactiveCopy(options).alphabet
 ))
 
 function addNode() {
   // currently nodeID can be assigned to an already existing ID, causing problems
   let size = Object.keys(nodes).length
   nodes[`${size}`] = {
-    name: String("Node"+" "+size)
+    name: String("Node"+" "+size),
+    final: false
   }
   //add: if node is selected during node creation, then create also an edge
 }
@@ -94,7 +94,7 @@ onMounted(()=>{
   for (let i=0;i<4;i++) {
     addEdge(`${i}`,`${i+1}`)
   }
-  nodes[0]['final'] = true;
+  nodes[4]['final'] = true;
 })
 </script>
 
@@ -115,7 +115,8 @@ onMounted(()=>{
       </template>
     </v-network-graph>
     <EdgeEditor v-if="selectedEdge.length !== 0" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
-    <TutorialItem v-if="selectedEdge.length === 0" />  <!--Questa riga andrà rimossa/cambiata-->
+    <NodeEditor v-else-if="selectedNodes.length === 1" :node-id="selectedNodes[0]" v-model="nodes[selectedNodes[0]]"/>
+    <TutorialItem v-if="selectedEdge.length === 0 && selectedNodes.length === 0" />  <!--Questa riga andrà rimossa/cambiata-->
 
   </div>
   <Footbar

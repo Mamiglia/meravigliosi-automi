@@ -4,14 +4,12 @@ export class Automaton{
     nodes: Nodes;
     edges: Edges;
     initialNode: string;
-    finalNodes: Array<string>;
     alphabet: Array<string>;
 
-    constructor(myNodes: Nodes, myEdges: Edges, myInitialNode: string, myFinalNodes: Array<string>, myAlphabet: string[]){
+    constructor(myNodes: Nodes, myEdges: Edges, myInitialNode: string, myAlphabet: string[]){
         this.nodes = myNodes;
         this.edges = myEdges;
         this.initialNode = myInitialNode;
-        this.finalNodes = myFinalNodes;
         this.alphabet = myAlphabet//.replaceAll(/\s/g, "").split(",");
         console.log(this.alphabet);
     }
@@ -21,7 +19,7 @@ export class Automaton{
         ris += "NODES: \n";
         for (const key in this.nodes){
             ris += key;
-            if(this.finalNodes.includes(key)){
+            if(this.nodes[key].final){
                 ris+=" (final)"
             }
             ris += "\n";
@@ -38,7 +36,7 @@ export class Automaton{
 
     //ausiliaria per evaluate
     isSuccess(myNode: string){
-        if(this.finalNodes.includes(myNode)){
+        if(this.nodes[myNode].final){
             return true;
         }
         return false;
