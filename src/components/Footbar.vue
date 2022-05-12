@@ -4,7 +4,7 @@ import Toggle from '@vueform/toggle'
 import Action from './Action.vue'
 import { parseList } from '@/assets/utilities'
 
-const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:animated", "update:alphabet", "update:determinism"])
+const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:animated", "update:alphabet", "update:determinism", 'save'])
 
 
 const props = defineProps<{
@@ -47,6 +47,9 @@ function updateValue(variable:"animated"|"determinism"|"alphabet", value:any) {
                 <label for="animateCheckbox">Animate Evaluation</label>
                 <Toggle id="animateCheckbox" class="toggle" @change="updateValue('animated', animatedModel)" v-model="animatedModel" on-label="on" off-label="off"/>
             </div>
+            <div class="section">
+                <Action icon="save" @click="$emit('save')"/>
+            </div>
             <!-- Altro? -->
         </div>
     </div>
@@ -56,7 +59,8 @@ function updateValue(variable:"animated"|"determinism"|"alphabet", value:any) {
     <input 
         type="text" 
         placeholder="Inserisci la stringa da validare"
-        v-model="inputText"> <!--v-model associa la stringa nell'input alla variabile inputText-->
+        v-model="inputText"
+        @keyup.enter="$emit('validate', inputText)"> <!--v-model associa la stringa nell'input alla variabile inputText-->
     <Action icon="skip_next" @click="$emit('validate', inputText)"/> <!--emette l'evento "validate" con associata la stringa in input-->
 </div>
 </template>

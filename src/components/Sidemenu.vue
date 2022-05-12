@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
 import { ref , defineEmits} from 'vue'
-import Toggle from '@vueform/toggle'
 import Action from './Action.vue'
 
 const emits = defineEmits(["startTutorial"])

@@ -26,10 +26,10 @@ export const networkGraphConfigs = defineConfigs({
     node :{
         normal: {
             color: node => {
-                if (node.final) {
-                    return "var(--color-text)"
-                } else if (node.on) {
+                if (node.on) {
                     return "var(--secondary)"
+                } else if (node.final) {
+                    return "var(--color-text)"
                 }
                 return "var(--accent)"
             },

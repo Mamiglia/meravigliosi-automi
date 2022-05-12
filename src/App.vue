@@ -34,11 +34,18 @@ function addNode() {
     name: String(nextNodeIndex.value),
     final: false
   }
+
+  // se l'utente sta selezionando un nodo mentre aggiunge un nodo, allora collega il nodo selelzionato e il nuovo nodo
+  selectedNodes.value.forEach((id) => {
+    addEdge(id, String(nextNodeIndex.value))
+  })
   nextNodeIndex.value++
+
   //add: if node is selected during node creation, then create also an edge
 }
 /* removes any selected node or edge */
-function remove() {     
+function remove() { 
+  console.log("remove")    
   //delete selected nodes
   for (let nodeId of selectedNodes.value) {
     delete nodes[nodeId]
@@ -51,22 +58,11 @@ function remove() {
 
 function addEdge(src:string, trgt:string) {
   // currently edgeID can be assigned to an already existing ID, causing problems
-  let source, target 
-
-  if (selectedNodes.value.length === 0) {
-    source = src;
-    target = trgt;
-  } else if (selectedNodes.value.length===1) {
-    source = selectedNodes.value[0];
-    target = source;
-  } else {
-    [source,target] =  selectedNodes.value;
-  }
   // let edgeId  = edges.length
   let edgeId = `edge${nextEdgeIndex.value}`
   let newEdge :Transition = {
-    source:source,
-    target:target,
+    source:src,
+    target:trgt,
     label: "*",
     ruleType: "ALL",
     charset: [],
@@ -84,6 +80,18 @@ function validate(text:string){
 
 function startTutorial(){
   console.log(`Tutorial starts`);
+}
+
+function savePage() {
+  //opens save page
+  /* parameters:
+    - nodes
+    - edges
+    - initialNode
+    - alphabet
+    - determinism
+  */
+  window.location.href = `save.php?nodes=${JSON.stringify(nodes)}&edges=${JSON.stringify(edges)}&alphabet=${JSON.stringify(alphabet.value)}&initialNode=${JSON.stringify(initialNode.value)}&determinism=${JSON.stringify(determinism.value)}`;
 }
 
 onMounted(()=>{
@@ -109,7 +117,8 @@ onMounted(()=>{
       :edges="edges" 
       :configs="networkGraphConfigs"
       v-model:selected-edges="selectedEdge"
-      v-model:selected-nodes="selectedNodes">
+      v-model:selected-nodes="selectedNodes"
+      >
       <template #edge-label="{ edge, ...slotProps }">
         <v-edge-label :text="edge.label" color="#fbfaf5" align="center" vertical-align="above" v-bind="slotProps"/>
       </template>
@@ -123,7 +132,8 @@ onMounted(()=>{
     @validate="(text:string)=>validate(text)"
     @addNode="addNode()"
     @remove="remove"
-    @addEdge="addEdge"
+    @addEdge="addEdge(selectedNodes[0], selectedNodes[1])"
+    @save="savePage"
     v-model:determinism="determinism"
     v-model:alphabet="alphabet"
     v-model:animated="animated"
