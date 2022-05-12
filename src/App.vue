@@ -1,5 +1,5 @@
 <script setup lang="ts" >
-import { ref,reactive,computed, onMounted, watch} from "vue";
+import { ref,reactive,computed, onMounted} from "vue";
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
 import EdgeEditor from "./components/EdgeEditor.vue";
@@ -14,7 +14,8 @@ const nodes : Nodes = reactive({});
 const edges : Edges = reactive({});
 const selectedNodes = ref<string[]>([]);
 const selectedEdge = ref<string[]>([]);
-const nextEdgeIndex = ref(Object.keys(edges).length + 1);
+const nextNodeIndex = ref(Object.keys(nodes).length )
+const nextEdgeIndex = ref(Object.keys(edges).length );
 const initialNode = ref("0");
 const alphabet = ref<string[]>(['a','b','c'])
 const animated = ref(true)
@@ -29,11 +30,11 @@ const automata = computed(()=>new Automaton(
 
 function addNode() {
   // currently nodeID can be assigned to an already existing ID, causing problems
-  let size = Object.keys(nodes).length
-  nodes[`${size}`] = {
-    name: String("Node"+" "+size),
+  nodes[nextNodeIndex.value] = {
+    name: String(nextNodeIndex.value),
     final: false
   }
+  nextNodeIndex.value++
   //add: if node is selected during node creation, then create also an edge
 }
 /* removes any selected node or edge */
