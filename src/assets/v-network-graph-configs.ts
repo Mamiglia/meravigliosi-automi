@@ -48,7 +48,7 @@ export const networkGraphConfigs = defineConfigs({
             direction: "center",
             fontFamily: "Courier New",
             text: "name",
-            color: node => node.final? "var(--black)" : "var(--white-ish)"
+            color: node => node.final? "var(--background)" : "var(--white-ish)"
         },
         focusring: {
             color: "var(--secondary)"  
