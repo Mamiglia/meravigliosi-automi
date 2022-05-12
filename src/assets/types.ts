@@ -7,6 +7,7 @@ export interface Transition extends Edge {
 }
 export interface State extends Node {
     final?: boolean;
+    on?: boolean;
 }
 export type Nodes = {[key:string] : State}
 export type Edges = {[key:string] : Transition}

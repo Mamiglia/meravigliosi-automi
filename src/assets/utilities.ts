@@ -7,3 +7,9 @@ export function parseList(s : string) {
         return []
     return s.replaceAll(/\s/g, "").split(",");
 }
+
+export function sleep(ms: number) {
+    // use as: 
+    // await sleep(500)
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

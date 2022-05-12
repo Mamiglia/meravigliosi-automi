@@ -25,8 +25,15 @@ export const networkGraphConfigs = defineConfigs({
     },
     node :{
         normal: {
-            color: "var(--accent)",
-            radius: 25, 
+            color: node => {
+                if (node.final) {
+                    return "var(--color-text)"
+                } else if (node.on) {
+                    return "var(--secondary)"
+                }
+                return "var(--accent)"
+            },
+            radius: node=> node.final||node.on? 30 : 25, 
         },
         hover: {
             color: "var(--secondary)"
@@ -41,7 +48,7 @@ export const networkGraphConfigs = defineConfigs({
             direction: "center",
             fontFamily: "Courier New",
             text: "name",
-            color: "var(--white-ish)"
+            color: node => node.final? "var(--black)" : "var(--white-ish)"
         },
         focusring: {
             color: "var(--secondary)"  

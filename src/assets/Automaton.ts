@@ -1,4 +1,5 @@
 import {Nodes,Edges} from './types'
+import { sleep } from './utilities';
 
 export class Automaton{
     nodes: Nodes;
@@ -11,7 +12,6 @@ export class Automaton{
         this.edges = myEdges;
         this.initialNode = myInitialNode;
         this.alphabet = myAlphabet//.replaceAll(/\s/g, "").split(",");
-        console.log(this.alphabet);
     }
 
     toString(){
@@ -67,16 +67,21 @@ export class Automaton{
         return false;
     }
 
-    evaluate(myString: string){
+    async evaluate(myString: string, animated:boolean, determinism:boolean){
         for (const i of myString){
             if (!this.alphabet.includes(i)){
                 alert("Rifiutato per carattere non in alfabeto")
                 return false;
             }
         }
+        if (determinism && !this.isDeterministic()) {
+            alert("L'automa non é deterministico")
+            return false
+        }
+        console.log(`animated: ${animated}`)
         //const myAutomaton = new Automaton(); Non è evaluate a chiamare il costruttore, giusto?
         let activeNodes: Array<string> = [this.initialNode]; //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
-        let res = this.ricorsiveEvaluate(activeNodes, myString);
+        let res = await this.ricorsiveEvaluate(activeNodes, myString, animated);
         alert(res)
         return res
     }
@@ -87,7 +92,7 @@ export class Automaton{
     //Con un check si può usare quest'ultimo fatto anche per verificare che il automaton in input
     //rappresenti effettivamente un automa a stati finiti.
     //Ho provato a usare il commento multiriga ma ho fallito :)
-    ricorsiveEvaluate(myNodes: Array<string>, myString: string): boolean{
+    async ricorsiveEvaluate(myNodes: Array<string>, myString: string, animated: boolean): Promise<boolean>{
         if (myString===""){                              //caso base
             if(this.checkSuccess(myNodes)){              //se nodes contiene uno stato finale
                 return true;
@@ -101,10 +106,21 @@ export class Automaton{
                 newNodes.push(e.target);
             }
         }
+        if (animated) {
+            newNodes.forEach((v)=>this.nodes[v].on = true)
+            await sleep(500)
+            newNodes.forEach((v)=> this.nodes[v].on = false)
+        }
         const newString = myString.slice(1); //dovrebbe scartare il primo carattere, ossia quello usato per la transizione
-        return this.ricorsiveEvaluate(newNodes, newString);
+        
+        return this.ricorsiveEvaluate(newNodes, newString, animated);
     }
 
+
+    isDeterministic() :boolean {
+        //TODO
+        return true
+    }
     /*
     //ausiliaria per toRegex
     hasLoop(node){

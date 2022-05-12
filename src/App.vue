@@ -23,7 +23,7 @@ const options = reactive<Options>({
   animated: true
 });
 const automata = computed(()=>new Automaton(
-  unreactiveCopy(nodes), 
+  nodes, 
   unreactiveCopy(edges), 
   initialNode.value, 
   unreactiveCopy(options).alphabet
@@ -79,7 +79,8 @@ function addEdge(src:string, trgt:string) {
 function validate(text:string){
   console.log(`validate: ${text}`);
   console.log(automata.value.toString());
-  console.log(automata.value.evaluate(text))
+  console.log(animated)
+  console.log(automata.value.evaluate(text, animated.value, determinism.value))
 }
 
 function startTutorial(){
