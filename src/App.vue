@@ -1,15 +1,14 @@
 <script setup lang="ts" >
-import { ref,reactive,computed, onMounted} from "vue";
+import { ref,reactive,computed, onMounted, watch} from "vue";
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
 import EdgeEditor from "./components/EdgeEditor.vue";
-import {  } from "v-network-graph";
-import { Options, Transition, Nodes, Edges } from "./assets/types";
+import TutorialItem from "./components/TutorialItem.vue";
+import NodeEditor from "./components/NodeEditor.vue";
+import { Transition, Nodes, Edges } from "./assets/types";
 import { Automaton } from "./assets/Automaton";
 import { unreactiveCopy } from "./assets/utilities";
 import { networkGraphConfigs } from "./assets/v-network-graph-configs";
-import TutorialItem from "./components/TutorialItem.vue";
-import NodeEditor from "./components/NodeEditor.vue";
 
 const nodes : Nodes = reactive({});
 const edges : Edges = reactive({});
@@ -17,16 +16,15 @@ const selectedNodes = ref<string[]>([]);
 const selectedEdge = ref<string[]>([]);
 const nextEdgeIndex = ref(Object.keys(edges).length + 1);
 const initialNode = ref("0");
-const options = reactive<Options>({
-  alphabet: ['a','b','c'],
-  determinism: true,
-  animated: true
-});
+const alphabet = ref<string[]>(['a','b','c'])
+const animated = ref(true)
+const determinism = ref(true)
+
 const automata = computed(()=>new Automaton(
   nodes, 
   unreactiveCopy(edges), 
   initialNode.value, 
-  unreactiveCopy(options).alphabet
+  alphabet.value
 ))
 
 function addNode() {
@@ -125,9 +123,9 @@ onMounted(()=>{
     @addNode="addNode()"
     @remove="remove"
     @addEdge="addEdge"
-    v-model:animated="options.animated"
-    v-model:determinism="options.determinism"
-    v-model:alphabet="options.alphabet"
+    v-model:determinism="determinism"
+    v-model:alphabet="alphabet"
+    v-model:animated="animated"
   />
 </div>
 

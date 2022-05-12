@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, watch, defineEmits, defineProps, onMounted} from "vue"
+import {ref, computed, watch, defineEmits, defineProps} from "vue"
 import {Transition} from "@/assets/types"
 import { parseList } from "@/assets/utilities";
 

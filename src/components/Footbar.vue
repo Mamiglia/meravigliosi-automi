@@ -21,7 +21,7 @@ const determinismModel = ref(props.determinism)
 const animatedModel = ref(props.animated)
 const inputText= ref("")
 
-function updateValue(variable:string, value:any) {
+function updateValue(variable:"animated"|"determinism"|"alphabet", value:any) {
     emits(`update:${variable}`, value)
 }
 
@@ -80,6 +80,7 @@ input {
     text-align: center;
     border-style: none;
     background-color: transparent;
+    font-size: 1.3em;
     transition: background var(--normal-animation) ease-out;
 }
 

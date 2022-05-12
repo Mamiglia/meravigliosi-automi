@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import {ref, computed, watch, defineEmits, defineProps} from "vue"
 import Toggle from "@vueform/toggle";
-import {State, Transition} from "@/assets/types"
+import {State} from "@/assets/types"
 
 
 const emits = defineEmits(["update:modelValue"]);
