@@ -1,4 +1,4 @@
-import {Edge, Node} from "v-network-graph"
+import {Edge, Layouts, Node} from "v-network-graph"
 
 export interface Transition extends Edge {
     label: string;
@@ -16,4 +16,13 @@ export type Options = {
     animated: Boolean,
     determinism: Boolean,
     alphabet: String[]
+}
+
+export type Parameters = {
+    nodes :Nodes ,
+    edges :Edges ,
+    alphabet :string[],
+    initial :string,
+    determinism :boolean,
+    layout: Layouts
 }

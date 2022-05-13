@@ -4,7 +4,7 @@ import Toggle from '@vueform/toggle'
 import Action from './Action.vue'
 import { parseList } from '@/assets/utilities'
 
-const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:animated", "update:alphabet", "update:determinism", 'save'])
+const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:animated", "update:alphabet", "update:determinism", 'save', 'share', 'downloadSVG'])
 
 
 const props = defineProps<{
@@ -49,6 +49,8 @@ function updateValue(variable:"animated"|"determinism"|"alphabet", value:any) {
             </div>
             <div class="section">
                 <Action icon="save" @click="$emit('save')"/>
+                <Action icon="share" @click="$emit('share')"/>
+                <Action icon="image" @click="$emit('downloadSVG')"/> 
             </div>
             <!-- Altro? -->
         </div>

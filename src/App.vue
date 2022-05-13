@@ -5,21 +5,25 @@ import Footbar from './components/Footbar.vue';
 import EdgeEditor from "./components/EdgeEditor.vue";
 import TutorialItem from "./components/TutorialItem.vue";
 import NodeEditor from "./components/NodeEditor.vue";
-import { Transition, Nodes, Edges } from "./assets/types";
+import { Transition, Nodes, Edges, Parameters } from "./assets/types";
 import { Automaton } from "./assets/Automaton";
-import { unreactiveCopy } from "./assets/utilities";
+import { unreactiveCopy, toClipboard, importParameters, downloadAsSvg } from "./assets/utilities";
 import { networkGraphConfigs } from "./assets/v-network-graph-configs";
+import * as vNG from "v-network-graph"
 
-const nodes : Nodes = reactive({});
-const edges : Edges = reactive({});
+const params :Parameters = importParameters(window.location.search);
+  
+const nodes : Nodes = reactive(params.nodes);
+const edges : Edges = reactive(params.edges);
 const selectedNodes = ref<string[]>([]);
 const selectedEdge = ref<string[]>([]);
 const nextNodeIndex = ref(Object.keys(nodes).length )
 const nextEdgeIndex = ref(Object.keys(edges).length );
 const initialNode = ref("0");
-const alphabet = ref<string[]>(['a','b','c'])
+const alphabet = ref<string[]>(params.alphabet)
 const animated = ref(true)
-const determinism = ref(true)
+const determinism = ref(params.determinism)
+const graph = ref<vNG.Instance>()
 
 const automata = computed(()=>new Automaton(
   nodes, 
@@ -32,7 +36,6 @@ function addNode() {
   // currently nodeID can be assigned to an already existing ID, causing problems
   nodes[nextNodeIndex.value] = {
     name: String(nextNodeIndex.value),
-    final: false
   }
 
   // se l'utente sta selezionando un nodo mentre aggiunge un nodo, allora collega il nodo selelzionato e il nuovo nodo
@@ -82,28 +85,21 @@ function startTutorial(){
   console.log(`Tutorial starts`);
 }
 
-function savePage() {
-  //opens save page
-  /* parameters:
+function graphString() : String{
+    /* parameters:
     - nodes
     - edges
     - initialNode
     - alphabet
     - determinism
+    - layout
   */
-  window.location.href = `save.php?nodes=${JSON.stringify(nodes)}&edges=${JSON.stringify(edges)}&alphabet=${JSON.stringify(alphabet.value)}&initialNode=${JSON.stringify(initialNode.value)}&determinism=${JSON.stringify(determinism.value)}`;
+  return `nodes=${JSON.stringify(nodes)}&edges=${JSON.stringify(edges)}&alphabet=${JSON.stringify(alphabet.value)}&initialNode=${JSON.stringify(initialNode.value)}&determinism=${JSON.stringify(determinism.value)}`
+}
+function share() {
+  toClipboard(window.location.hostname + ":" + window.location.port + "?" + graphString());
 }
 
-onMounted(()=>{
-// crea il grafo iniziale
-  for (let i=0;i<5;i++) {
-    addNode()
-  }
-  for (let i=0;i<4;i++) {
-    addEdge(`${i}`,`${i+1}`)
-  }
-  nodes[4]['final'] = true;
-})
 </script>
 
 <template>
@@ -113,6 +109,7 @@ onMounted(()=>{
 <div>
   <div id="worksheet">
     <v-network-graph 
+      ref="graph"
       :nodes="nodes" 
       :edges="edges" 
       :configs="networkGraphConfigs"
@@ -133,7 +130,9 @@ onMounted(()=>{
     @addNode="addNode()"
     @remove="remove"
     @addEdge="addEdge(selectedNodes[0], selectedNodes[1])"
-    @save="savePage"
+    @save="window.location.href = `save.php?${graphString()}`;"
+    @share="share()"
+    @download-s-v-g="downloadAsSvg(graph)"
     v-model:determinism="determinism"
     v-model:alphabet="alphabet"
     v-model:animated="animated"
