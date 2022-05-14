@@ -86,12 +86,6 @@ export class Automaton{
         return res
     }
 
-    //A ogni ricorsione viene consumato un carattere di myString e
-    //la vecchia lista di nodi "attivi" viene completamente sostituita con i nodi raggiunti.
-    //Se l'automa è a stati finiti la lista conterrà sempre un solo nodo.
-    //Con un check si può usare quest'ultimo fatto anche per verificare che il automaton in input
-    //rappresenti effettivamente un automa a stati finiti.
-    //Ho provato a usare il commento multiriga ma ho fallito :)
     async ricorsiveEvaluate(myNodes: Array<string>, myString: string, animated: boolean): Promise<boolean>{
         if (myString===""){                              //caso base
             if(this.checkSuccess(myNodes)){              //se nodes contiene uno stato finale
@@ -117,10 +111,49 @@ export class Automaton{
     }
 
 
-    isDeterministic() :boolean {
-        //TODO
+    isDeterministic() {
+        for (const key1 in this.edges){
+            const edge1 = this.edges[key1];
+            for(const key2 in this.edges){
+                const edge2 = this.edges[key2];
+                if(edge1.source === edge2.source){
+                    for(const c of this.alphabet){
+                        if(this.checkTransition(edge1.ruleType, edge1.charset, c) && this.checkTransition(edge2.ruleType, edge2.charset, c)){
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
         return true
     }
+
+    //IN PROGRESS
+    /*findAMatch(){
+        let reached: Array<string> = [this.initialNode];
+        let reachedWith: Array<string> = [""];
+
+        return this.recursiveFindAMatch(reached, reachedWith);
+    }
+
+    recursiveFindAMatch(reached: Array<string>, reachedWith: Array<string>){
+        for (const key in this.edges){
+            const edge = this.edges[key];
+            if(reached.includes(edge.source) && !reached.includes(edge.target)){
+                for (const c of this.alphabet){
+                    if(this.checkTransition(edge.ruleType, edge.charset, c)){
+                        reached.push(edge.target);
+                        const index = reached.indexOf(edge.source);
+                        let s = reachedWith[index];
+                        reachedWith.push(s+c);
+                        continue;
+                    }
+                }
+            }
+        }
+    }*/
+
+
     /*
     //ausiliaria per toRegex
     hasLoop(node){
