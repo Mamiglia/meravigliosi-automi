@@ -67,6 +67,18 @@ export class Automaton{
         return false;
     }
 
+    validateEdges(){
+        for (const key in this.edges){
+            const edge = this.edges[key];
+            for (const c of edge.charset){
+                if(!this.alphabet.includes(c)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     async evaluate(myString: string, animated:boolean, determinism:boolean){
         for (const i of myString){
             if (!this.alphabet.includes(i)){
@@ -74,8 +86,11 @@ export class Automaton{
                 return false;
             }
         }
+        if (!this.validateEdges()){
+            alert("Gli archi fanno riferimento a caratteri non presenti nell'alfabeto")
+        }
         if (determinism && !this.isDeterministic()) {
-            alert("L'automa non é deterministico")
+            alert("L'automa non è deterministico")
             return false
         }
         console.log(`animated: ${animated}`)
@@ -86,15 +101,9 @@ export class Automaton{
         return res
     }
 
-    //A ogni ricorsione viene consumato un carattere di myString e
-    //la vecchia lista di nodi "attivi" viene completamente sostituita con i nodi raggiunti.
-    //Se l'automa è a stati finiti la lista conterrà sempre un solo nodo.
-    //Con un check si può usare quest'ultimo fatto anche per verificare che il automaton in input
-    //rappresenti effettivamente un automa a stati finiti.
-    //Ho provato a usare il commento multiriga ma ho fallito :)
     async ricorsiveEvaluate(myNodes: Array<string>, myString: string, animated: boolean): Promise<boolean>{
-        if (myString===""){                              //caso base
-            if(this.checkSuccess(myNodes)){              //se nodes contiene uno stato finale
+        if (myString===""){                              //base case
+            if(this.checkSuccess(myNodes)){              //if myNodes contains a final state
                 return true;
             }
             return false;
@@ -102,7 +111,7 @@ export class Automaton{
         let newNodes: Array<string> = [];
         for(let key in this.edges){
             let e = this.edges[key];
-            if( myNodes.includes(e.source) && this.checkTransition(e.ruleType, e.charset, myString.charAt(0)) && !newNodes.includes(e.target) ){ //label non so se si chiama davvero label
+            if( myNodes.includes(e.source) && this.checkTransition(e.ruleType, e.charset, myString.charAt(0)) && !newNodes.includes(e.target) ){
                 newNodes.push(e.target);
             }
         }
@@ -111,16 +120,65 @@ export class Automaton{
             await sleep(500)
             newNodes.forEach((v)=> this.nodes[v].on = false)
         }
-        const newString = myString.slice(1); //dovrebbe scartare il primo carattere, ossia quello usato per la transizione
+        const newString = myString.slice(1); //discard the character used in the transition
         
         return this.ricorsiveEvaluate(newNodes, newString, animated);
     }
 
-
-    isDeterministic() :boolean {
-        //TODO
+    isDeterministic() {
+        for (const key1 in this.edges){
+            const edge1 = this.edges[key1];
+            for(const key2 in this.edges){
+                const edge2 = this.edges[key2];
+                if(edge1.source === edge2.source && edge1.target != edge2.target){
+                    for(const c of this.alphabet){
+                        if(this.checkTransition(edge1.ruleType, edge1.charset, c) && this.checkTransition(edge2.ruleType, edge2.charset, c)){
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
         return true
     }
+
+    //CAVEAT: THIS METHOD MODIFIES THE AUTOMATON TROUGH SIDE-EFFECT
+    findAMatch(){
+        if (this.nodes[this.initialNode].final===true){     //if the starting node is final return an empty string
+            return "";
+        }
+        let reached: Array<string> = [this.initialNode];
+        let reachedWith: Array<string> = [""];
+        return this.recursiveFindAMatch(reached, reachedWith); //the i-th node of reached has been reached with the i-th string of reachedWith
+    }
+
+    recursiveFindAMatch(reached: Array<string>, reachedWith: Array<string>): string{
+        const temp = JSON.parse(JSON.stringify(reached));       //if at the end of the execution reached has not chenged, there is no match[*]
+        for (const key in this.edges){                                              //FOR EACH EDGE
+            const edge = JSON.parse(JSON.stringify(this.edges[key]));
+            if(reached.includes(edge.source) && !reached.includes(edge.target)){    //IF THE SOURCE HAS BEEN REACHED BUT NOT THE TARGET
+                this.edges.remove[key];                                             //(for efficiency the checked edges will be removed from the collection, hoping this wont mess the key-based loop)
+                for (const c of this.alphabet){                                     //LOOK FOR A CHARACTER TO CROSS IT
+                    if(this.checkTransition(edge.ruleType, edge.charset, c)){
+                        const index = reached.indexOf(edge.source);
+                        let s = reachedWith[index];
+                        if(this.nodes[edge.target].final===true){                   //if the edge can be crossed and leads to final, return the proper string
+                            return s+c;
+                        }
+                        reachedWith.push(s+c);                                      //if the edge can be crossed but doesn't lead to final update reached and reachedWith
+                        reached.push(edge.target);
+                        continue;
+                    }
+                }
+            }
+        }
+        if(temp === reached){           //[*]
+            return "MATCH NOT FOUND";
+        }
+        return this.recursiveFindAMatch(reached, reachedWith);
+    }
+
+
     /*
     //ausiliaria per toRegex
     hasLoop(node){

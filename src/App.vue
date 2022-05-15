@@ -4,6 +4,7 @@ import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
 import EdgeEditor from "./components/EdgeEditor.vue";
 import TutorialItem from "./components/TutorialItem.vue";
+import Popup from "./components/Popup.vue"
 import NodeEditor from "./components/NodeEditor.vue";
 import { Transition, Nodes, Edges, Parameters } from "./assets/types";
 import { Automaton } from "./assets/Automaton";
@@ -87,8 +88,8 @@ function addEdge(src:string, trgt:string) {
 function validate(text:string){
   console.log(`validate: ${text}`);
   console.log(automata.value.toString());
-  console.log(animated)
-  console.log(automata.value.evaluate(text, animated.value, determinism.value))
+  console.log(animated);
+  console.log(automata.value.evaluate(text, animated.value, determinism.value));
 }
 
 function startTutorial(){
@@ -139,7 +140,7 @@ function share() {
     </v-network-graph>
     <EdgeEditor v-if="selectedEdge.length !== 0" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
     <NodeEditor v-else-if="selectedNodes.length === 1" :node-id="selectedNodes[0]" v-model="nodes[selectedNodes[0]]"/>
-    <TutorialItem v-if="selectedEdge.length === 0 && selectedNodes.length === 0" />  <!--Questa riga andrà rimossa/cambiata-->
+    <Popup v-if="selectedEdge.length === 0 && selectedNodes.length === 0" />  <!--Questa riga andrà rimossa/cambiata-->
 
   </div>
   <Footbar
