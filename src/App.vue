@@ -1,5 +1,5 @@
 <script setup lang="ts" >
-import { ref,reactive,computed, onMounted} from "vue";
+import { ref,reactive,computed, onMounted, ComputedRef} from "vue";
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
 import EdgeEditor from "./components/EdgeEditor.vue";
@@ -16,7 +16,6 @@ import { Layouts } from "v-network-graph";
 const initialParams :Parameters = importParameters(window.location.search);
 const nodes : Nodes = reactive(initialParams.nodes);
 const edges : Edges = reactive(initialParams.edges);
-const layout : Layouts = reactive(initialParams.layout);
 const selectedNodes = ref<string[]>([]);
 const selectedEdge = ref<string[]>([]);
 const nextNodeIndex = ref(Object.keys(nodes).length )
@@ -32,14 +31,14 @@ const automata = computed(()=>new Automaton(
   initialNode.value, 
   alphabet.value
 ))
-const params = computed(()=>{
+const params = computed<Parameters>(()=>{
   return {
     nodes: nodes,
     edges: edges,
     alphabet: alphabet.value,
     determinism: determinism.value,
-    layout: layout,
-    initialNode: initialNode.value
+    layout: unreactiveCopy(graph.value?.currentLayouts),
+    initial: initialNode.value
   }
 })
 
@@ -96,7 +95,7 @@ function startTutorial(){
   console.log(`Tutorial starts`);
 }
 
-function graphString() : String{
+function graphString(p :Parameters) : String{
     /* parameters:
     - nodes
     - edges
@@ -106,15 +105,14 @@ function graphString() : String{
     - layout
   */
   let str = ''
-  Object.entries(params.value).forEach(entry => {
-    console.log(entry)
+  Object.entries(p).forEach(entry => {
     let [key, value] = entry
     str += `${key}=${JSON.stringify(value)}&`
   });
   return str
 }
-function share() {
-  toClipboard(window.location.hostname + ":" + window.location.port + "?" + graphString());
+function share(params :Parameters) {
+  toClipboard(window.location.hostname + ":" + window.location.port + "?" + graphString(params));
 }
 
 </script>
@@ -130,7 +128,7 @@ function share() {
       :nodes="nodes" 
       :edges="edges" 
       :configs="networkGraphConfigs"
-      :layout="layout"
+      :layouts="initialParams.layout"
       v-model:selected-edges="selectedEdge"
       v-model:selected-nodes="selectedNodes"
       >
@@ -148,8 +146,8 @@ function share() {
     @addNode="addNode()"
     @remove="remove"
     @addEdge="addEdge(selectedNodes[0], selectedNodes[1])"
-    @save="window.location.href = `save.php?${graphString()}`;"
-    @share="share()"
+    @save="window.location.href = `save.php?${graphString(params)}`;"
+    @share="share(params)"
     @download-s-v-g="downloadAsSvg(graph)"
     v-model:determinism="determinism"
     v-model:alphabet="alphabet"

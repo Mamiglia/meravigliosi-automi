@@ -1,12 +1,13 @@
 //  reference: https://dash14.github.io/v-network-graph/reference.html#configurations
-import { defineConfigs } from "v-network-graph"
+import { defineConfigs, GridLayout } from "v-network-graph"
 
 export const networkGraphConfigs = defineConfigs({
     view : {
         zoomEnabled: false,
         doubleClickZoomEnabled: false,  // Whether to zoom with double click. default: true
         mouseWheelZoomEnabled:  false,  // Whether to zoom with mouse wheel or not. default: true
-        // autoPanAndZoomOnLoad: "center-content",
+        // autoPanAndZoomOnLoad: "center-content",    
+        layoutHandler: new GridLayout({ grid: 20 }),
         grid: {
             visible:true,
             margin: 0, //aggiunto questo elemento per avere il grafo iniziale esattamente al centro
