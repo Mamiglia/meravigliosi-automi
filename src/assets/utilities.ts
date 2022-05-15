@@ -1,6 +1,6 @@
-import { defineConfigs, VNetworkGraphInstance } from 'v-network-graph';
+import { defineConfigs, Layers, Layouts, VNetworkGraphInstance } from 'v-network-graph';
 import useClipboard from 'vue-clipboard3'
-import { Edges, Nodes } from './types';
+import { Edges, Nodes, Parameters } from './types';
 
 export function unreactiveCopy(obj:any){
     return JSON.parse(JSON.stringify(obj))
@@ -29,14 +29,15 @@ const defaultEdges = '{"edge0":{"source":"0","target":"1","label":"a","ruleType"
 const defaultAlphabet = '["a","b","c"]'
 const defaultInitialNode = "0"
 const defaultDeterminism = "true"
-export function importParameters(url: string) {
+export function importParameters(url: string) : Parameters {
     let params = new URLSearchParams(window.location.search);
     let nodes :Nodes = JSON.parse(params.get('nodes') ?? defaultNodes);
     let edges :Edges = JSON.parse(params.get('edges') ?? defaultEdges);
     let alphabet :string[] = JSON.parse(params.get('alphabet') ?? defaultAlphabet);
     let initial :string = JSON.parse(params.get('initial') ?? defaultInitialNode);
     let determinism :boolean = JSON.parse(params.get('determinism') ?? defaultDeterminism);
-    return {nodes, edges, alphabet, initial, determinism}
+    let layout : Layouts = JSON.parse(params.get('layout')?? "{}")
+    return {nodes, edges, alphabet, initial, determinism, layout}
 }
 
 export function downloadAsSvg(graph: VNetworkGraphInstance) {

@@ -10,27 +10,37 @@ import { Automaton } from "./assets/Automaton";
 import { unreactiveCopy, toClipboard, importParameters, downloadAsSvg } from "./assets/utilities";
 import { networkGraphConfigs } from "./assets/v-network-graph-configs";
 import * as vNG from "v-network-graph"
+import { Layouts } from "v-network-graph";
 
-const params :Parameters = importParameters(window.location.search);
-  
-const nodes : Nodes = reactive(params.nodes);
-const edges : Edges = reactive(params.edges);
+const initialParams :Parameters = importParameters(window.location.search);
+const nodes : Nodes = reactive(initialParams.nodes);
+const edges : Edges = reactive(initialParams.edges);
+const layout : Layouts = reactive(initialParams.layout);
 const selectedNodes = ref<string[]>([]);
 const selectedEdge = ref<string[]>([]);
 const nextNodeIndex = ref(Object.keys(nodes).length )
 const nextEdgeIndex = ref(Object.keys(edges).length );
 const initialNode = ref("0");
-const alphabet = ref<string[]>(params.alphabet)
+const alphabet = ref<string[]>(initialParams.alphabet)
 const animated = ref(true)
-const determinism = ref(params.determinism)
+const determinism = ref(initialParams.determinism)
 const graph = ref<vNG.Instance>()
-
 const automata = computed(()=>new Automaton(
   nodes, 
   unreactiveCopy(edges), 
   initialNode.value, 
   alphabet.value
 ))
+const params = computed(()=>{
+  return {
+    nodes: nodes,
+    edges: edges,
+    alphabet: alphabet.value,
+    determinism: determinism.value,
+    layout: layout,
+    initialNode: initialNode.value
+  }
+})
 
 function addNode() {
   // currently nodeID can be assigned to an already existing ID, causing problems
@@ -94,7 +104,13 @@ function graphString() : String{
     - determinism
     - layout
   */
-  return `nodes=${JSON.stringify(nodes)}&edges=${JSON.stringify(edges)}&alphabet=${JSON.stringify(alphabet.value)}&initialNode=${JSON.stringify(initialNode.value)}&determinism=${JSON.stringify(determinism.value)}`
+  let str = ''
+  Object.entries(params.value).forEach(entry => {
+    console.log(entry)
+    let [key, value] = entry
+    str += `${key}=${JSON.stringify(value)}&`
+  });
+  return str
 }
 function share() {
   toClipboard(window.location.hostname + ":" + window.location.port + "?" + graphString());
@@ -113,6 +129,7 @@ function share() {
       :nodes="nodes" 
       :edges="edges" 
       :configs="networkGraphConfigs"
+      :layout="layout"
       v-model:selected-edges="selectedEdge"
       v-model:selected-nodes="selectedNodes"
       >
