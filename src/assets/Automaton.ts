@@ -67,6 +67,18 @@ export class Automaton{
         return false;
     }
 
+    validateEdges(){
+        for (const key in this.edges){
+            const edge = this.edges[key];
+            for (const c of edge.charset){
+                if(!this.alphabet.includes(c)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     async evaluate(myString: string, animated:boolean, determinism:boolean){
         for (const i of myString){
             if (!this.alphabet.includes(i)){
@@ -74,8 +86,11 @@ export class Automaton{
                 return false;
             }
         }
+        if (!this.validateEdges()){
+            alert("Gli archi fanno riferimento a caratteri non presenti nell'alfabeto")
+        }
         if (determinism && !this.isDeterministic()) {
-            alert("L'automa non é deterministico")
+            alert("L'automa non è deterministico")
             return false
         }
         console.log(`animated: ${animated}`)
@@ -109,7 +124,6 @@ export class Automaton{
         
         return this.ricorsiveEvaluate(newNodes, newString, animated);
     }
-
 
     isDeterministic() {
         for (const key1 in this.edges){
