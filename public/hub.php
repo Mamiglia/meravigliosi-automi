@@ -13,15 +13,11 @@
     <H2>Qui potrai condividere i tuo meravigliosi automi con la comunity di Sapieza</H2>
     <!--Tentativo di collegamento ad DB, poi fare la stringify dei grafi per metterli dentro (?)-->
     <?php
-        include "{ Nodes, Edges } from 'v-network-graph' "; //Da vedere meglio
-        $dbconn = pg_connect("host=localhost port=8080 dbname=Hub user=postgres password=hub")
+        $dbconn = pg_connect("host=localhost port=5432 dbname=automi user=postgres password=hub")
         or die("Connessione non riuscita: " . pg_last_error());
-        mysql_select_db($database, $dbconn)
-        or die("Connessione al database non riuscita");
-        $query = "SELECT utente, graph FROM automi ORDER BY utente"; //Poi qui farei un ciclo per tutto il DB, cosi da stampare ogni grafo
+        $query = "SELECT nome, grafo, immagine FROM automa ORDER BY nome"; //Poi qui farei un ciclo per tutto il DB, cosi da stampare ogni grafo
         $result = pg_query($query)
         or die("Errore con la Query: " . pg_last_error());
-        $aut = graph(?); //Da vedere poi come importarlo e farlo scorrere
         //echo "Clicca qui sotto per salvare il tuo automa:";
         //echo "<a href="..">";
         //Qui in qualche modo verrà salvato l'automa in versione: JSON.stringify(automa) ==> in php è json_encode(automa);

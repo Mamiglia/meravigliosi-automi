@@ -9,22 +9,33 @@
 <body>
     <?php
     //import ?? 
-        $dbconn = pg_connect("host=localhost port=3001 dbname=Hub user=postgres password=hub")
+        $dbconn = pg_connect("host=localhost port=5432 dbname=automi user=postgres password=hub")
         or die("Connessione non riuscita: " . pg_last_error());
 
         $graph = $_GET['graph'];
-        echo '<p>.$graph.</p>';
-        $name;
-        $query = "INSERT INTO automi(nome, )
-                    VALUES (' ".$name."', '".$graph_endcode."')"; //Inserisco l'automa dentro il DB
-        $result = pg_query($dbconn, $query); 
-        if (!$result) { //Vediamo se la query esiste
+        $thumbnail_param = $_GET['thumbnail'];
+        $thumbnail = pg_escape_string($thumbnail_param);
+       // echo "<p>{$graph}</p>";
+       // echo "{$thumbnail}";
+       // echo "<p>{$thumbnail_param}</p>";g
+        $name = "pippo10"; //Var temporanea 
+        $query = "INSERT INTO automa(nome, grafo, immagine)
+                    VALUES ($1,$2,$3)"; //Inserisco l'automa dentro il DB
+        $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail)); 
+        $query2 = "SELECT immagine FROM automa WHERE nome = 'pippo7'";
+        $result = pg_query($query2);
+        while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+            foreach($line as $col) {
+                echo "$col";
+            }
+        }
+       /* if (!$result) { //Vediamo se la query esiste
             echo "Errore nel salvataggio del grafo" . pg_last_error();
             header("Location: index.html"); //in caso di errore ritorno indietro
         }
         else { 
             header("Location: hub.php"); //A fine del salvataggio sul DB, questa funzione mi fa il redirect sulla pagina hub.php
-        }
+        }*/
 
     ?>
     <form action="">
