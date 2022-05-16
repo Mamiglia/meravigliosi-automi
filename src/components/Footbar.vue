@@ -48,6 +48,10 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                 </label>
                 <input type="text" id="alphabetInput" placeholder="Alfabeto"  @input="updateValue('alphabet', alphabetModel)" v-model="alphabetInput">
             </div>
+
+            <div class="section">
+                <!--Menù a tendina per scegliere il nodo iniziale-->
+            </div>
             
             <div class="section">
                 <label for="determinismCheckbox">Determinstic Automa</label>
