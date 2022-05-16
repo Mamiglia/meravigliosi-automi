@@ -4,6 +4,9 @@
             <h3>Node: {{nodeId}}</h3>
         </div>
         <div class="section" >
+            Name: <input type="text" placeholder="Nome nodo">
+        </div>
+        <div class="section" >
             <Toggle id="finalToggle" class="toggle" 
                 @change="$emit('update:modelValue', state)" 
                 v-model="final" on-label="on" off-label="off"/>

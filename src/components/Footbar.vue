@@ -38,6 +38,10 @@ function updateValue(variable:"animated"|"determinism"|"alphabet", value:any) {
                 </label>
                 <input type="textarea" id="alphabetInput" placeholder="Inserisci qui l'alfabeto"  @input="updateValue('alphabet', alphabetModel)" v-model="alphabetInput">
             </div>
+
+            <div class="section">
+                <!--Menù a tendina per scegliere il nodo iniziale-->
+            </div>
             
             <div class="section">
                 <label for="determinismCheckbox">Determinstic Automa</label>
