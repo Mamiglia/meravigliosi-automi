@@ -25,28 +25,34 @@ export async function toClipboard(text: string) {
 
 
 export function importParameters(url: string) : Parameters {
-    const init = {
-        nodes: '{"0":{"name":"0"},"1":{"name":"1"},"2":{"name":"2"},"3":{"name":"3","final":true}}',
-        edges :'{"edge0":{"source":"0","target":"1","label":"a","ruleType":"INCLUDE","charset":["a"]},"edge1":{"source":"0","target":"2","label":"b","ruleType":"INCLUDE","charset":["b"]},"edge2":{"source":"2","target":"0","label":"b","ruleType":"INCLUDE","charset":["b"]},"edge3":{"source":"1","target":"0","label":"a","ruleType":"INCLUDE","charset":["a"]},"edge4":{"source":"0","target":"3","label":"c","ruleType":"INCLUDE","charset":["c"]}}',
-        alphabet: '["a","b","c"]',
-        initialNode: "0",
-        determinism: "true",
-        layout: '{"nodes":{"0":{"x":200,"y":200},"1":{"x":320,"y":80},"2":{"x":320,"y":320},"3":{"x":440,"y":200}}}'
+    const init : Parameters= {
+        nodes: {"0":{"name":"0"},"1":{"name":"1"},"2":{"name":"2"},"3":{"name":"3","final":true}},
+        edges :{"edge0":{"source":"0","target":"1","label":"a","ruleType":"INCLUDE","charset":["a"]},"edge1":{"source":"0","target":"2","label":"b","ruleType":"INCLUDE","charset":["b"]},"edge2":{"source":"2","target":"0","label":"b","ruleType":"INCLUDE","charset":["b"]},"edge3":{"source":"1","target":"0","label":"a","ruleType":"INCLUDE","charset":["a"]},"edge4":{"source":"0","target":"3","label":"c","ruleType":"INCLUDE","charset":["c"]}},
+        alphabet: ["a","b","c"],
+        initial: "0",
+        determinism: true,
+        layout: {"nodes":{"0":{"x":200,"y":200},"1":{"x":320,"y":80},"2":{"x":320,"y":320},"3":{"x":440,"y":200}}}
     }
-    let params = new URLSearchParams(window.location.search);
+    let params = new URLSearchParams(url);
 
-    let nodes :Nodes = JSON.parse(params.get('nodes') ?? init.nodes);
-    let edges :Edges = JSON.parse(params.get('edges') ?? init.edges);
-    let alphabet :string[] = JSON.parse(params.get('alphabet') ?? init.alphabet);
-    let initial :string = JSON.parse(params.get('initial') ?? init.initialNode);
-    let determinism :boolean = JSON.parse(params.get('determinism') ?? init.determinism);
-    let layout : Layouts = JSON.parse(params.get('layout')?? init.layout)
-    return {nodes, edges, alphabet, initial, determinism, layout}
+    // let nodes :Nodes = JSON.parse(params.get('nodes') ?? init.nodes);
+    // let edges :Edges = JSON.parse(params.get('edges') ?? init.edges);
+    // let alphabet :string[] = JSON.parse(params.get('alphabet') ?? init.alphabet);
+    // let initial :string = JSON.parse(params.get('initial') ?? init.initialNode);
+    // let determinism :boolean = JSON.parse(params.get('determinism') ?? init.determinism);
+    // let layout : Layouts = JSON.parse(params.get('layout')?? init.layout)
+    // return {nodes, edges, alphabet, initial, determinism, layout}
+    let p = params.get('graph')
+    if (p != null) {
+        return JSON.parse(p)
+    } else {
+        return init
+    }
 }
 
 export function downloadAsSvg(graph: VNetworkGraphInstance) {
     if (!graph) return
-    graph = unreactiveCopy(graph)
+    // graph = unreactiveCopy(graph)
     const text = graph.getAsSvg()
     // BUG: Le variabili CSS dei colori non sono portate dietro, l'immagine é brutta e buggata
     

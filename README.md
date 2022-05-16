@@ -1,20 +1,18 @@
 # Requisiti Obbligatori
 - [x] Elaborazione Automa Deterministico
-- [ ] Check if automa is legale
-- [ ] UI pagina di elaborazione
+- [x] Check if automa is legale
+- [x] UI pagina di elaborazione
 - [ ] Backend e/o Hub per salvataggio automi
 
 # Requisiti Opzionali
 - [x] Supporto automi non deterministici
 - [x] Animazioni sull'automa
 - [ ] Da automa a regex
-- [ ] Da linguaggio naturale ad automi
 - [ ] Wiki su automi
 - [ ] Tutorial sito
-- [ ] Condividere automi
-- [ ] ricerca automa per somiglianza
+- [x] Condividere automi
 - [x] definizione alfabeto
-- [ ] genera stringa
+- [?] genera stringa
 
 ### Compiles and hot-reloads for development
 ```

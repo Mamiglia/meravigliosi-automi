@@ -7,7 +7,7 @@ export const networkGraphConfigs = defineConfigs({
         doubleClickZoomEnabled: false,  // Whether to zoom with double click. default: true
         mouseWheelZoomEnabled:  false,  // Whether to zoom with mouse wheel or not. default: true
         // autoPanAndZoomOnLoad: "center-content",    
-        layoutHandler: new GridLayout({ grid: 20 }),
+        // layoutHandler: new GridLayout({ grid: 20 }),
         grid: {
             visible:true,
             margin: 0, //aggiunto questo elemento per avere il grafo iniziale esattamente al centro

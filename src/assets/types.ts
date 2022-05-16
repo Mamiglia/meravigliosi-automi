@@ -6,7 +6,7 @@ export interface Transition extends Edge {
     charset: string[]
 }
 export interface State extends Node {
-    label: string //vorrei mostrare una label customizzabile invece della chiave
+    name?: string //vorrei mostrare una label customizzabile invece della chiave
     final?: boolean;
     on?: boolean;
 }

@@ -11,7 +11,6 @@ import { Automaton } from "./assets/Automaton";
 import { unreactiveCopy, toClipboard, importParameters, downloadAsSvg } from "./assets/utilities";
 import { networkGraphConfigs } from "./assets/v-network-graph-configs";
 import * as vNG from "v-network-graph"
-import { Layouts } from "v-network-graph";
 
 const initialParams :Parameters = importParameters(window.location.search);
 const nodes : Nodes = reactive(initialParams.nodes);
@@ -20,7 +19,7 @@ const selectedNodes = ref<string[]>([]);
 const selectedEdge = ref<string[]>([]);
 const nextNodeIndex = ref(Object.keys(nodes).length )
 const nextEdgeIndex = ref(Object.keys(edges).length );
-const initialNode = ref("0");
+const initialNode = ref(initialParams.initial);
 const alphabet = ref<string[]>(initialParams.alphabet)
 const animated = ref(true)
 const determinism = ref(initialParams.determinism)
@@ -104,16 +103,14 @@ function graphString(p :Parameters) : string{
     - determinism
     - layout
   */
-  let str = ''
-  Object.entries(p).forEach(entry => {
-    let [key, value] = entry
-    str += `${key}=${JSON.stringify(value)}&`
-  });
-  return str
+  return "graph="+JSON.stringify(p)
 }
 function share(params :Parameters) {
   let url = window.location.hostname + ":" + window.location.port + "?" + graphString(params)
   toClipboard(encodeURI(url));
+}
+function save(params:Parameters, graph: vNG.VNetworkGraphInstance) {
+  window.location.href = `http://localhost:3000/public/save.php?${encodeURI(graphString(params))}&${graph?.getAsSvg()}`;
 }
 
 </script>
@@ -147,7 +144,7 @@ function share(params :Parameters) {
     @addNode="addNode()"
     @remove="remove"
     @addEdge="addEdge(selectedNodes[0], selectedNodes[1])"
-    @save="window.location.href = `http://localhost:3000/public/save.php?${encodeURI(graphString(params))}`;"
+    @save="save(params, graph)"
     @share="share(params)"
     @download-s-v-g="downloadAsSvg(graph)"
     v-model:determinism="determinism"
