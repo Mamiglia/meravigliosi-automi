@@ -147,7 +147,7 @@ function share(params :Parameters) {
     @addNode="addNode()"
     @remove="remove"
     @addEdge="addEdge(selectedNodes[0], selectedNodes[1])"
-    @save="window.location.href = `save.php?${encodeURI(graphString(params))}`;"
+    @save="window.location.href = `http://localhost:3000/public/save.php?${encodeURI(graphString(params))}`;"
     @share="share(params)"
     @download-s-v-g="downloadAsSvg(graph)"
     v-model:determinism="determinism"
