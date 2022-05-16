@@ -17,7 +17,7 @@ const hasFocus = ref(true)
     <h1 class="title" id="title">Meravigliosi Automi</h1>
     <ul>
         <li><a href="start.html">Start</a></li>
-        <li><a href="wiki.html">Wiki</a></li>
+        <li><a href="https://it.wikipedia.org/wiki/Automa_(informatica)">Wiki</a></li>
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
         <li><a href="http://localhost:3000/public/hub.php">Hub</a></li> <!--Non mi trova l'hub.php / per l'importazione di dati provo ad aggiungere un action-->
         <li><Action icon="skip_next" @click="$emit('startTutorial')"/></li>
