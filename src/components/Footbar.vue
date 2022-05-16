@@ -3,14 +3,18 @@ import { ref , defineEmits, defineProps, computed} from 'vue'
 import Toggle from '@vueform/toggle'
 import Action from './Action.vue'
 import { parseList } from '@/assets/utilities'
+import { Nodes } from '@/assets/types'
 
-const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:animated", "update:alphabet", "update:determinism", 'save', 'share', 'downloadSVG'])
+const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:animated", "update:alphabet", "update:determinism", "update:start", 'save', 'share', 'downloadSVG'])
 
 
 const props = defineProps<{
     alphabet: string[]
     determinism:boolean
     animated:boolean 
+    start:string
+
+    nodes:Nodes
 }>()
 
 const alphabetInput = ref(props.alphabet.join(','))
@@ -21,7 +25,7 @@ const determinismModel = ref(props.determinism)
 const animatedModel = ref(props.animated)
 const inputText= ref("")
 
-function updateValue(variable:"animated"|"determinism"|"alphabet", value:any) {
+function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value:any) {
     emits(`update:${variable}`, value)
 }
 
@@ -33,10 +37,16 @@ function updateValue(variable:"animated"|"determinism"|"alphabet", value:any) {
         <Action icon="settings"/>
         <div class="settings">
             <div class="section">
+                <label for="startNode">Nodo Iniziale</label>
+                <select name="startNode">
+                    <option v-for="n of nodes" :value="n">{{n.name}}</option>
+                </select>
+            </div>
+            <div class="section">
                 <label for="alphabetInput">
-                    Alfabeto:
+                    Alfabeto:&nbsp;
                 </label>
-                <input type="textarea" id="alphabetInput" placeholder="Inserisci qui l'alfabeto"  @input="updateValue('alphabet', alphabetModel)" v-model="alphabetInput">
+                <input type="text" id="alphabetInput" placeholder="Alfabeto"  @input="updateValue('alphabet', alphabetModel)" v-model="alphabetInput">
             </div>
             
             <div class="section">
@@ -140,6 +150,23 @@ input:focus-visible{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-top: .3em;
+}
+
+.section select {
+    background-color: var(--background);
+    border: solid;
+    border-color: var(--background);
+    border-radius: 3px;
+    font-size: 1.2em;
+}
+.section input[type="text"] {
+    background-color: var(--background);
+    border: solid;
+    border-color: var(--background);
+    border-radius: 3px;
+    width: 10em;
 }
 
 

@@ -30,4 +30,7 @@ button:hover {
     color: var(--background-alternative);
     cursor: pointer;
 }
+span{
+    font-size: 5vh;
+}
 </style>

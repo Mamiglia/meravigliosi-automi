@@ -12,7 +12,6 @@
 - [ ] Wiki su automi
 - [ ] Tutorial sito
 - [ ] Condividere automi
-- [ ] ctrl+Z
 - [ ] ricerca automa per somiglianza
 - [x] definizione alfabeto
 - [ ] genera stringa
