@@ -110,7 +110,7 @@ function share(params :Parameters) {
   toClipboard(encodeURI(url));
 }
 function save(params:Parameters, graph: vNG.VNetworkGraphInstance) {
-  window.location.href = `http://localhost:3000/public/save.php?${encodeURI(graphString(params))}&${graph?.getAsSvg()}`;
+  window.location.href = `http://localhost:3000/public/save.php?${encodeURI(graphString(params))}&thumbnail=${graph?.getAsSvg()}`;
 }
 
 </script>
