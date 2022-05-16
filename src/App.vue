@@ -95,7 +95,7 @@ function startTutorial(){
   console.log(`Tutorial starts`);
 }
 
-function graphString(p :Parameters) : String{
+function graphString(p :Parameters) : string{
     /* parameters:
     - nodes
     - edges
@@ -112,7 +112,8 @@ function graphString(p :Parameters) : String{
   return str
 }
 function share(params :Parameters) {
-  toClipboard(window.location.hostname + ":" + window.location.port + "?" + graphString(params));
+  let url = window.location.hostname + ":" + window.location.port + "?" + graphString(params)
+  toClipboard(encodeURI(url));
 }
 
 </script>
@@ -146,12 +147,14 @@ function share(params :Parameters) {
     @addNode="addNode()"
     @remove="remove"
     @addEdge="addEdge(selectedNodes[0], selectedNodes[1])"
-    @save="window.location.href = `save.php?${graphString(params)}`;"
+    @save="window.location.href = `save.php?${encodeURI(graphString(params))}`;"
     @share="share(params)"
     @download-s-v-g="downloadAsSvg(graph)"
     v-model:determinism="determinism"
     v-model:alphabet="alphabet"
     v-model:animated="animated"
+    v-model:start="initialNode"
+    :nodes="nodes"
   />
 </div>
 
