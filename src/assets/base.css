@@ -12,9 +12,9 @@
   --rosso-sapienza: #822433; /* <3 */
 
   --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+  --vt-c-text-light-2: rgba(60, 60, 60, 1);
   --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  --vt-c-text-dark-2: rgba(235, 235, 235, 1);
 
 
 /* palette: */
@@ -30,24 +30,6 @@
 :root {
   --call-to-action: var(--rosso-sapienza);
   --secondary: var(--complement);
-  --primary-dark: var(--black);
-  --primary-light: var(--black-ish);
-
-  --background: var(--primary-dark);
-  --background-alternative: var(--primary-light);
-
-  --color-grid: var(--primary-light);
-
-  --color-heading: var(--vt-c-text-dark-1);
-  --color-text: var(--vt-c-text-dark-2);
-
-  --accent: var(--call-to-action);
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-  --call-to-action: var(--rosso-sapienza);
-  --secondary: var(--complement);
   --primary-dark: var(--white-ish);
   --primary-light: var(--white);
 
@@ -61,6 +43,24 @@
   --color-text: var(--vt-c-text-light-1);
   
   --accent: var(--call-to-action);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --call-to-action: var(--rosso-sapienza);
+    --secondary: var(--complement);
+    --primary-dark: var(--black);
+    --primary-light: var(--black-ish);
+  
+    --background: var(--primary-dark);
+    --background-alternative: var(--primary-light);
+  
+    --color-grid: var(--primary-light);
+  
+    --color-heading: var(--vt-c-text-dark-1);
+    --color-text: var(--vt-c-text-dark-2);
+  
+    --accent: var(--call-to-action);
   } 
 }
 
