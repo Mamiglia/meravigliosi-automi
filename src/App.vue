@@ -9,7 +9,7 @@ import NodeEditor from "./components/NodeEditor.vue";
 import { Transition, Nodes, Edges, Parameters } from "./assets/types";
 import { Automaton } from "./assets/Automaton";
 import { unreactiveCopy, toClipboard, importParameters, downloadAsSvg } from "./assets/utilities";
-import { networkGraphConfigs } from "./assets/v-network-graph-configs";
+import { networkGraphConfigs, palette } from "./assets/predefined";
 import * as vNG from "v-network-graph"
 
 const initialParams :Parameters = importParameters(window.location.search);
@@ -130,6 +130,9 @@ function save(params:Parameters, graph: vNG.VNetworkGraphInstance) {
       v-model:selected-edges="selectedEdge"
       v-model:selected-nodes="selectedNodes"
       >
+      <defs>
+        <component :is="'style'">{{palette}}</component>
+      </defs>
       <template #edge-label="{ edge, ...slotProps }">
         <v-edge-label :text="edge.label" color="#fbfaf5" align="center" vertical-align="above" v-bind="slotProps"/>
       </template>
