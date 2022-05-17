@@ -1,26 +1,25 @@
-# Requisiti Obbligatori
-- [x] Elaborazione Automa Deterministico
-- [x] Check if automa is legale
-- [x] UI pagina di elaborazione
-- [ ] Backend e/o Hub per salvataggio automi
+# TODO
+## Vue
+- [ ] Popup (vedi toaster.js https://www.npmjs.com/package/toaster-js) (F)
+- [ ] link name in editNode (X)
+- [ ] fix self-loops (X)
+#### Optional
+- [ ] Random walk on graph (M)
+- [ ] match UI (F)
 
-# Requisiti Opzionali
-- [x] Supporto automi non deterministici
-- [x] Animazioni sull'automa
-- [ ] Da automa a regex
-- [ ] Wiki su automi
-- [ ] Tutorial sito
-- [x] Condividere automi
-- [x] definizione alfabeto
-- [?] genera stringa
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
+## Server
+- [ ] vue -> save (cookies immagine) (X,M)
+- [ ] save -> hub (reindirizzamento) (M)
+- [ ] save form (chiedi nome) (M)
+- [ ] hub UI (X)
+- [ ] save UI (X)
+- [ ] save: gestione errore (M)
+#### Optional
+- [ ] research through automas hub (SQL LIKE) (M)
+## Media Query
+- [ ] Adapt to media query (F)
+    - [ ] Footbar - spezzata in due linee
+    - [ ] Sidebar -  schermo intero
+    - [ ] OptionPane - schermo intero
+    - [ ] Popup - vedi se funge
+- [ ] bottone dark/light mode (F)
