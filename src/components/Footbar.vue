@@ -26,6 +26,7 @@ const animatedModel = ref(props.animated)
 const inputText= ref("")
 
 function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value:any) {
+    console.log(value)
     emits(`update:${variable}`, value)
 }
 
@@ -38,8 +39,8 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
         <div class="settings">
             <div class="section">
                 <label for="startNode">Nodo Iniziale</label>
-                <select name="startNode">
-                    <option v-for="n of nodes" :value="n">{{n.name}}</option>
+                <select name="startNode" @change="updateValue('start', $event.target.value)">
+                    <option v-for="n of Object.keys(nodes)" :value="n">{{nodes[n].name}}</option>
                 </select>
             </div>
             <div class="section">
@@ -175,3 +176,5 @@ input:focus-visible{
 
 
 </style>
+
+
