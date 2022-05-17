@@ -24,6 +24,7 @@
     </style>
     <H1>Benvenuti nell'Hub di Meravigliosi Automi!</H1>
     <H2>Qui potrai condividere i tuo meravigliosi automi con la community di Sapienza</H2>
+    <a href="http://localhost:8080">Clicca qui per ritornare all'Home Page</a>
     <!--Tentativo di collegamento ad DB, poi fare la stringify dei grafi per metterli dentro (?)-->
     <?php
         $dbconn = pg_connect("host=localhost port=5432 dbname=automi user=postgres password=hub")
@@ -39,10 +40,13 @@
          while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
             echo "<br>";
             echo "<br>";
-            foreach($line as $col) {
+            /*foreach($line as $col) {
                 echo "$col:";
                 echo "<br>";
-            }
+            }*/
+            echo "<h3>$line[nome]</h3>";
+            $url = urlencode($line["grafo"]);
+            echo "<button onClick=\"window.location.href='http://localhost:8080/?graph=$url'\">Carica il grafo</button>";
             echo "<hr>";
         }
         pg_close($dbconn);

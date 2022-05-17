@@ -18,7 +18,7 @@
        // echo "<p>{$graph}</p>";
        // echo "{$thumbnail}";
        // echo "<p>{$thumbnail_param}</p>";g
-        $name = "pippo10"; //Var temporanea 
+        $name = "pippo12"; //Var temporanea 
         $query = "INSERT INTO automa(nome, grafo, immagine)
                     VALUES ($1,$2,$3)"; //Inserisco l'automa dentro il DB
         $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail)); 
