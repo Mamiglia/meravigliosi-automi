@@ -3,12 +3,11 @@ import { ref,reactive,computed, onMounted, ComputedRef} from "vue";
 import Sidemenu from "./components/Sidemenu.vue";
 import Footbar from './components/Footbar.vue';
 import EdgeEditor from "./components/EdgeEditor.vue";
-import TutorialItem from "./components/TutorialItem.vue";
 import Popup from "./components/Popup.vue"
 import NodeEditor from "./components/NodeEditor.vue";
 import { Transition, Nodes, Edges, Parameters } from "./assets/types";
 import { Automaton } from "./assets/Automaton";
-import { unreactiveCopy, toClipboard, importParameters, downloadAsSvg } from "./assets/utilities";
+import { unreactiveCopy, toClipboard, importParameters, downloadAsSvg, zip} from "./assets/utilities";
 import { networkGraphConfigs, palette } from "./assets/predefined";
 import * as vNG from "v-network-graph"
 
@@ -36,7 +35,7 @@ const params = computed<Parameters>(()=>{
     edges: edges,
     alphabet: alphabet.value,
     determinism: determinism.value,
-    layout: unreactiveCopy(graph.value?.currentLayouts),
+    layout: unreactiveCopy(graph.value?.currentLayouts ?? {}),
     initial: initialNode.value
   }
 })
@@ -103,14 +102,14 @@ function graphString(p :Parameters) : string{
     - determinism
     - layout
   */
-  return "graph="+JSON.stringify(p)
+  return "graph="+encodeURI(zip(p))
 }
 function share(params :Parameters) {
   let url = window.location.hostname + ":" + window.location.port + "?" + graphString(params)
   toClipboard(encodeURI(url));
 }
 function save(params:Parameters, graph: vNG.VNetworkGraphInstance) {
-  window.location.href = `http://localhost:3000/public/save.php?${encodeURI(graphString(params))}&thumbnail=${encodeURI(graph?.getAsSvg())}`;
+  window.location.href = `http://localhost:3000/public/save.php?${graphString(params)}&thumbnail=${encodeURI(graph?.getAsSvg())}`;
 }
 
 </script>

@@ -1,3 +1,4 @@
+import { compress, decompress } from 'compress-json';
 import { defineConfigs, Layers, Layouts, VNetworkGraphInstance } from 'v-network-graph';
 import useClipboard from 'vue-clipboard3'
 import { Edges, Nodes, Parameters } from './types';
@@ -23,6 +24,29 @@ export async function toClipboard(text: string) {
     await toClipboard(text);
 }
 
+const gzip = require('gzip-js') 
+export function zip(text: Parameters) :string {
+    console.log(JSON.stringify(text))
+    let zipped = compress(text)
+    console.log(JSON.stringify(zipped))
+    return JSON.stringify(zipped)
+    // let options = {
+	// 	level: 9,
+	// };
+    // return JSON.stringify(gzip.zip(JSON.stringify(text), options))
+}
+
+export function unzip(zipped: string) : Parameters {
+    return decompress(JSON.parse(zipped))
+    // console.log(zipped)
+    // let decoded = ""
+    // console.log(gzip.unzip(JSON.parse(zipped)))
+    // gzip.unzip(JSON.parse(zipped)).forEach((ch : number) =>
+    //     decoded+=(String.fromCharCode(ch))
+    // );
+    // return JSON.parse(decoded)
+}
+
 
 export function importParameters(url: string) : Parameters {
     const init : Parameters= {
@@ -44,7 +68,7 @@ export function importParameters(url: string) : Parameters {
     // return {nodes, edges, alphabet, initial, determinism, layout}
     let p = params.get('graph')
     if (p != null) {
-        return JSON.parse(p)
+        return unzip(decodeURI(p))
     } else {
         return init
     }
