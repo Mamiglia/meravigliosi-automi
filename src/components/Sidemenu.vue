@@ -13,7 +13,7 @@ const hasFocus = ref(true)
 <div 
     id="sidemenu" 
     :hide="!hasFocus">
-
+    <img class="logo" src="..\assets\logo2.png">
     <h1 class="title" id="title">Meravigliosi Automi</h1>
     <ul>
         <li><a href="start.html">Start</a></li>
@@ -84,7 +84,6 @@ ul {
 h1 {
     margin: 0;
     padding: 10%;
-
 }
 
 .menu-btn {
@@ -156,6 +155,14 @@ h1 {
 .outside[hide=true] {
     opacity: 0%;
     z-index: -1;
+}
+
+.logo{
+    margin-left:auto;
+    margin-right:auto;
+    width:20%;
+    display: block;
+    padding-top: 2em;
 }
 
 /*Se non piace questa disposizione, cancellare o modificare a piacimento*/
