@@ -21,7 +21,6 @@ const hasFocus = ref(true)
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
         <li><a href="http://localhost:3000/public/hub.php">Hub</a></li> <!--Non mi trova l'hub.php / per l'importazione di dati provo ad aggiungere un action-->
         <li><Action icon="skip_next" @click="$emit('startTutorial')"/></li>
-       <!-- <li><a href="">Clicca qui per salvare il tuo Grafo sull'Hub</li> -->
     </ul>
     <span></span>
     <button type="button" @click="hasFocus=false" >start ></button>
@@ -65,7 +64,8 @@ button {
     font-family: 'Courier New', Courier, monospace;
     font-size: 1.5em;
     width: 100%;
-    height: 20vh;
+    flex-shrink: 0;
+    height: 10vh;
     padding: 0;
     color: var(--background);
     background-color: var(--accent);
