@@ -142,7 +142,7 @@ input:focus-visible{
     width: 25vw; 
 }
 
-@media screen and (max-width: 768px){
+@media screen and (orientation: portrait){
     .popupMenu>.settings{
         position: fixed;
         width: 100%;

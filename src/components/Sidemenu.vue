@@ -48,9 +48,9 @@ const hasFocus = ref(true)
     overflow: hidden;
     transform: translateX(0%);
 }
-@media screen and (max-width: 768px){
+@media screen and (orientation: portrait){
     #sidemenu{
-        width: 100%;
+        width: 100vw;
     }
 };
 
