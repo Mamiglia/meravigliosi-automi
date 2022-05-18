@@ -96,6 +96,14 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
     background-color: var(--background-alternative);
 }
 
+/*@media screen and (max-width: 768px){
+    footer{
+        position: fixed;
+        width: 100%;
+        height: 50%;
+    }
+};*/
+
 input {
     width: 100%;
     text-align: center;
@@ -131,9 +139,16 @@ input:focus-visible{
     opacity: 0;
     transform: translateX(-100%);
     min-width: max-content;
-    width: 25vw;
-    
+    width: 25vw; 
 }
+
+@media screen and (max-width: 768px){
+    .popupMenu>.settings{
+        position: fixed;
+        width: 100%;
+        height: 50%;
+    }
+};
 
 .popupMenu:hover>.settings {
     opacity: 100%;

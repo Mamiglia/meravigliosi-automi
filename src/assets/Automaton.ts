@@ -85,22 +85,22 @@ export class Automaton{
     async evaluate(myString: string, animated:boolean, determinism:boolean){
         for (const i of myString){
             if (!this.alphabet.includes(i)){
-                let t = new T.Toast("Rifiutato per carattere non in alfabeto", T.Toast.MESSAGE);
+                let t = new T.Toast("La stringa contiene caratteri non in alfabeto", T.Toast.TYPE_INFO);
                 return false;
             }
         }
         if (!this.validateEdges()){
-            let t = new T.Toast("Gli archi fanno riferimento a caratteri non presenti nell'alfabeto", T.Toast.MESSAGE);
+            let t = new T.Toast("Gli archi fanno riferimento a caratteri non presenti nell'alfabeto", T.Toast.TYPE_INFO);
             return false;
         }
         if (determinism && !this.isDeterministic()) {
-            let t = new T.Toast("L'automa non è deterministico", T.Toast.TYPE_MESSAGE);
+            let t = new T.Toast("L'automa non è deterministico ", T.Toast.TYPE_INFO);
             return false
         }
         console.log(`animated: ${animated}`)
         let activeNodes: Array<string> = [this.initialNode]; //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
         let res = await this.ricorsiveEvaluate(activeNodes, myString, animated);
-        let t = new T.Toast(res, T.Toast.TYPE_MESSAGE);
+        let t = new T.Toast(res, T.Toast.TYPE_INFO);
         return res
     }
 

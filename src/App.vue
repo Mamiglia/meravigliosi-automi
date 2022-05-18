@@ -138,7 +138,7 @@ function save(params:Parameters, graph: vNG.VNetworkGraphInstance) {
     </v-network-graph>
     <EdgeEditor v-if="selectedEdge.length !== 0" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
     <NodeEditor v-else-if="selectedNodes.length === 1" :node-id="selectedNodes[0]" v-model="nodes[selectedNodes[0]]"/>
-    <Popup v-if="selectedEdge.length === 0 && selectedNodes.length === 0" />  <!--Questa riga andrà rimossa/cambiata-->
+    <!--<Popup v-if="selectedEdge.length === 0 && selectedNodes.length === 0" /> Questa riga andrà rimossa/cambiata-->
 
   </div>
   <Footbar

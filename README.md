@@ -1,11 +1,12 @@
 # TODO
 ## Vue
-- [ ] Popup (vedi toaster.js https://www.npmjs.com/package/toaster-js) (F)
+- [x] Popup (vedi toaster.js https://www.npmjs.com/package/toaster-js) (F)
 - [ ] link name in editNode (X)
 - [ ] fix self-loops (X)
 #### Optional
 - [ ] Random walk on graph (M)
 - [ ] match UI (F)
+- [ ] customizzare popup (F)
 
 ## Server
 - [ ] vue -> save (cookies immagine) (X,M)

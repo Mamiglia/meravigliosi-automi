@@ -16,7 +16,7 @@ const hasFocus = ref(true)
     <img class="logo" src="..\assets\logo2.png">
     <h1 class="title" id="title">Meravigliosi Automi</h1>
     <ul>
-        <li><a href="start.html">Start</a></li>
+        <!--<li><a href="start.html">Start</a></li>-->
         <li><a href="https://it.wikipedia.org/wiki/Automa_(informatica)">Wiki</a></li>
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
         <li><a href="http://localhost:3000/public/hub.php">Hub</a></li> <!--Non mi trova l'hub.php / per l'importazione di dati provo ad aggiungere un action-->
@@ -48,6 +48,11 @@ const hasFocus = ref(true)
     overflow: hidden;
     transform: translateX(0%);
 }
+@media screen and (max-width: 768px){
+    #sidemenu{
+        width: 100%;
+    }
+};
 
 #sidemenu[hide=true] {
     transform: translateX(-100%);
