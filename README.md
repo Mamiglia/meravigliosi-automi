@@ -2,9 +2,9 @@
 ## Vue
 - [x] Popup (vedi toaster.js https://www.npmjs.com/package/toaster-js) (F)
 - [x] link name in editNode (X)
-- [ ] fix self-loops (X)
+- [x] fix self-loops (X)
 #### Optional
-- [ ] Random walk on graph (M)
+- [x] Random walk on graph (X)
 - [ ] match UI (F)
 - [ ] customizzare popup (F)
 

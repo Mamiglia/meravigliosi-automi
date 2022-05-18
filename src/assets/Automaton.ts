@@ -1,5 +1,5 @@
-import {Nodes,Edges} from './types';
-import { sleep } from './utilities';
+import {Nodes,Edges, Transition} from './types';
+import { sample, sleep } from './utilities';
 import "toaster-js/default.scss";
 //import { Toast } from "toaster-js";
 const T = require("toaster-js");
@@ -17,7 +17,7 @@ export class Automaton{
         this.alphabet = myAlphabet//.replaceAll(/\s/g, "").split(",");
     }
 
-    toString(){
+    toString() : string {
         let ris: string = "INITIAL NODE: " + this.initialNode + "\n"; //spero che le classi Nodes e Edges abbiano toString
         ris += "NODES: \n";
         for (const key in this.nodes){
@@ -145,41 +145,73 @@ export class Automaton{
         return true
     }
 
-    //CAVEAT: THIS METHOD MODIFIES THE AUTOMATON TROUGH SIDE-EFFECT
-    findAMatch(){
-        if (this.nodes[this.initialNode].final===true){     //if the starting node is final return an empty string
-            return "";
-        }
-        let reached: Array<string> = [this.initialNode];
-        let reachedWith: Array<string> = [""];
-        return this.recursiveFindAMatch(reached, reachedWith); //the i-th node of reached has been reached with the i-th string of reachedWith
+    randomWalk(nodeId?:string) : string {
+        if (nodeId==undefined)
+            nodeId = this.initialNode
+            
+        if (this.nodes[nodeId].final && Math.random() > .75) 
+            return ""
+
+        let possibleEdges :string[] = []
+        Object.entries(this.edges).forEach(entry=>{
+            const [key, val] = entry
+            if (val.source == nodeId)
+                possibleEdges.push(key)
+        })
+
+        if (possibleEdges.length==0)
+            return ""
+
+        let chosenEdgeId = sample(possibleEdges)
+        
+        let chosen = this.edges[chosenEdgeId]
+        let candidates : string[];
+
+        if (chosen.ruleType == "ALL") 
+            candidates = this.alphabet
+        else if (chosen.ruleType == "INCLUDE")
+            candidates = chosen.charset
+        else          
+            candidates = this.alphabet.filter(x => !chosen.charset.includes(x))
+
+        return sample(candidates) + this.randomWalk(chosen.target)
     }
 
-    recursiveFindAMatch(reached: Array<string>, reachedWith: Array<string>): string{
-        const temp = JSON.parse(JSON.stringify(reached));       //if at the end of the execution reached has not chenged, there is no match[*]
-        for (const key in this.edges){                                              //FOR EACH EDGE
-            const edge = JSON.parse(JSON.stringify(this.edges[key]));
-            if(reached.includes(edge.source) && !reached.includes(edge.target)){    //IF THE SOURCE HAS BEEN REACHED BUT NOT THE TARGET
-                this.edges.remove[key];                                             //(for efficiency the checked edges will be removed from the collection, hoping this wont mess the key-based loop)
-                for (const c of this.alphabet){                                     //LOOK FOR A CHARACTER TO CROSS IT
-                    if(this.checkTransition(edge.ruleType, edge.charset, c)){
-                        const index = reached.indexOf(edge.source);
-                        let s = reachedWith[index];
-                        if(this.nodes[edge.target].final===true){                   //if the edge can be crossed and leads to final, return the proper string
-                            return s+c;
-                        }
-                        reachedWith.push(s+c);                                      //if the edge can be crossed but doesn't lead to final update reached and reachedWith
-                        reached.push(edge.target);
-                        continue;
-                    }
-                }
-            }
-        }
-        if(temp === reached){           //[*]
-            return "MATCH NOT FOUND";
-        }
-        return this.recursiveFindAMatch(reached, reachedWith);
-    }
+    //CAVEAT: THIS METHOD MODIFIES THE AUTOMATON TROUGH SIDE-EFFECT
+    // findAMatch(){
+    //     if (this.nodes[this.initialNode].final===true){     //if the starting node is final return an empty string
+    //         return "";
+    //     }
+    //     let reached: Array<string> = [this.initialNode];
+    //     let reachedWith: Array<string> = [""];
+    //     return this.recursiveFindAMatch(reached, reachedWith); //the i-th node of reached has been reached with the i-th string of reachedWith
+    // }
+
+    // recursiveFindAMatch(reached: Array<string>, reachedWith: Array<string>): string{
+    //     const temp = JSON.parse(JSON.stringify(reached));       //if at the end of the execution reached has not chenged, there is no match[*]
+    //     for (const key in this.edges){                                              //FOR EACH EDGE
+    //         const edge = JSON.parse(JSON.stringify(this.edges[key]));
+    //         if(reached.includes(edge.source) && !reached.includes(edge.target)){    //IF THE SOURCE HAS BEEN REACHED BUT NOT THE TARGET
+    //             this.edges.remove[key];                                             //(for efficiency the checked edges will be removed from the collection, hoping this wont mess the key-based loop)
+    //             for (const c of this.alphabet){                                     //LOOK FOR A CHARACTER TO CROSS IT
+    //                 if(this.checkTransition(edge.ruleType, edge.charset, c)){
+    //                     const index = reached.indexOf(edge.source);
+    //                     let s = reachedWith[index];
+    //                     if(this.nodes[edge.target].final===true){                   //if the edge can be crossed and leads to final, return the proper string
+    //                         return s+c;
+    //                     }
+    //                     reachedWith.push(s+c);                                      //if the edge can be crossed but doesn't lead to final update reached and reachedWith
+    //                     reached.push(edge.target);
+    //                     continue;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     if(temp === reached){           //[*]
+    //         return "MATCH NOT FOUND";
+    //     }
+    //     return this.recursiveFindAMatch(reached, reachedWith);
+    // }
 
 
     /*

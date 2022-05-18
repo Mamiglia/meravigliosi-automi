@@ -29,6 +29,7 @@ const automata = computed(()=>new Automaton(
   initialNode.value, 
   alphabet.value
 ))
+
 const params = computed<Parameters>(()=>{
   return {
     nodes: nodes,
@@ -93,6 +94,7 @@ function validate(text:string){
 }
 
 function startTutorial(){
+  console.log(automata.value.randomWalk())
   console.log(`Tutorial starts`);
 }
 

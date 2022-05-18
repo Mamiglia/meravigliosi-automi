@@ -87,3 +87,7 @@ export function downloadAsSvg(graph: VNetworkGraphInstance) {
     a.click()
     window.URL.revokeObjectURL(url)
   }
+
+export function sample(arr: Array<any>) : any{
+    return arr[Math.floor(Math.random()*arr.length)];
+}
