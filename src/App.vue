@@ -67,10 +67,13 @@ function remove() {
   }
 }
 
-function addEdge(src:string, trgt:string) {
+function addEdge(src:string, trgt?:string) {
   // currently edgeID can be assigned to an already existing ID, causing problems
   // let edgeId  = edges.length
+  if (trgt==undefined)
+    trgt = src
   let edgeId = `edge${nextEdgeIndex.value}`
+
   let newEdge :Transition = {
     source:src,
     target:trgt,
