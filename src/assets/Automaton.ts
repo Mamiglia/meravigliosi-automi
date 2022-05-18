@@ -1,5 +1,8 @@
-import {Nodes,Edges} from './types'
+import {Nodes,Edges} from './types';
 import { sleep } from './utilities';
+import "toaster-js/default.scss";
+//import { Toast } from "toaster-js";
+const T = require("toaster-js");
 
 export class Automaton{
     nodes: Nodes;
@@ -82,22 +85,22 @@ export class Automaton{
     async evaluate(myString: string, animated:boolean, determinism:boolean){
         for (const i of myString){
             if (!this.alphabet.includes(i)){
-                alert("Rifiutato per carattere non in alfabeto")
+                let t = new T.Toast("Rifiutato per carattere non in alfabeto", T.Toast.MESSAGE);
                 return false;
             }
         }
         if (!this.validateEdges()){
-            alert("Gli archi fanno riferimento a caratteri non presenti nell'alfabeto")
+            let t = new T.Toast("Gli archi fanno riferimento a caratteri non presenti nell'alfabeto", T.Toast.MESSAGE);
+            return false;
         }
         if (determinism && !this.isDeterministic()) {
-            alert("L'automa non è deterministico")
+            let t = new T.Toast("L'automa non è deterministico", T.Toast.TYPE_MESSAGE);
             return false
         }
         console.log(`animated: ${animated}`)
-        //const myAutomaton = new Automaton(); Non è evaluate a chiamare il costruttore, giusto?
         let activeNodes: Array<string> = [this.initialNode]; //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
         let res = await this.ricorsiveEvaluate(activeNodes, myString, animated);
-        alert(res)
+        let t = new T.Toast(res, T.Toast.TYPE_MESSAGE);
         return res
     }
 
