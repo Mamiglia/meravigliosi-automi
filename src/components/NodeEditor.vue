@@ -1,12 +1,13 @@
 <template>
     <div class="nodeEditor">
         <div class="nodeTitle">
-            <h3>Node: {{nodeId}}</h3>
+            <h3>Node: {{name}}</h3>
         </div>
         <div class="section" >
-            Name: <input type="text" placeholder="Nome nodo">
+            Name:&nbsp;<input type="text" placeholder="Nome nodo" v-model="name" @change="$emit('update:modelValue', state)">
         </div>
         <div class="section" >
+            Final:&nbsp;
             <Toggle id="finalToggle" class="toggle" 
                 @change="$emit('update:modelValue', state)" 
                 v-model="final" on-label="on" off-label="off"/>
@@ -26,16 +27,18 @@ const props = defineProps<{
     modelValue: State;    
 }>()
 const final = ref(props.modelValue.final)
+const name = ref(props.modelValue.name)
 
 const state = computed<State>( () => {
     return{
-        name: props.modelValue.name,
+        name: name.value,
         final: final.value
     }
 })
 
 watch(()=>props.nodeId, async ()=>{
     final.value = props.modelValue.final
+    name.value = props.modelValue.name
 })
 
 
@@ -65,6 +68,7 @@ watch(()=>props.nodeId, async ()=>{
         background-color: var(--background-alternative  );
         border: none;
         height: 2em;
+        width: 5em;
     }
     input[type="text"]:disabled{
         opacity: 50%;
@@ -72,6 +76,7 @@ watch(()=>props.nodeId, async ()=>{
     .section{
         margin-bottom: .2em;
         display: flex;
+        justify-content: space-between;
     }
     h3 {
         text-align: center;

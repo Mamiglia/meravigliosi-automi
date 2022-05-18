@@ -116,6 +116,7 @@ watch(()=>props.edgeId,async () => {
         background-color: var(--background-alternative  );
         border: none;
         height: 2em;
+        width: 10em;
     }
     input[type="text"]:disabled{
         opacity: 50%;
