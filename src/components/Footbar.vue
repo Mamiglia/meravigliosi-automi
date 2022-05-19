@@ -50,7 +50,7 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                         </label>
                         <input type="text" id="alphabetInput" placeholder="Alfabeto"  @input="updateValue('alphabet', alphabetModel)" v-model="alphabetInput">
                     </div>
-                    
+                        
                     <div class="section">
                         <label for="determinismCheckbox">Determinstic Automa</label>
                         <Toggle id="determinismCheckbox" class="toggle" @change="updateValue('determinism', determinismModel)" v-model="determinismModel" on-label="on" off-label="off"/>
@@ -66,8 +66,8 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                     </div>
                 </div>
             </div>
-            <div> <Action icon="delete_forever"  @click="$emit('remove')"/></div>
-            <div><Action icon="add_circle"  @click="$emit('addNode')"/></div>
+            <Action icon="delete_forever"  @click="$emit('remove')"/>
+            <Action icon="add_circle"  @click="$emit('addNode')"/>
         </div>
 
         <div claSS="sub-container2"> <!--Secondo blocco-->
@@ -160,19 +160,27 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
 };
 
 .sub-container1{
+    position: relative;
     display: flex;
-    width: 50vw;
     bottom: 0;
+    left:0;
+    width: 30vw;
     flex-direction: row;
-    justify-content: space-around;
-    background-attachment: green;
+    justify-content: space-between;
 }
 
+@media screen and (orientation: portrait){
+    .sub-container1{
+        width: 100vw
+    }
+};
+
 .sub-container2{
+    position: relative;
+    bottom: 0;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
-    background-attachment: green;
 }
 
 input {
@@ -186,7 +194,7 @@ input {
 
 @media screen and (orientation: portrait){
     input{
-        width: 80%;
+        width: 90%;
         padding-bottom: 1vh;
     }
 };
@@ -205,7 +213,7 @@ input:focus-visible{
 }
 
 .popupMenu>.settings {
-    position: absolute;
+    position: fixed;
     bottom: 10vh;
     background-color: var(--background-alternative);
     /* border:1px solid var(--color-text); */
@@ -217,13 +225,12 @@ input:focus-visible{
     opacity: 0;
     transform: translateX(-100%);
     min-width: max-content;
-    width: 25vw; 
+    width: 25vw;
+    left:0;
 }
 
 @media screen and (orientation: portrait){
     .popupMenu>.settings{
-        position: fixed;
-        left: 0;
         width: 100%;
         height: 50%;
     }
