@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { ref , defineEmits} from 'vue'
-import Action from './SquareButton.vue'
+import Toggle from '@vueform/toggle'
 
 defineEmits(["startTutorial"])
 
@@ -20,7 +20,9 @@ const hasFocus = ref(true)
         <li><a href="https://it.wikipedia.org/wiki/Automa_(informatica)">Wiki</a></li>
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
         <li><a href="http://localhost:3000/public/hub.php">Hub</a></li> <!--Non mi trova l'hub.php / per l'importazione di dati provo ad aggiungere un action-->
-        <li><Action icon="skip_next" @click="$emit('startTutorial')"/></li>
+        <br>
+        <li>Dark/Ligth mode<Toggle id="animateCheckbox" class="toggle" /></li>
+        <li></li>
     </ul>
     <span></span>
     <button type="button" @click="hasFocus=false" >start ></button>
@@ -47,6 +49,7 @@ const hasFocus = ref(true)
     transition: transform var(--normal-animation) ease;
     overflow: hidden;
     transform: translateX(0%);
+    color: var(--rosso-sapienza);
 }
 @media screen and (orientation: portrait){
     #sidemenu{
@@ -178,6 +181,12 @@ h1 {
     font-size: 30px;
     /*Molto incerto se questo colore vada bene con il sito*/ 
     background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
+}
+
+/*Vorrei staccare un pò il toggle dalla scritta sopra*/
+.toggle{
+    margin-left:auto;
+    margin-right:auto;
 }
 
 </style>

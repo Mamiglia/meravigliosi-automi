@@ -96,6 +96,10 @@ function startTutorial(){
   console.log(`Tutorial starts`);
 }
 
+function findAMatch(){
+  console.log("INSERIRE UNA FUNZIONE DI MATCHING IN APP.VUE");
+}
+
 function share(params :Parameters) {
   let url = window.location.hostname + ":" + window.location.port + "?graph=" + graphString(params)
   toClipboard(encodeURI(url));
@@ -161,6 +165,7 @@ const eventHandlers: vNG.EventHandlers = {
     @save="save(params, graph)"
     @share="share(params)"
     @download-s-v-g="downloadAsSvg(graph)"
+    @findAMatch="findAMatch()"
     v-model:determinism="determinism"
     v-model:alphabet="alphabet"
     v-model:animated="animated"
@@ -177,5 +182,9 @@ const eventHandlers: vNG.EventHandlers = {
 #worksheet {
   height: 90vh;
   width: 100%;
+}
+
+.toast.body.info{
+  background: blue;
 }
 </style>
