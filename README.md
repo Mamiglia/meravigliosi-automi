@@ -3,7 +3,8 @@
 - [x] Popup (vedi toaster.js https://www.npmjs.com/package/toaster-js) (F)
 - [x] link name in editNode (X)
 - [x] fix self-loops (X)
-- [ ] fix select nodes from mobile (X)
+- [ ] fix open option menu from mobile (X)
+- [x] fix select nodes from mobile (X)
 #### Optional
 - [x] Random walk on graph (X)
 - [ ] match UI (F)

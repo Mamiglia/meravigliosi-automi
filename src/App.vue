@@ -112,6 +112,21 @@ watch(params,()=>{
   localStorage.setItem("graph", graphString(params.value))
 })
 
+const eventHandlers: vNG.EventHandlers = {
+    "node:contextmenu": ({node, event}) => {
+      event.preventDefault()
+      event.stopPropagation()
+      if (selectedNodes.value.length !== 1)
+        selectedNodes.value[0] = selectedNodes.value[1]
+      selectedNodes.value[1] = node      
+    },
+    "edge:contextmenu" : ({edge, event})=>{
+      event.preventDefault()
+      event.stopPropagation()
+      selectedEdge.value[0] = edge!      
+      }
+  }
+
 </script>
 
 <template>
@@ -126,6 +141,7 @@ watch(params,()=>{
       :edges="edges" 
       :configs="networkGraphConfigs"
       :layouts="initialParams.layout"
+      :event-handlers="eventHandlers"
       v-model:selected-edges="selectedEdge"
       v-model:selected-nodes="selectedNodes"
       >
