@@ -16,6 +16,7 @@ const props = defineProps<{
 
     nodes:Nodes
 }>()
+const show = ref(false)
 
 const alphabetInput = ref(props.alphabet.join(','))
 const alphabetModel = computed(()=>
@@ -35,8 +36,8 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
 <template>
     <div class="flex-container"> <!--Primo blocco-->
         <div class="sub-container1">
-            <div class="popupMenu">
-                <Action icon="settings" />
+            <div class="popupMenu" :show="show">
+                <Action icon="settings" @click="show = !show" />
                 <div class="settings">
                     <div class="section">
                         <label for="startNode">Starting node</label>
@@ -237,10 +238,11 @@ input:focus-visible{
     .popupMenu>.settings{
         width: 100%;
         height: 50%;
+        bottom: 20vh;
     }
 };
 
-.popupMenu:hover>.settings {
+.popupMenu:hover>.settings, .popupMenu[show="true"]>.settings {
     opacity: 100%;
     transform: translateX(0%);
 }
