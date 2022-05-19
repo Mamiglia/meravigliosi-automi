@@ -1,9 +1,8 @@
 <script setup lang="ts" >
-import { ref,reactive,computed, onMounted, ComputedRef} from "vue";
-import Sidemenu from "./components/Sidemenu.vue";
-import Footbar from './components/Footbar.vue';
+import { ref,reactive,computed,watch} from "vue";
+import Sidemenu from "./components/SideMenu.vue";
+import Footbar from './components/FootBar.vue';
 import EdgeEditor from "./components/EdgeEditor.vue";
-import Popup from "./components/Popup.vue"
 import NodeEditor from "./components/NodeEditor.vue";
 import { Transition, Nodes, Edges, Parameters } from "./assets/types";
 import { Automaton } from "./assets/Automaton";
@@ -107,15 +106,20 @@ function graphString(p :Parameters) : string{
     - determinism
     - layout
   */
-  return "graph="+encodeURI(zip(p))
+  return encodeURI(zip(p))
 }
 function share(params :Parameters) {
-  let url = window.location.hostname + ":" + window.location.port + "?" + graphString(params)
+  let url = window.location.hostname + ":" + window.location.port + "?graph=" + graphString(params)
   toClipboard(encodeURI(url));
 }
 function save(params:Parameters, graph: vNG.VNetworkGraphInstance) {
-  window.location.href = `http://localhost:3000/public/save.php?${graphString(params)}&thumbnail=${encodeURI(graph?.getAsSvg())}`;
+  sessionStorage.setItem('graph', graph.getAsSvg())
+  window.location.href = `http://localhost:3000/public/save.php?graph=${graphString(params)}}`;
 }
+
+watch(params,()=>{
+  localStorage.setItem("graph", graphString(params.value))
+})
 
 </script>
 

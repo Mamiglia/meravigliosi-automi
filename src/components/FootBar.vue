@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref , defineEmits, defineProps, computed} from 'vue'
 import Toggle from '@vueform/toggle'
-import Action from './Action.vue'
+import Action from './SquareButton.vue'
 import { parseList } from '@/assets/utilities'
 import { Nodes } from '@/assets/types'
 
@@ -41,7 +41,7 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                     <div class="section">
                         <label for="startNode">Starting node</label>
                         <select name="startNode" @change="updateValue('start', $event.target.value)">
-                            <option v-for="n of Object.keys(nodes)" :value="n">{{nodes[n].name}}</option>
+                            <option v-for="n in Object.keys(nodes)" :key="n" :value="n">{{nodes[n].name}}</option>
                         </select>
                     </div>
                     <div class="section">

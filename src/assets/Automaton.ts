@@ -47,7 +47,7 @@ export class Automaton{
 
     //ausiliaria per evaluate
     checkSuccess(myNodes: Array<string>){
-        for (let n of myNodes){
+        for (const n of myNodes){
             if(this.isSuccess(n)){
                 return true;
             }
@@ -85,22 +85,22 @@ export class Automaton{
     async evaluate(myString: string, animated:boolean, determinism:boolean){
         for (const i of myString){
             if (!this.alphabet.includes(i)){
-                let t = new T.Toast("The string contains characters that are not in the alphabet", T.Toast.TYPE_INFO);
+                const t = new T.Toast("The string contains characters that are not in the alphabet", T.Toast.TYPE_INFO);
                 return false;
             }
         }
         if (!this.validateEdges()){
-            let t = new T.Toast("Transitions refer to character that are not in the alphabet", T.Toast.TYPE_INFO);
+            const t = new T.Toast("Transitions refer to character that are not in the alphabet", T.Toast.TYPE_INFO);
             return false;
         }
         if (determinism && !this.isDeterministic()) {
-            let t = new T.Toast("The automaton in not deterministic", T.Toast.TYPE_INFO);
+            const t = new T.Toast("The automaton in not deterministic", T.Toast.TYPE_INFO);
             return false
         }
         console.log(`animated: ${animated}`)
-        let activeNodes: Array<string> = [this.initialNode]; //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
-        let res = await this.ricorsiveEvaluate(activeNodes, myString, animated);
-        let t = new T.Toast(res, T.Toast.TYPE_INFO);
+        const activeNodes: Array<string> = [this.initialNode]; //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
+        const res = await this.ricorsiveEvaluate(activeNodes, myString, animated);
+        const t = new T.Toast(res, T.Toast.TYPE_INFO);
         return res
     }
 
@@ -111,9 +111,9 @@ export class Automaton{
             }
             return false;
         }
-        let newNodes: Array<string> = [];
-        for(let key in this.edges){
-            let e = this.edges[key];
+        const newNodes: Array<string> = [];
+        for(const key in this.edges){
+            const e = this.edges[key];
             if( myNodes.includes(e.source) && this.checkTransition(e.ruleType, e.charset, myString.charAt(0)) && !newNodes.includes(e.target) ){
                 newNodes.push(e.target);
             }
@@ -152,7 +152,7 @@ export class Automaton{
         if (this.nodes[nodeId].final && Math.random() > .75) 
             return ""
 
-        let possibleEdges :string[] = []
+        const possibleEdges :string[] = []
         Object.entries(this.edges).forEach(entry=>{
             const [key, val] = entry
             if (val.source == nodeId)
@@ -162,9 +162,9 @@ export class Automaton{
         if (possibleEdges.length==0)
             return ""
 
-        let chosenEdgeId = sample(possibleEdges)
+        const chosenEdgeId = sample(possibleEdges)
         
-        let chosen = this.edges[chosenEdgeId]
+        const chosen = this.edges[chosenEdgeId]
         let candidates : string[];
 
         if (chosen.ruleType == "ALL") 

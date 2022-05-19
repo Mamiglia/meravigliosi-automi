@@ -21,7 +21,7 @@ import Toggle from "@vueform/toggle";
 import {State} from "@/assets/types"
 
 
-const emits = defineEmits(["update:modelValue"]);
+defineEmits(["update:modelValue"]);
 const props = defineProps<{
     nodeId: string;
     modelValue: State;    

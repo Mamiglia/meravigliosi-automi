@@ -20,31 +20,21 @@ export function sleep(ms: number) {
 }
 
 export async function toClipboard(text: string) {
-    let {toClipboard} = useClipboard()
+    const {toClipboard} = useClipboard()
     await toClipboard(text);
 }
 
 const gzip = require('gzip-js') 
 export function zip(text: Parameters) :string {
     console.log(JSON.stringify(text))
-    let zipped = compress(text)
+    const zipped = compress(text)
     console.log(JSON.stringify(zipped))
     return JSON.stringify(zipped)
-    // let options = {
-	// 	level: 9,
-	// };
-    // return JSON.stringify(gzip.zip(JSON.stringify(text), options))
 }
 
 export function unzip(zipped: string) : Parameters {
     return decompress(JSON.parse(zipped))
-    // console.log(zipped)
-    // let decoded = ""
-    // console.log(gzip.unzip(JSON.parse(zipped)))
-    // gzip.unzip(JSON.parse(zipped)).forEach((ch : number) =>
-    //     decoded+=(String.fromCharCode(ch))
-    // );
-    // return JSON.parse(decoded)
+
 }
 
 
@@ -57,7 +47,7 @@ export function importParameters(url: string) : Parameters {
         determinism: true,
         layout: {"nodes":{"0":{"x":200,"y":200},"1":{"x":320,"y":80},"2":{"x":320,"y":320},"3":{"x":440,"y":200}}}
     }
-    let params = new URLSearchParams(url);
+    const params = new URLSearchParams(url);
 
     // let nodes :Nodes = JSON.parse(params.get('nodes') ?? init.nodes);
     // let edges :Edges = JSON.parse(params.get('edges') ?? init.edges);
@@ -66,21 +56,39 @@ export function importParameters(url: string) : Parameters {
     // let determinism :boolean = JSON.parse(params.get('determinism') ?? init.determinism);
     // let layout : Layouts = JSON.parse(params.get('layout')?? init.layout)
     // return {nodes, edges, alphabet, initial, determinism, layout}
-    let p = params.get('graph')
+    const p = params.get('graph')
+    const local = localStorage.getItem("graph")
+
     if (p != null) {
+        console.log("Taking graph from url")
         return unzip(decodeURI(p))
+    } else if (local != null){
+        console.log("Taking graph from local")
+        // console.log(decodeURI(local))
+        return unzip(decodeURI(local))
     } else {
         return init
     }
 }
 
+export function compressSVG(svg:string) {
+    const gzip = require('gzip-js'),
+	options = {
+		level: 7
+	};
+
+    return gzip.zip(svg, options)
+
+}
+
 export function downloadAsSvg(graph: VNetworkGraphInstance) {
     if (!graph) return
     // graph = unreactiveCopy(graph)
-    const text = graph.getAsSvg()
+    const text = compressSVG(graph.getAsSvg())
     // BUG: Le variabili CSS dei colori non sono portate dietro, l'immagine é brutta e buggata
     
     const url = URL.createObjectURL(new Blob([text], { type: "octet/stream" }))
+    console.log(url)
     const a = document.createElement("a")
     a.href = url
     a.download = "automa.svg" // filename to download
