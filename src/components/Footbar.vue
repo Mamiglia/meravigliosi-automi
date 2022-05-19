@@ -68,11 +68,12 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
             </div>
             <Action icon="delete_forever"  @click="$emit('remove')"/>
             <Action icon="add_circle"  @click="$emit('addNode')"/>
+            <Action icon="commit"  @click="$emit('addEdge')"/>
         </div>
 
         <div claSS="sub-container2"> <!--Secondo blocco-->
             <input
-            type="text" 
+            type="text"
             placeholder="Insert a string to validate"
             v-model="inputText"
             @keyup.enter="$emit('validate', inputText)"> 
@@ -151,6 +152,7 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
     background-color: var(--background-alternative);
     justify-content: space-around;
     flex-wrap: wrap;
+    align-items: stretch;
 }
 
 @media screen and (orientation: portrait){
@@ -194,7 +196,8 @@ input {
 
 @media screen and (orientation: portrait){
     input{
-        width: 90%;
+        width: 85vw;
+        height: 10vh;
         padding-bottom: 1vh;
     }
 };

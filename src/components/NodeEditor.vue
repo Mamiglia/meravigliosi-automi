@@ -59,6 +59,14 @@ watch(()=>props.nodeId, async ()=>{
         border-radius: 1em;
         max-width: 25vw;
     }
+
+    @media screen and (orientation: portrait){
+        .nodeEditor{
+            width:auto;
+            max-width: 50vw;
+        }
+    };
+
     input[type='radio'] {
         color: var(--accent);
         background-color: var(--background-alternative);

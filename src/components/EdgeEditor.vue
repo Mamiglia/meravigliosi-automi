@@ -6,17 +6,17 @@
         <div class="section" >
             <input type="radio" value="ALL" id="ruleTypeALL" name="ruleType" v-model="ruleType">
             <!-- <label for="ruleTypeALL">ALL</label> -->
-            <p @click="ruleType='ALL'">Tutto l'alfabeto</p> 
+            <p @click="ruleType='ALL'">All alphabet</p> 
         </div>
         <div class="section" @click="ruleType='INCLUDE'">
             <input type="radio" value="INCLUDE" id="ruleTypeINCLUDE" name="ruleType" v-model="ruleType">
             <!-- <label for="ruleTypeINCLUDE">INCLUDE</label> -->
-            <input type="text" placeholder="Caratteri da includere" :disabled="ruleType!='INCLUDE'" v-model="textInclude">
+            <input type="text" placeholder="Include characters" :disabled="ruleType!='INCLUDE'" v-model="textInclude">
         </div>
         <div class="section" @click="ruleType='EXCLUDE'">
             <input type="radio" value="EXCLUDE" id="ruleTypeEXCLUDE" name="ruleType" v-model="ruleType"> 
             <!-- <label for="ruleTypeEXCLUDE">EXCLUDE</label> -->
-            <input type="text" placeholder="Caratteri da escludere" :disabled="ruleType!='EXCLUDE'" v-model="textExclude">
+            <input type="text" placeholder="Exclude characters" :disabled="ruleType!='EXCLUDE'" v-model="textExclude">
         </div>
     </div>
 </template>
@@ -107,6 +107,14 @@ watch(()=>props.edgeId,async () => {
         border-radius: 1em;
         max-width: 25vw;
     }
+
+    @media screen and (orientation: portrait){
+        .edgeEditor{
+            width:auto;
+            max-width: 50vw;
+        }
+    };
+   
     input[type='radio'] {
         color: var(--accent);
         background-color: var(--background-alternative);
@@ -121,6 +129,7 @@ watch(()=>props.edgeId,async () => {
     input[type="text"]:disabled{
         opacity: 50%;
     }
+
     .section{
         margin-bottom: .2em;
         display: flex;
