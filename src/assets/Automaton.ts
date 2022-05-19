@@ -178,40 +178,40 @@ export class Automaton{
     }
 
     //CAVEAT: THIS METHOD MODIFIES THE AUTOMATON TROUGH SIDE-EFFECT
-    // findAMatch(){
-    //     if (this.nodes[this.initialNode].final===true){     //if the starting node is final return an empty string
-    //         return "";
-    //     }
-    //     let reached: Array<string> = [this.initialNode];
-    //     let reachedWith: Array<string> = [""];
-    //     return this.recursiveFindAMatch(reached, reachedWith); //the i-th node of reached has been reached with the i-th string of reachedWith
-    // }
+    findAMatch(){
+        if (this.nodes[this.initialNode].final===true){     //if the starting node is final return an empty string
+            return "";
+        }
+        const reached: Array<string> = [this.initialNode];
+        const reachedWith: Array<string> = [""];
+        return this.recursiveFindAMatch(reached, reachedWith); //the i-th node of reached has been reached with the i-th string of reachedWith
+    }
 
-    // recursiveFindAMatch(reached: Array<string>, reachedWith: Array<string>): string{
-    //     const temp = JSON.parse(JSON.stringify(reached));       //if at the end of the execution reached has not chenged, there is no match[*]
-    //     for (const key in this.edges){                                              //FOR EACH EDGE
-    //         const edge = JSON.parse(JSON.stringify(this.edges[key]));
-    //         if(reached.includes(edge.source) && !reached.includes(edge.target)){    //IF THE SOURCE HAS BEEN REACHED BUT NOT THE TARGET
-    //             this.edges.remove[key];                                             //(for efficiency the checked edges will be removed from the collection, hoping this wont mess the key-based loop)
-    //             for (const c of this.alphabet){                                     //LOOK FOR A CHARACTER TO CROSS IT
-    //                 if(this.checkTransition(edge.ruleType, edge.charset, c)){
-    //                     const index = reached.indexOf(edge.source);
-    //                     let s = reachedWith[index];
-    //                     if(this.nodes[edge.target].final===true){                   //if the edge can be crossed and leads to final, return the proper string
-    //                         return s+c;
-    //                     }
-    //                     reachedWith.push(s+c);                                      //if the edge can be crossed but doesn't lead to final update reached and reachedWith
-    //                     reached.push(edge.target);
-    //                     continue;
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     if(temp === reached){           //[*]
-    //         return "MATCH NOT FOUND";
-    //     }
-    //     return this.recursiveFindAMatch(reached, reachedWith);
-    // }
+    recursiveFindAMatch(reached: Array<string>, reachedWith: Array<string>): string{
+        const temp = JSON.parse(JSON.stringify(reached));       //if at the end of the execution reached has not chenged, there is no match[*]
+        for (const key in this.edges){                                              //FOR EACH EDGE
+            const edge = JSON.parse(JSON.stringify(this.edges[key]));
+            if(reached.includes(edge.source) && !reached.includes(edge.target)){    //IF THE SOURCE HAS BEEN REACHED BUT NOT THE TARGET
+                this.edges.remove[key];                                             //(for efficiency the checked edges will be removed from the collection, hoping this wont mess the key-based loop)
+                for (const c of this.alphabet){                                     //LOOK FOR A CHARACTER TO CROSS IT
+                    if(this.checkTransition(edge.ruleType, edge.charset, c)){
+                        const index = reached.indexOf(edge.source);
+                        const s = reachedWith[index];
+                        if(this.nodes[edge.target].final===true){                   //if the edge can be crossed and leads to final, return the proper string
+                            return s+c;
+                        }
+                        reachedWith.push(s+c);                                      //if the edge can be crossed but doesn't lead to final update reached and reachedWith
+                        reached.push(edge.target);
+                        continue;
+                    }
+                }
+            }
+        }
+        if(temp === reached){           //[*]
+            return "MATCH NOT FOUND";
+        }
+        return this.recursiveFindAMatch(reached, reachedWith);
+    }
 
 
     /*

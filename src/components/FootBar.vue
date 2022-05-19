@@ -5,7 +5,7 @@ import Action from './SquareButton.vue'
 import { parseList } from '@/assets/utilities'
 import { Nodes } from '@/assets/types'
 
-const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:animated", "update:alphabet", "update:determinism", "update:start", 'save', 'share', 'downloadSVG'])
+const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:animated", "update:alphabet", "update:determinism", "update:start", 'save', 'share', 'downloadSVG', 'findAMatch'])
 
 
 const props = defineProps<{
@@ -28,6 +28,10 @@ const inputText= ref("")
 function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value:any) {
     console.log(value)
     emits(`update:${variable}`, value)
+}
+
+function findAMatchFun(){
+    emits('findAMatch')
 }
 
 </script>
@@ -58,6 +62,9 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                     <div class="section">
                         <label for="animateCheckbox">Animate Evaluation</label>
                         <Toggle id="animateCheckbox" class="toggle" @change="updateValue('animated', animatedModel)" v-model="animatedModel" on-label="on" off-label="off"/>
+                    </div>
+                    <div>
+                        <button class="text-btn" @click="findAMatchFun()">Find a matching string</button>
                     </div>
                     <div class="section">
                         <Action icon="save" @click="$emit('save')"/>
@@ -198,7 +205,6 @@ input {
     input{
         width: 85vw;
         height: 10vh;
-        padding-bottom: 1vh;
     }
 };
 
@@ -276,6 +282,18 @@ input:focus-visible{
     border-color: var(--background);
     border-radius: 3px;
     width: 10em;
+}
+
+.text-btn{
+    position: relative;
+    left: 30%;
+    height: 5vh;
+    background-color: var(--rosso-sapienza);
+    border-radius: 1em;
+    border-style: solid;
+    border-color: black;
+    color: white;
+    transition: background var(--fast-animation) ease;
 }
 
 
