@@ -3,6 +3,7 @@
 - [x] Popup (vedi toaster.js https://www.npmjs.com/package/toaster-js) (F)
 - [x] link name in editNode (X)
 - [x] fix self-loops (X)
+- [ ] fix select nodes from mobile (X)
 #### Optional
 - [x] Random walk on graph (X)
 - [ ] match UI (F)
@@ -10,7 +11,7 @@
 - [ ] Footbar textfield should occupy the whole space (F)
 
 ## Server
-- [ ] vue -> save (cookies immagine) (X,M)
+- [1] vue -> save (cookies immagine) (X,M)
 - [ ] save -> hub (reindirizzamento) (M)
 - [ ] save form (chiedi nome) (M)
 - [ ] hub UI (X)

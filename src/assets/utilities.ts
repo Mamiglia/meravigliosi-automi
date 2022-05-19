@@ -24,11 +24,8 @@ export async function toClipboard(text: string) {
     await toClipboard(text);
 }
 
-const gzip = require('gzip-js') 
 export function zip(text: Parameters) :string {
-    console.log(JSON.stringify(text))
     const zipped = compress(text)
-    console.log(JSON.stringify(zipped))
     return JSON.stringify(zipped)
 }
 
@@ -36,7 +33,6 @@ export function unzip(zipped: string) : Parameters {
     return decompress(JSON.parse(zipped))
 
 }
-
 
 export function importParameters(url: string) : Parameters {
     const init : Parameters= {
@@ -71,20 +67,10 @@ export function importParameters(url: string) : Parameters {
     }
 }
 
-export function compressSVG(svg:string) {
-    const gzip = require('gzip-js'),
-	options = {
-		level: 7
-	};
-
-    return gzip.zip(svg, options)
-
-}
-
 export function downloadAsSvg(graph: VNetworkGraphInstance) {
     if (!graph) return
     // graph = unreactiveCopy(graph)
-    const text = compressSVG(graph.getAsSvg())
+    const text = graph.getAsSvg()
     // BUG: Le variabili CSS dei colori non sono portate dietro, l'immagine é brutta e buggata
     
     const url = URL.createObjectURL(new Blob([text], { type: "octet/stream" }))
