@@ -36,11 +36,12 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
     <div class="flex-container"> <!--Primo blocco-->
         <div class="sub-container1">
             <div class="popupMenu">
-                <Action icon="settings"/>
+                <Action icon="settings" />
                 <div class="settings">
                     <div class="section">
                         <label for="startNode">Starting node</label>
                         <select name="startNode" @change="updateValue('start', $event.target?.value)">
+                            <option disabled> </option>
                             <option v-for="n in Object.keys(nodes)" :key="n" :value="n">{{nodes[n].name}}</option>
                         </select>
                     </div>
