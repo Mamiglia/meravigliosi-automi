@@ -183,4 +183,8 @@ const eventHandlers: vNG.EventHandlers = {
   height: 90vh;
   width: 100%;
 }
+
+.toast.body.info{
+  background: blue;
+}
 </style>
