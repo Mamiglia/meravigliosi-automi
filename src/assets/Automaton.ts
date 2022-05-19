@@ -85,16 +85,16 @@ export class Automaton{
     async evaluate(myString: string, animated:boolean, determinism:boolean){
         for (const i of myString){
             if (!this.alphabet.includes(i)){
-                let t = new T.Toast("La stringa contiene caratteri non in alfabeto", T.Toast.TYPE_INFO);
+                let t = new T.Toast("The string contains characters that are not in the alphabet", T.Toast.TYPE_INFO);
                 return false;
             }
         }
         if (!this.validateEdges()){
-            let t = new T.Toast("Gli archi fanno riferimento a caratteri non presenti nell'alfabeto", T.Toast.TYPE_INFO);
+            let t = new T.Toast("Transitions refer to character that are not in the alphabet", T.Toast.TYPE_INFO);
             return false;
         }
         if (determinism && !this.isDeterministic()) {
-            let t = new T.Toast("L'automa non è deterministico ", T.Toast.TYPE_INFO);
+            let t = new T.Toast("The automaton in not deterministic", T.Toast.TYPE_INFO);
             return false
         }
         console.log(`animated: ${animated}`)

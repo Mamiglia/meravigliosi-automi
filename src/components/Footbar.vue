@@ -38,20 +38,16 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
         <Action icon="settings"/>
         <div class="settings">
             <div class="section">
-                <label for="startNode">Nodo Iniziale</label>
+                <label for="startNode">Starting node</label>
                 <select name="startNode" @change="updateValue('start', $event.target.value)">
                     <option v-for="n of Object.keys(nodes)" :value="n">{{nodes[n].name}}</option>
                 </select>
             </div>
             <div class="section">
                 <label for="alphabetInput">
-                    Alfabeto:&nbsp;
+                    Alphabet:&nbsp;
                 </label>
                 <input type="text" id="alphabetInput" placeholder="Alfabeto"  @input="updateValue('alphabet', alphabetModel)" v-model="alphabetInput">
-            </div>
-
-            <div class="section">
-                <!--Menù a tendina per scegliere il nodo iniziale-->
             </div>
             
             <div class="section">
@@ -75,7 +71,7 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
     <Action icon="commit"  @click="$emit('addEdge')"/>
     <input 
         type="text" 
-        placeholder="Inserisci la stringa da validare"
+        placeholder="Insert a string to validate"
         v-model="inputText"
         @keyup.enter="$emit('validate', inputText)"> <!--v-model associa la stringa nell'input alla variabile inputText-->
     <Action icon="skip_next" @click="$emit('validate', inputText)"/> <!--emette l'evento "validate" con associata la stringa in input-->
