@@ -99,3 +99,34 @@ export function downloadAsSvg(graph: VNetworkGraphInstance) {
 export function sample(arr: Array<any>) : any{
     return arr[Math.floor(Math.random()*arr.length)];
 }
+
+export function send(url:string, params:{[key:string]: string}) {
+    const form = document.createElement('form');
+    Object.keys(params).forEach((key)=>{
+      const field = document.createElement('input')
+      field.type= 'hidden'
+      field.name = key
+      field.value = params[key]
+      form.appendChild(field)
+    })
+    form.method = 'post';
+    form.action = url;
+    // let button = document.createElement('input')
+    // button.type = 'submit'
+    // button.click()
+    document.body.appendChild(form);
+    form.submit()
+}
+
+
+export function graphString(p :Parameters) : string{
+    /* parameters:
+    - nodes
+    - edges
+    - initialNode
+    - alphabet
+    - determinism
+    - layout
+  */
+  return encodeURI(zip(p))
+}

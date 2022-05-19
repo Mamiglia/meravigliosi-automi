@@ -6,8 +6,8 @@ import EdgeEditor from "./components/EdgeEditor.vue";
 import NodeEditor from "./components/NodeEditor.vue";
 import { Transition, Nodes, Edges, Parameters } from "./assets/types";
 import { Automaton } from "./assets/Automaton";
-import { unreactiveCopy, toClipboard, importParameters, downloadAsSvg, zip} from "./assets/utilities";
-import { networkGraphConfigs, palette } from "./assets/predefined";
+import { unreactiveCopy, toClipboard, importParameters, downloadAsSvg, graphString, send} from "./assets/utilities";
+import { networkGraphConfigs, palette, server } from "./assets/predefined";
 import * as vNG from "v-network-graph"
 
 const initialParams :Parameters = importParameters(window.location.search);
@@ -91,30 +91,17 @@ function validate(text:string){
   console.log(animated);
   console.log(automata.value.evaluate(text, animated.value, determinism.value));
 }
-
 function startTutorial(){
   console.log(automata.value.randomWalk())
   console.log(`Tutorial starts`);
 }
 
-function graphString(p :Parameters) : string{
-    /* parameters:
-    - nodes
-    - edges
-    - initialNode
-    - alphabet
-    - determinism
-    - layout
-  */
-  return encodeURI(zip(p))
-}
 function share(params :Parameters) {
   let url = window.location.hostname + ":" + window.location.port + "?graph=" + graphString(params)
   toClipboard(encodeURI(url));
 }
 function save(params:Parameters, graph: vNG.VNetworkGraphInstance) {
-  sessionStorage.setItem('graph', graph.getAsSvg())
-  window.location.href = `http://localhost:3000/public/save.php?graph=${graphString(params)}}`;
+  send(server.save, {'thumbnail': graph.getAsSvg(), 'graph':graphString(params)})
 }
 
 watch(params,()=>{

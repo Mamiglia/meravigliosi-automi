@@ -40,7 +40,7 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                 <div class="settings">
                     <div class="section">
                         <label for="startNode">Starting node</label>
-                        <select name="startNode" @change="updateValue('start', $event.target.value)">
+                        <select name="startNode" @change="updateValue('start', $event.target?.value)">
                             <option v-for="n in Object.keys(nodes)" :key="n" :value="n">{{nodes[n].name}}</option>
                         </select>
                     </div>

@@ -7,15 +7,18 @@
     <title>Save Automa</title>
 </head>
 <body>
+    <h1>Do you want to save this Automa?</h1>
     <?php
     //import ?? 
         $dbconn = pg_connect("host=localhost port=5432 dbname=automi user=postgres password=hub")
         or die("Connessione non riuscita: " . pg_last_error());
 
-        $graph = $_GET['graph'];
-        $thumbnail_param = $_GET['thumbnail'];
-        $thumbnail = pg_escape_string($thumbnail_param);
-       // echo "<p>{$graph}</p>";
+        $graph = $_POST['graph'];
+        $thumbnail = $_POST['thumbnail'];
+
+
+        echo "<div class=\"thumbnail\">$thumbnail</div>";
+        echo "<p>$graph</p>";
        // echo "{$thumbnail}";
        // echo "<p>{$thumbnail_param}</p>";g
         $name = "pippo12"; //Var temporanea 

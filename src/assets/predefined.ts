@@ -1,5 +1,11 @@
 //  reference: https://dash14.github.io/v-network-graph/reference.html#configurations
-import { defineConfigs, GridLayout } from "v-network-graph"
+import { defineConfigs } from "v-network-graph"
+
+export const server = {
+    hub: "http://localhost:3000/public/hub.php",
+    save: "http://localhost:3000/public/save.php"
+}
+
 
 export const networkGraphConfigs = defineConfigs({
     view : {
