@@ -33,7 +33,55 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
 </script>
 
 <template>
-<div id="footer">
+    <div class="flex-container"> <!--Primo blocco-->
+        <div class="sub-container1">
+            <div class="popupMenu">
+                <Action icon="settings"/>
+                <div class="settings">
+                    <div class="section">
+                        <label for="startNode">Starting node</label>
+                        <select name="startNode" @change="updateValue('start', $event.target.value)">
+                            <option v-for="n of Object.keys(nodes)" :value="n">{{nodes[n].name}}</option>
+                        </select>
+                    </div>
+                    <div class="section">
+                        <label for="alphabetInput">
+                            Alphabet:&nbsp;
+                        </label>
+                        <input type="text" id="alphabetInput" placeholder="Alfabeto"  @input="updateValue('alphabet', alphabetModel)" v-model="alphabetInput">
+                    </div>
+                    
+                    <div class="section">
+                        <label for="determinismCheckbox">Determinstic Automa</label>
+                        <Toggle id="determinismCheckbox" class="toggle" @change="updateValue('determinism', determinismModel)" v-model="determinismModel" on-label="on" off-label="off"/>
+                    </div>
+                    <div class="section">
+                        <label for="animateCheckbox">Animate Evaluation</label>
+                        <Toggle id="animateCheckbox" class="toggle" @change="updateValue('animated', animatedModel)" v-model="animatedModel" on-label="on" off-label="off"/>
+                    </div>
+                    <div class="section">
+                        <Action icon="save" @click="$emit('save')"/>
+                        <Action icon="share" @click="$emit('share')"/>
+                        <Action icon="image" @click="$emit('downloadSVG')"/> 
+                    </div>
+                </div>
+            </div>
+            <div> <Action icon="delete_forever"  @click="$emit('remove')"/></div>
+            <div><Action icon="add_circle"  @click="$emit('addNode')"/></div>
+        </div>
+
+        <div claSS="sub-container2"> <!--Secondo blocco-->
+            <input
+            type="text" 
+            placeholder="Insert a string to validate"
+            v-model="inputText"
+            @keyup.enter="$emit('validate', inputText)"> 
+            <Action icon="skip_next" @click="$emit('validate', inputText)"/>
+        </div>
+    </div>
+
+
+<!--<div id="footer">
     <div class="popupMenu">
         <Action icon="settings"/>
         <div class="settings">
@@ -63,7 +111,6 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                 <Action icon="share" @click="$emit('share')"/>
                 <Action icon="image" @click="$emit('downloadSVG')"/> 
             </div>
-            <!-- Altro? -->
         </div>
     </div>
     <Action icon="delete_forever"  @click="$emit('remove')"/>
@@ -73,9 +120,10 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
         type="text" 
         placeholder="Insert a string to validate"
         v-model="inputText"
-        @keyup.enter="$emit('validate', inputText)"> <!--v-model associa la stringa nell'input alla variabile inputText-->
-    <Action icon="skip_next" @click="$emit('validate', inputText)"/> <!--emette l'evento "validate" con associata la stringa in input-->
-</div>
+        @keyup.enter="$emit('validate', inputText)"> 
+    <Action icon="skip_next" @click="$emit('validate', inputText)"/>
+</div>-->
+
 </template>
 
 <style scoped>
@@ -92,13 +140,40 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
     background-color: var(--background-alternative);
 }
 
-/*@media screen and (max-width: 768px){
-    footer{
-        position: fixed;
-        width: 100%;
-        height: 50%;
+.flex-container{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 90vh;
+    width: 100vw;
+    display:flex;
+    flex-direction: row;
+    background-color: var(--background-alternative);
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+@media screen and (orientation: portrait){
+    .flex-container{
+        top: 80vh;
     }
-};*/
+};
+
+.sub-container1{
+    display: flex;
+    width: 50vw;
+    bottom: 0;
+    flex-direction: row;
+    justify-content: space-around;
+    background-attachment: green;
+}
+
+.sub-container2{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    background-attachment: green;
+}
 
 input {
     width: 100%;
@@ -108,6 +183,13 @@ input {
     font-size: 1.3em;
     transition: background var(--normal-animation) ease-out;
 }
+
+@media screen and (orientation: portrait){
+    input{
+        width: 80%;
+        padding-bottom: 1vh;
+    }
+};
 
 input:hover{
     background-color: var(--background-alternative);
@@ -141,6 +223,7 @@ input:focus-visible{
 @media screen and (orientation: portrait){
     .popupMenu>.settings{
         position: fixed;
+        left: 0;
         width: 100%;
         height: 50%;
     }
