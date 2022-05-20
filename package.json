@@ -1,11 +1,13 @@
 {
   "name": "meravigliosi-automi",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@vue/cli": "^5.0.4",
@@ -36,6 +38,7 @@
     "@vue/eslint-config-typescript": "^10.0.0",
     "eslint": "^8.15.0",
     "eslint-plugin-vue": "^8.7.1",
+    "gh-pages": "^4.0.0",
     "typescript": "~4.6.4"
   },
   "eslintConfig": {
@@ -58,5 +61,6 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ]
+  ],
+  "homepage": "http://mamiglia.github.io/meravigliosi-automi"
 }
