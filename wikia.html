@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <title>Wiki</title>
+    </head>
+    <body>
+        <h2>Meravigliosi automi - A quick guide</h2>
+        <h3>"That strange glyph in the main page doesn't seem an automaton"</h3>
+        <p>
+            If this is what you think you're in the rigth place.<br>
+            According with that crazy geeks that IS an automaton (and according to the authors a WONDERFUL one),
+            more specifically that is called a finite state automaton or finite state machine (less fancy, so we'll go for the first).<br>
+        </p>
+        <p>
+            Here is the technical definition:<br>
+            <br>
+            A finite state automaton is a chimera whose parts are:
+            <ul>
+            <li>a set of states;</li>
+            <li>a starting state;</li>
+            <li>a set of final states;</li>
+            <li>an alphabet;</li>
+            <li>a transiction function;</li>
+            <li>probably a bit of student's frustation.</li>
+            </ul>
+        </p>
+        <h3>"I didn't understand the technical definition"</h3>
+        <p>
+            That's what techical definitions are for. Let's try with something more operational.<br>
+            When using an automaton you will have a string
+            (a sequence of character, like a word though it doesn't have to appear in any dictionary).
+            Let's say our string is "abc".<br>
+            Now close you're eyes (okay, not literally) and imagine you're working on paper,
+            that's what students did in ancient times when this WONDERFUL site wasn't yet invented.<br>
+            So you put your finger on one of the circles you had drown, your starting state,
+            and you consider the first character of your string "a".<br>
+            If there is an arrow that lead from the state with your finger to another circle
+            and that arrow is labelled with "a" *, you move the finger to the other circle.
+            Now you can repeat with b.<br>
+            The target is that after the last letter your finger is pointing one of the final states (circles).<br>
+            <br>
+            *) Things can be just a little different...
+            <br>
+            1) Actually the label could be something more complicated like:
+                <li>"a,c": you can cross the arrow with letter "a" or "c";</li>
+                <li>"not c,not d": you can cross the arrow with any character of the alphabet that is not "c" and not "d";</li>
+                <li>"*": you can cross the arrow with any character of the alphabet.</li>
+            2) It can also happen that more then one outgoing arrows are labelled with a rule matching with
+            the current character. Congratulations, you've found a non deterministic automaton,
+            it means that from some states with the same character you reach more then one states.
+            Good luck with the finger twister (or you can use this WONDERFUL site).<br>
+            3) If there are not arrows percorrible with the current character you lost,
+            the string is rejected by the automaton.
+            You also lose if you run out of characters while being in a not final state.<br>
+            <br>
+            For the sake of completeness the "transiction function" in the technical definition is
+            actually a collection of transictions represented by the arrows, more often called edges or archs.<br>
+            It's a complex word for a simple concept, it just tell you
+            "if you are in state x and have letter y you move in state z".
+        </p>
+        <h3>"What's all this sufference for?"</h3>
+        <p>
+            Stuff, belive me, and mitigate greater pains.
+        </p>
+        <h3>"Just tell me how to use the site"</h3>
+        <p>
+            You can add states with icon (1), and while selecting two states you can add an edge with icon (2).<br>
+            You can also discard a selected element with icon (3).<br>
+            By selecting a state you can set its label and set it as final.<br>
+            By selecting an edge you can set the rule to cross it.<br>
+            <br>
+            In the option panel (icon (4)) you can:
+            <li>select the starting node;</li>
+            <li>set the alphabet (a set of comma separated characters);</li>
+            <li>choose if you want to check that the automaton is deterministic (it will be performed during evaluation, see further);</li>
+            <li>choose if you want to see a little animation during evaluation (see further);</li>
+            <li>load your wonderful automaton in the hub;</li>
+            <li>share your automaton with your fellow frustrated friends;</li>
+            <li>save a thumbnail of your automaton;</li>
+            <li>generate a random matching string (cool isn't it?);</li>
+            <li>erase the automaton (how you dare, it was wonderful).</li>
+            Last but not least, you can write a string in the footbar and click on the icon to evaluate it with your atomaton.<br>
+            <br>
+            In the sidemenu you will find a link to the source code
+            and to the hub where you can share your works with the community.<br>
+            <br>
+            Now go, start creating wonderful automata!
+        </p>
+        <h3>Credits</h3>
+        <p>
+            Do you really care? Awww thanks : )<br>
+            A group if student from La Sapienza University of Rome.
+        </p>
+    </body>
+</html>
+
