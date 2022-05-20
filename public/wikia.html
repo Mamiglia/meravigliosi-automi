@@ -7,13 +7,10 @@
         <link rel="icon" href="<%= BASE_URL %>favicon.ico">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <title>Wiki</title>
-        <script lang="ts">
-            import Action from "../src/components/SquareButton.vue";
-        </script>
     </head>
     <body> 
         <h2>
-            <img src="..\src\assets\logo2.png">
+            <img src=".\logo2.png">
             Meravigliosi automi - A quick guide
         </h2>
         <h3>"That strange glyph in the main page doesn't seem an automaton"</h3>
@@ -77,7 +74,7 @@
         </p>
         <h3>"Just tell me how to use the site"</h3>
         <p>
-            You can add states with icon (1) <Action icon="done"/>, and while selecting two states you can add an edge with icon (2).<br>
+            You can add states with icon (1) <button class='btn'> <span class="material-icons" icon="done"></span> </button>, and while selecting two states you can add an edge with icon (2).<br>
             You can also discard a selected element with icon (3).<br>
             By selecting a state you can set its label and set it as final.<br>
             By selecting an edge you can set the rule to cross it.<br>
