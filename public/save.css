@@ -45,6 +45,7 @@ input[type="text"] {
     background: var(--background-alternative);
     border: solid var(--background-alternative);
     border-radius: 3px;
+    outline: none;
 }
 input[type="submit"] {
     background-color: var(--accent);

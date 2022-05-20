@@ -1,3 +1,4 @@
+// File for memory and data-persistence related functions
 import { Parameters } from "./types";
 import { send, toClipboard, unzip } from "./utilities";
 import { server } from "./predefined";
