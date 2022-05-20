@@ -42,7 +42,7 @@
         } else if (isset($graph) and isset($thumbnail)) {
             display_confirm($graph, $thumbnail);
         } else {
-            echo "<h1>ERROR</h1><p>No save data was found</p>";
+            echo "<h2>ERROR</h2><p>No save data was found</p>";
         }
 
 

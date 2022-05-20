@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import { server } from '@/assets/predefined'
 import { ref , defineEmits} from 'vue'
 import Toggle from '@vueform/toggle'
 
@@ -20,10 +20,9 @@ const hasFocus = ref(true)
         <!--<li><a href="https://it.wikipedia.org/wiki/Automa_(informatica)">Wiki</a></li>-->
         <li><a href=".\wikia.html">Wiki</a></li>
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
-        <li><a href="http://localhost:3000/public/hub.php">Hub</a></li> <!--Non mi trova l'hub.php / per l'importazione di dati provo ad aggiungere un action-->        
+        <li><a :href="server.hub">Hub</a></li> <!--Non mi trova l'hub.php / per l'importazione di dati provo ad aggiungere un action-->        
         <br>
-        <li>Dark/Ligth mode<Toggle id="animateCheckbox" class="toggle" /></li>
-        <li></li>
+        <li>Dark/Light mode<Toggle id="themeCheckbox" class="toggle" /></li>
     </ul>
     <span></span>
     <button type="button" @click="hasFocus=false" >start ></button>

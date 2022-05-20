@@ -179,7 +179,7 @@ export class Automaton{
 
     //CAVEAT: THIS METHOD MODIFIES THE AUTOMATON TROUGH SIDE-EFFECT
     findAMatch(){
-        let res = this.randomWalk()
+        const res = this.randomWalk()
         new T.Toast(res, T.Toast.TYPE_DONE)
         return res
 

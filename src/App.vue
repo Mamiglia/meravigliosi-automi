@@ -6,11 +6,13 @@ import EdgeEditor from "./components/EdgeEditor.vue";
 import NodeEditor from "./components/NodeEditor.vue";
 import { Transition, Nodes, Edges, Parameters } from "./assets/types";
 import { Automaton } from "./assets/Automaton";
-import { unreactiveCopy, toClipboard, importParameters, downloadAsSvg, graphString, send} from "./assets/utilities";
-import { networkGraphConfigs, palette, server } from "./assets/predefined";
+import { unreactiveCopy} from "./assets/utilities";
+import { graphString, downloadAsSvg } from "./assets/graph";
+import { readParams, save, share } from "./assets/memory";
+import { networkGraphConfigs, palette } from "./assets/predefined";
 import * as vNG from "v-network-graph"
 
-const initialParams :Parameters = importParameters(window.location.search);
+const initialParams :Parameters = readParams(window.location.search);
 const nodes : Nodes = reactive(initialParams.nodes);
 const edges : Edges = reactive(initialParams.edges);
 const selectedNodes = ref<string[]>([]);
@@ -66,7 +68,6 @@ function remove() {
 
 function addEdge(src:string, trgt?:string) {
   // currently edgeID can be assigned to an already existing ID, causing problems
-  // let edgeId  = edges.length
   if (trgt==undefined)
     trgt = src
 
@@ -84,17 +85,7 @@ function addEdge(src:string, trgt?:string) {
 function validate(text:string){
   console.log(`validate: ${text}`);
   console.log(automata.value.toString());
-  console.log(animated);
-  console.log(automata.value.evaluate(text, animated.value, determinism.value));
-}
-
-
-function share(params :Parameters) {
-  let url = window.location.hostname + ":" + window.location.port + "?graph=" + graphString(params)
-  toClipboard(encodeURI(url));
-}
-function save(params:Parameters, graph: vNG.VNetworkGraphInstance) {
-  send(server.save, {'thumbnail': graph.getAsSvg(), 'graph':graphString(params)})
+  automata.value.evaluate(text, animated.value, determinism.value);
 }
 
 watch(params,()=>{
@@ -141,10 +132,7 @@ const eventHandlers: vNG.EventHandlers = {
       </template>
     </v-network-graph>
     <EdgeEditor v-if="selectedEdge.length !== 0" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
-    <NodeEditor v-else-if="selectedNodes.length === 1" :node-id="selectedNodes[0]" v-model="nodes[selectedNodes[0]]"/>
-    <!--<Popup v-if="selectedEdge.length === 0 && selectedNodes.length === 0" /> Questa riga andrà rimossa/cambiata-->
-
-  </div>
+    <NodeEditor v-else-if="selectedNodes.length === 1" :node-id="selectedNodes[0]" v-model="nodes[selectedNodes[0]]"/>  </div>
   <Footbar
     @validate="(text:string)=>validate(text)"
     @addNode="addNode()"

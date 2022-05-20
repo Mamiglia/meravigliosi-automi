@@ -1,5 +1,8 @@
 import { Parameters } from "./types";
-import { zip, unzip } from "./utilities";
+import { send, toClipboard, unzip } from "./utilities";
+import { server } from "./predefined";
+import { graphString } from "./graph";
+import { VNetworkGraphInstance } from "v-network-graph";
 
 export function readParams(url: string) : Parameters {
     const init : Parameters= {
@@ -26,6 +29,16 @@ export function readParams(url: string) : Parameters {
         return init
     }
 }
+
+export function share(params :Parameters) {
+    const url = window.location.hostname + ":" + window.location.port + "?graph=" + graphString(params)
+    toClipboard(encodeURI(url));
+}
+
+export function save(params:Parameters, graph: VNetworkGraphInstance) {
+    send(server.save, {'thumbnail': graph.getAsSvg(), 'graph':graphString(params)})
+}
+  
 
 export function reset() {
     localStorage.removeItem('graph');
