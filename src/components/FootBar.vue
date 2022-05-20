@@ -66,7 +66,7 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                         <button class="text-btn" @click="$emit('findAMatch')">Find a matching string</button>
                     </div> -->
                     <div class="section">
-                        <Action icon="save" @click="$emit('save')"/>
+                        <!-- <Action icon="save" @click="$emit('save')"/> -->
                         <Action icon="share" @click="$emit('share')"/>
                         <Action icon="image" @click="$emit('downloadSVG')"/>
                         <Action icon="sort_by_alpha" @click="$emit('findAMatch')"/>
