@@ -127,7 +127,17 @@ body, html {
   --toggle-border: .2rem;
   font-family: 'Courier New', Courier, monospace;
 }
-/* 
+
+
 .toast>.body.info{
-  background-color: var(--accent);
-} */
+  background-color: var(--white-ish);
+  top: 0;
+  left: auto;
+  right: auto;
+  opacity: 0.8;
+  color: var(--color-text);
+  border-radius: 1em;
+  border-style: solid;
+  border-color: var(--rosso-sapienza);
+  text-align: center;
+} 
