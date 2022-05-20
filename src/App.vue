@@ -88,9 +88,6 @@ function validate(text:string){
   console.log(automata.value.evaluate(text, animated.value, determinism.value));
 }
 
-function findAMatch(){
-  console.log("INSERIRE UNA FUNZIONE DI MATCHING IN APP.VUE");
-}
 
 function share(params :Parameters) {
   let url = window.location.hostname + ":" + window.location.port + "?graph=" + graphString(params)
@@ -156,7 +153,7 @@ const eventHandlers: vNG.EventHandlers = {
     @save="save(params, graph)"
     @share="share(params)"
     @download-s-v-g="downloadAsSvg(graph)"
-    @findAMatch="findAMatch()"
+    @findAMatch="automata.findAMatch()"
     v-model:determinism="determinism"
     v-model:alphabet="alphabet"
     v-model:animated="animated"

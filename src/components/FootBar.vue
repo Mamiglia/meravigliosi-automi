@@ -31,10 +31,6 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
     emits(`update:${variable}`, value)
 }
 
-function findAMatchFun(){
-    emits('findAMatch')
-}
-
 </script>
 
 <template>
@@ -66,7 +62,7 @@ function findAMatchFun(){
                         <Toggle id="animateCheckbox" class="toggle" @change="updateValue('animated', animatedModel)" v-model="animatedModel" on-label="on" off-label="off"/>
                     </div>
                     <div>
-                        <button class="text-btn" @click="findAMatchFun()">Find a matching string</button>
+                        <button class="text-btn" @click="$emit('findAMatch')">Find a matching string</button>
                     </div>
                     <div class="section">
                         <Action icon="save" @click="$emit('save')"/>

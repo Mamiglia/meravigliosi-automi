@@ -127,3 +127,7 @@ body, html {
   --toggle-border: .2rem;
   font-family: 'Courier New', Courier, monospace;
 }
+/* 
+.toast>.body.info{
+  background-color: var(--accent);
+} */
