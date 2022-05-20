@@ -17,7 +17,9 @@
             // DO THE MAGIC HERE
             $query = "INSERT INTO automa(nome, grafo, immagine)
                     VALUES ($1,$2,$3)"; //Inserisco l'automa dentro il DB
-            $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail)); 
+            $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail));
+            echo "<h1>Salvataggio eseguito correttamente</h1>";
+            header("Location: hub.php");
         }
 
         function display_confirm($graph, $thumbnail) {

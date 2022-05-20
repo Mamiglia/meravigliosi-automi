@@ -1,4 +1,4 @@
-//  reference: https://dash14.github.io/v-network-graph/reference.html#configurations
+// File for predefined constants
 import { defineConfigs } from "v-network-graph"
 
 export const server = {
@@ -7,6 +7,7 @@ export const server = {
 }
 
 
+//  reference: https://dash14.github.io/v-network-graph/reference.html#configurations
 export const networkGraphConfigs = defineConfigs({
     view : {
         zoomEnabled: false,
