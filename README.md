@@ -7,15 +7,15 @@
 - [x] fix select nodes from mobile (X)
 #### Optional
 - [x] Random walk on graph (X)
-- [ ] match UI (F)
+- [x] match UI (F)
 - [ ] customizzare popup (F)
 - [ ] Footbar textfield should occupy the whole space (F)
 
 ## Server
 - [x] vue -> save (cookies immagine) (X,M)
-- [ ] save -> hub (reindirizzamento) (M)
+- [x] save -> hub (reindirizzamento) (M)
 - [x] save form (chiedi nome) (M)
-- [ ] hub UI (X)
+- [x] hub UI (X)
 - [x] save UI (X)
 - [ ] save: gestione errore (M)
 #### Optional
