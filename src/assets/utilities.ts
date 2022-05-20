@@ -37,7 +37,7 @@ export function unzip(zipped: string) : Parameters {
 export function importParameters(url: string) : Parameters {
     const init : Parameters= {
         nodes: {"0":{"name":"0"},"1":{"name":"1"},"2":{"name":"2"},"3":{"name":"3","final":true}},
-        edges :{"edge0":{"source":"0","target":"1","label":"a","ruleType":"INCLUDE","charset":["a"]},"edge1":{"source":"0","target":"2","label":"b","ruleType":"INCLUDE","charset":["b"]},"edge2":{"source":"2","target":"0","label":"b","ruleType":"INCLUDE","charset":["b"]},"edge3":{"source":"1","target":"0","label":"a","ruleType":"INCLUDE","charset":["a"]},"edge4":{"source":"0","target":"3","label":"c","ruleType":"INCLUDE","charset":["c"]}},
+        edges :{"0":{"source":"0","target":"1","label":"a","ruleType":"INCLUDE","charset":["a"]},"1":{"source":"0","target":"2","label":"b","ruleType":"INCLUDE","charset":["b"]},"2":{"source":"2","target":"0","label":"b","ruleType":"INCLUDE","charset":["b"]},"3":{"source":"1","target":"0","label":"a","ruleType":"INCLUDE","charset":["a"]},"4":{"source":"0","target":"3","label":"c","ruleType":"INCLUDE","charset":["c"]}},
         alphabet: ["a","b","c"],
         initial: "0",
         determinism: true,

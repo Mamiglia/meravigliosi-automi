@@ -15,8 +15,8 @@ const nodes : Nodes = reactive(initialParams.nodes);
 const edges : Edges = reactive(initialParams.edges);
 const selectedNodes = ref<string[]>([]);
 const selectedEdge = ref<string[]>([]);
-const nextNodeIndex = ref(Object.keys(nodes).length )
-const nextEdgeIndex = ref(Object.keys(edges).length );
+const nextNodeIndex = ref(Math.max(...Object.keys(nodes).map((k)=>parseInt(k))) + 1)
+const nextEdgeIndex = ref(Math.max(...Object.keys(edges).map((k)=>parseInt(k))) + 1);
 const initialNode = ref(initialParams.initial);
 const alphabet = ref<string[]>(initialParams.alphabet)
 const animated = ref(true)
@@ -56,12 +56,9 @@ function addNode() {
 }
 /* removes any selected node or edge */
 function remove() { 
-  console.log("remove")    
-  //delete selected nodes
   for (let nodeId of selectedNodes.value) {
     delete nodes[nodeId]
   }
-
   for (let edgeID of selectedEdge.value) {
     delete edges[edgeID]
   }
@@ -72,7 +69,6 @@ function addEdge(src:string, trgt?:string) {
   // let edgeId  = edges.length
   if (trgt==undefined)
     trgt = src
-  let edgeId = `edge${nextEdgeIndex.value}`
 
   let newEdge :Transition = {
     source:src,
@@ -81,7 +77,7 @@ function addEdge(src:string, trgt?:string) {
     ruleType: "ALL",
     charset: [],
   }
-  edges[edgeId] = newEdge
+  edges[nextEdgeIndex.value] = newEdge
   nextEdgeIndex.value++
 }
 
@@ -90,10 +86,6 @@ function validate(text:string){
   console.log(automata.value.toString());
   console.log(animated);
   console.log(automata.value.evaluate(text, animated.value, determinism.value));
-}
-function startTutorial(){
-  console.log(automata.value.randomWalk())
-  console.log(`Tutorial starts`);
 }
 
 function findAMatch(){
@@ -131,7 +123,6 @@ const eventHandlers: vNG.EventHandlers = {
 
 <template>
 <Sidemenu
-  @startTutorial = "startTutorial()"
 />
 <div>
   <div id="worksheet">
