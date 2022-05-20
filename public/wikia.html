@@ -6,11 +6,12 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <link rel="icon" href="<%= BASE_URL %>favicon.ico">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="./wikia.css">
         <title>Wiki</title>
     </head>
-    <body> 
+    <body>
+        <a href="./index.html"><img class="logo" src="./logo2.png"></a>
         <h2>
-            <img src=".\logo2.png">
             Meravigliosi automi - A quick guide
         </h2>
         <h3>"That strange glyph in the main page doesn't seem an automaton"</h3>
@@ -29,7 +30,7 @@
             <li>a set of final states;</li>
             <li>an alphabet;</li>
             <li>a transiction function;</li>
-            <li>probably a bit of student's frustation.</li>
+            <li>probably a bit of students' frustation.</li>
             </ul>
         </p>
         <h3>"I didn't understand the technical definition"</h3>
@@ -47,7 +48,7 @@
             Now you can repeat with "b", and so on.<br>
             The target is that after the last letter ("c" in this example) your finger should be pointing one of the final states.<br>
             <br>
-            *) Things can be just a little different...
+            *) Things can be just a little different...<br>
             <br>
             1) Actually the label could be something more complicated like:
                 <li>"a,c": you can cross the arrow with letter "a" or "c";</li>
@@ -74,28 +75,30 @@
         </p>
         <h3>"Just tell me how to use the site"</h3>
         <p>
-            You can add states with icon (1) <button class='btn'> <span class="material-icons" icon="done"></span> </button>, and while selecting two states you can add an edge with icon (2).<br>
-            You can also discard a selected element with icon (3).<br>
-            By selecting a state you can set its label and set it as final.<br>
-            By selecting an edge you can set the rule to cross it.<br>
+            <li>You can add states with icon
+                <span class="material-icons"> add_circle </span>,
+            and while selecting two states you can add an edge with icon <span class="material-icons"> commit </span>.</li>
+            <li>You can also discard a selected element with icon <span class="material-icons"> delete_forever </span>.</li>
+            <li>By selecting a state you can set its label and set it as final.</li>
+            <li>By selecting an edge you can set the rule to cross it (use comma separated characters).</li>
             <br>
-            In the option panel (icon (4)) you can:
+            In the option panel <span class="material-icons"> settings </span> you can:
             <li>select the starting node;</li>
             <li>set the alphabet (a set of comma separated characters);</li>
             <li>choose if you want to check that the automaton is deterministic (it will be performed during evaluation, see further);</li>
             <li>choose if you want to see a little animation during evaluation (see further);</li>
-            <li>load your wonderful automaton in the hub;</li>
-            <li>share your automaton with your fellow frustrated friends;</li>
-            <li>save a thumbnail of your automaton;</li>
-            <li>generate a random matching string (cool isn't it?);</li>
-            <li>erase the automaton (how you dare, it was wonderful).</li>
+            <li>load your wonderful automaton in the hub <span class="material-icons"> save </span>;</li>
+            <li>share your automaton with your fellow frustrated friends <span class="material-icons"> share </span>;</li>
+            <li>save a thumbnail of your automaton <span class="material-icons"> image </span>;</li>
+            <li>generate a random matching string (cool isn't it?) <span class="material-icons"> sort_by_alpha </span>;</li>
+            <li>clear the worksheet (how you dare, that automon was wonderful!) <span class="material-icons"> clear </span>.</li>
             <br>
-            Last but not least, you can write a string in the footbar and click on the icon to evaluate it with your atomaton.<br>
+            <li>Last but not least, you can write a string in the footbar and click on <span class="material-icons"> skip_next </span> to evaluate it with your atomaton.</li>
             <br>
             In the sidemenu you will find a link to the source code
-            and to the hub where you can share your works with the community.<br>
+            and to the hub where you can share your creations with the community.<br>
             <br>
-            Now go, start creating wonderful automata!
+            Now go, <a href="./index.html">start creating wonderful automata!</a>
         </p>
         <h3>Credits</h3>
         <p>
@@ -105,8 +108,10 @@
             Matteo Miletta<br>
             Flavia Ricci<br>
             <br>
-            A group of students from La Sapienza University of Rome.
+            A group of students from La Sapienza University of Rome.<br>
+            <br>
+            A special thanks to dash14 for his REALLY WONDERFUL library v-network-graph.<br>
+            No seriously, also fixed a bug for us. <a href="https://dash14.github.io/v-network-graph/">Here</a> you find the repository.
         </p>
     </body>
 </html>
-
