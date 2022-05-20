@@ -4,6 +4,7 @@ import Toggle from '@vueform/toggle'
 import Action from './SquareButton.vue'
 import { parseList } from '@/assets/utilities'
 import { Nodes } from '@/assets/types'
+import { reset } from '@/assets/memory'
 
 const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:animated", "update:alphabet", "update:determinism", "update:start", 'save', 'share', 'downloadSVG', 'findAMatch'])
 
@@ -41,8 +42,8 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                 <div class="settings">
                     <div class="section">
                         <label for="startNode">Starting node</label>
-                        <select name="startNode" @change="updateValue('start', $event.target?.value)">
-                            <option disabled> </option>
+                        <select name="startNode" @change="updateValue('start', $event.target!.value)">
+                            <option disabled value="null"> </option>
                             <option v-for="n in Object.keys(nodes)" :key="n" :value="n">{{nodes[n].name}}</option>
                         </select>
                     </div>
@@ -61,13 +62,15 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                         <label for="animateCheckbox">Animate Evaluation</label>
                         <Toggle id="animateCheckbox" class="toggle" @change="updateValue('animated', animatedModel)" v-model="animatedModel" on-label="on" off-label="off"/>
                     </div>
-                    <div>
+                    <!-- <div>
                         <button class="text-btn" @click="$emit('findAMatch')">Find a matching string</button>
-                    </div>
+                    </div> -->
                     <div class="section">
                         <Action icon="save" @click="$emit('save')"/>
                         <Action icon="share" @click="$emit('share')"/>
-                        <Action icon="image" @click="$emit('downloadSVG')"/> 
+                        <Action icon="image" @click="$emit('downloadSVG')"/>
+                        <Action icon="sort_by_alpha" @click="$emit('findAMatch')"/>
+                        <Action icon="clear" @click="reset()" />
                     </div>
                 </div>
             </div>
