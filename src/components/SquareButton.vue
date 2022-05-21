@@ -17,8 +17,9 @@ defineProps({
 
 <style scoped>
 button {
-    aspect-ratio: 1/1;
     height: 100%;
+    max-width: 25vw;
+    aspect-ratio: 1/1;
     max-height: 20vh;
     background-color: var(--background-alternative);
     border-style: none;
