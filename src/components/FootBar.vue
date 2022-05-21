@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref , defineEmits, defineProps, computed} from 'vue'
-import Toggle from '@vueform/toggle'
-import Action from './SquareButton.vue'
+import Toggle from '@vueform/toggle/src/Toggle'
+import SquareButton from './SquareButton.vue'
 import { parseList } from '@/assets/utilities'
 import { Nodes } from '@/assets/types'
 import { reset } from '@/assets/memory'
@@ -37,7 +37,7 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
 <template>
     <div id="footer"> <!--Primo blocco-->
             <div class="popupMenu" :show="show">
-                <Action icon="settings" @click="show = !show" />
+                <SquareButton icon="settings" @click="show = !show" />
                 <div class="settings">
                     <div class="section">
                         <label for="startNode">Starting node</label>
@@ -65,30 +65,30 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                         <button class="text-btn" @click="$emit('findAMatch')">Find a matching string</button>
                     </div> -->
                     <div class="section">
-                        <!-- <Action icon="save" @click="$emit('save')"/> -->
-                        <Action icon="share" @click="$emit('share')"/>
-                        <Action icon="image" @click="$emit('downloadSVG')"/>
-                        <Action icon="sort_by_alpha" @click="$emit('findAMatch')"/>
-                        <Action icon="clear" @click="reset()" />
+                        <!-- <SquareButton icon="save" @click="$emit('save')"/> -->
+                        <SquareButton icon="share" @click="$emit('share')"/>
+                        <SquareButton icon="image" @click="$emit('downloadSVG')"/>
+                        <SquareButton icon="sort_by_alpha" @click="$emit('findAMatch')"/>
+                        <SquareButton icon="clear" @click="reset()" />
                     </div>
                 </div>
             </div>
-            <Action icon="delete_forever"  @click="$emit('remove')"/>
-            <Action icon="add_circle"  @click="$emit('addNode')"/>
-            <Action icon="commit"  @click="$emit('addEdge')"/>
+            <SquareButton icon="delete_forever"  @click="$emit('remove')"/>
+            <SquareButton icon="add_circle"  @click="$emit('addNode')"/>
+            <SquareButton icon="commit"  @click="$emit('addEdge')"/>
 
             <input
             type="text"
             placeholder="Insert a string to validate"
             v-model="inputText"
             @keyup.enter="$emit('validate', inputText)"> 
-            <Action icon="skip_next" @click="$emit('validate', inputText)"/>
+            <SquareButton icon="skip_next" @click="$emit('validate', inputText)"/>
     </div>
 
 
 <!--<div id="footer">
     <div class="popupMenu">
-        <Action icon="settings"/>
+        <SquareButton icon="settings"/>
         <div class="settings">
             <div class="section">
                 <label for="startNode">Starting node</label>
@@ -112,21 +112,21 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
                 <Toggle id="animateCheckbox" class="toggle" @change="updateValue('animated', animatedModel)" v-model="animatedModel" on-label="on" off-label="off"/>
             </div>
             <div class="section">
-                <Action icon="save" @click="$emit('save')"/>
-                <Action icon="share" @click="$emit('share')"/>
-                <Action icon="image" @click="$emit('downloadSVG')"/> 
+                <SquareButton icon="save" @click="$emit('save')"/>
+                <SquareButton icon="share" @click="$emit('share')"/>
+                <SquareButton icon="image" @click="$emit('downloadSVG')"/> 
             </div>
         </div>
     </div>
-    <Action icon="delete_forever"  @click="$emit('remove')"/>
-    <Action icon="add_circle"  @click="$emit('addNode')"/>
-    <Action icon="commit"  @click="$emit('addEdge')"/>
+    <SquareButton icon="delete_forever"  @click="$emit('remove')"/>
+    <SquareButton icon="add_circle"  @click="$emit('addNode')"/>
+    <SquareButton icon="commit"  @click="$emit('addEdge')"/>
     <input 
         type="text" 
         placeholder="Insert a string to validate"
         v-model="inputText"
         @keyup.enter="$emit('validate', inputText)"> 
-    <Action icon="skip_next" @click="$emit('validate', inputText)"/>
+    <SquareButton icon="skip_next" @click="$emit('validate', inputText)"/>
 </div>-->
 
 </template>
