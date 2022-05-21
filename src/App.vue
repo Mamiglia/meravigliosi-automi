@@ -1,7 +1,7 @@
 <script setup lang="ts" >
 import { ref,reactive,computed,watch} from "vue";
-import Sidemenu from "./components/SideMenu.vue";
-import Footbar from './components/FootBar.vue';
+import SideMenu from "./components/SideMenu.vue";
+import FootBar from './components/FootBar.vue';
 import EdgeEditor from "./components/EdgeEditor.vue";
 import NodeEditor from "./components/NodeEditor.vue";
 import { Transition, Nodes, Edges, Parameters } from "./assets/types";
@@ -110,7 +110,7 @@ const eventHandlers: vNG.EventHandlers = {
 </script>
 
 <template>
-<Sidemenu
+<SideMenu
 />
 <div>
   <div id="worksheet">
@@ -133,7 +133,7 @@ const eventHandlers: vNG.EventHandlers = {
     </v-network-graph>
     <EdgeEditor v-if="selectedEdge.length !== 0" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
     <NodeEditor v-else-if="selectedNodes.length === 1" :node-id="selectedNodes[0]" v-model="nodes[selectedNodes[0]]"/>  </div>
-  <Footbar
+  <FootBar
     @validate="(text:string)=>validate(text)"
     @addNode="addNode()"
     @remove="remove"
