@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref , defineEmits, defineProps, computed} from 'vue'
-import Toggle from '@vueform/toggle/src/Toggle'
+import Toggle from '@vueform/toggle'
 import SquareButton from './SquareButton.vue'
 import { parseList } from '@/assets/utilities'
 import { Nodes } from '@/assets/types'
