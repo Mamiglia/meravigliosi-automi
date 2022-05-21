@@ -20,7 +20,11 @@ defineProps({
 </script>
 
 <style scoped>
-button {
+h6 {
+    width: auto;
+}
+
+.btn {
     height: 100%;
     max-width: 25vw;
     aspect-ratio: 1/1;
@@ -31,7 +35,7 @@ button {
     transition: background var(--fast-animation) ease;
     font-size: .1em;
 }
-button:hover {
+.btn:hover, .btn:active {
     background-color: var(--accent);
     color: var(--background-alternative);
     cursor: pointer;
@@ -43,11 +47,11 @@ span{
         rotate var(--normal-animation) ease;
 
 }
-button:hover>span {
+.btn:hover>span, .btn:active>span {
     font-size: 7vh;
 
 }
-button[is-active="true"]>span {
+.btn[is-active="true"]>span {
     rotate: 60deg;
 }
 </style>

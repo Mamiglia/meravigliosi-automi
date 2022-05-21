@@ -40,10 +40,6 @@ watch(()=>props.nodeId, async ()=>{
     final.value = props.modelValue.final
     name.value = props.modelValue.name
 })
-
-
-
-
 </script>
 
 <style scoped>
@@ -63,7 +59,7 @@ watch(()=>props.nodeId, async ()=>{
     @media screen and (orientation: portrait){
         .nodeEditor{
             width:auto;
-            max-width: 50vw;
+            max-width: 100vw;
         }
     };
 
