@@ -32,7 +32,7 @@ export function readParams(url: string) : Parameters {
 }
 
 export function share(params :Parameters) {
-    const url = window.location.hostname + ":" + window.location.port + "?graph=" + graphString(params)
+    const url = window.location.hostname + "/" + window.location.pathname + "?graph=" + graphString(params)
     toClipboard(encodeURI(url));
 }
 
