@@ -1,6 +1,6 @@
 <template>
-<button class='btn'>
-    <span class="material-icons">
+<button class='btn' :is-active="active">
+    <span class="material-icons" >
         {{icon}}
     </span>
 </button>
@@ -10,7 +10,11 @@
 import { defineProps } from 'vue';
 
 defineProps({
-    icon: String //expects icon from https://fonts.google.com/icons?selected=Material+Icons
+    icon: String, //expects icon from https://fonts.google.com/icons?selected=Material+Icons
+    active: {
+        type: Boolean,
+        default: false
+    }
 })
 
 </script>
@@ -21,6 +25,7 @@ button {
     max-width: 25vw;
     aspect-ratio: 1/1;
     max-height: 20vh;
+    min-height: 7vh;
     background-color: var(--background-alternative);
     border-style: none;
     transition: background var(--fast-animation) ease;
@@ -33,5 +38,16 @@ button:hover {
 }
 span{
     font-size: 5vh;
+    transition: 
+        font-size var(--fast-animation) ease,
+        rotate var(--normal-animation) ease;
+
+}
+button:hover>span {
+    font-size: 7vh;
+
+}
+button[is-active="true"]>span {
+    rotate: 60deg;
 }
 </style>
