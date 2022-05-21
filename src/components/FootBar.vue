@@ -35,8 +35,7 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
 </script>
 
 <template>
-    <div class="flex-container"> <!--Primo blocco-->
-        <div class="sub-container1">
+    <div id="footer"> <!--Primo blocco-->
             <div class="popupMenu" :show="show">
                 <Action icon="settings" @click="show = !show" />
                 <div class="settings">
@@ -77,16 +76,13 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
             <Action icon="delete_forever"  @click="$emit('remove')"/>
             <Action icon="add_circle"  @click="$emit('addNode')"/>
             <Action icon="commit"  @click="$emit('addEdge')"/>
-        </div>
 
-        <div claSS="sub-container2"> <!--Secondo blocco-->
             <input
             type="text"
             placeholder="Insert a string to validate"
             v-model="inputText"
             @keyup.enter="$emit('validate', inputText)"> 
             <Action icon="skip_next" @click="$emit('validate', inputText)"/>
-        </div>
     </div>
 
 
@@ -139,6 +135,7 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
 #footer {
     height: 10vh;
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     width: 100vw;
     position: absolute;
@@ -149,48 +146,9 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
     background-color: var(--background-alternative);
 }
 
-.flex-container{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    top: 90vh;
-    width: 100vw;
-    display:flex;
-    flex-direction: row;
-    background-color: var(--background-alternative);
-    justify-content: space-around;
-    flex-wrap: wrap;
-    align-items: stretch;
-}
+#footer>* {
+    height: 10vh;
 
-@media screen and (orientation: portrait){
-    .flex-container{
-        top: 80vh;
-    }
-};
-
-.sub-container1{
-    position: relative;
-    display: flex;
-    bottom: 0;
-    left:0;
-    width: 30vw;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-@media screen and (orientation: portrait){
-    .sub-container1{
-        width: 100vw
-    }
-};
-
-.sub-container2{
-    position: relative;
-    bottom: 0;
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
 }
 
 input {
@@ -202,12 +160,6 @@ input {
     transition: background var(--normal-animation) ease-out;
 }
 
-@media screen and (orientation: portrait){
-    input{
-        width: 85vw;
-        height: 10vh;
-    }
-};
 
 input:hover{
     background-color: var(--background-alternative);
@@ -238,14 +190,6 @@ input:focus-visible{
     width: 25vw;
     left:0;
 }
-
-@media screen and (orientation: portrait){
-    .popupMenu>.settings{
-        width: 100%;
-        height: 50%;
-        bottom: 20vh;
-    }
-};
 
 .popupMenu:hover>.settings, .popupMenu[show="true"]>.settings {
     opacity: 100%;
@@ -299,6 +243,29 @@ input:focus-visible{
 }
 
 
+    
+    @media screen and (orientation: portrait){
+        #footer{
+            height: 20vh;
+            display: grid;
+            grid-template-areas: 
+                "a b c d"
+                "e e e f";
+            grid-template-columns: 25vw 25vw 25vw 25vw;
+            grid-template-rows: 10vh 10vh;
+            place-items: center;
+    
+        }
+        #footer>input[type='text']{
+            grid-area: e;
+            width: 75vw;
+    
+        }
+        .popupMenu>.settings{
+            width: 100vw;
+            bottom: 20vh;
+        }
+    };
 </style>
 
 

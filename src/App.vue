@@ -154,7 +154,11 @@ const eventHandlers: vNG.EventHandlers = {
 
 <style>
 @import "./assets/base.css";
-
+#app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
 #worksheet {
   height: 90vh;
   width: 100%;

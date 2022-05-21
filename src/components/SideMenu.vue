@@ -50,11 +50,6 @@ const hasFocus = ref(true)
     transform: translateX(0%);
     color: var(--rosso-sapienza);
 }
-@media screen and (orientation: portrait){
-    #sidemenu{
-        width: 100vw;
-    }
-};
 
 #sidemenu[hide=true] {
     transform: translateX(-100%);
@@ -188,6 +183,15 @@ h1 {
     margin-right:auto;
 }
 
+@media screen and (orientation: portrait){
+    #sidemenu{
+        width: 100vw;
+    }
+    #sidemenu>button{
+        height: 20vh;
+        font-size: 2.5em;
+    }
+};
 </style>
 
 
