@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref , defineEmits, defineProps, computed} from 'vue'
 import Toggle from '@vueform/toggle'
-import SquareButton from './SquareButton.vue'
+import SquareButton from '@/components/SquareButton.vue'
 import { parseList } from '@/assets/utilities'
 import { Nodes } from '@/assets/types'
 import { reset } from '@/assets/memory'
@@ -130,7 +130,6 @@ input:focus-visible{
     position: fixed;
     bottom: 10vh;
     background-color: var(--background-alternative);
-    /* border:1px solid var(--color-text); */
     display: flex;
     flex-direction: column;
     padding: .5em;

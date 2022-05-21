@@ -9,7 +9,7 @@
 - [x] Random walk on graph (X)
 - [x] match UI (F)
 - [ ] customizzare popup (F)
-- [ ] Footbar textfield should occupy the whole space (F)
+- [x] Footbar textfield should occupy the whole space (F)
 
 ## Server
 - [x] vue -> save (cookies immagine) (X,M)

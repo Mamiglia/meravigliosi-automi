@@ -73,7 +73,7 @@ button {
     background-color: var(--accent);
     transition: background var(--fast-animation) ease;
 }
-#sidemenu>button:hover{
+#sidemenu>button:hover, #sidemenu>button:active {
     cursor: pointer;
     background-color: var(--secondary);
 }
