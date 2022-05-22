@@ -19,7 +19,7 @@
     </div>
     <form action="hub.php" method='get'>
         <a href="http://localhost:8080"><span class="material-icons">home</span></a>
-        <input type="text" placeholder="Search an automa..." name="query" required>
+        <input type="text" placeholder="Search an automa..." name="query" required autofocus>
         <input type="submit" value="go">
     </form>
     <div class="results">

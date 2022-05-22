@@ -15,11 +15,31 @@
             or die("Connessione non riuscita: " . pg_last_error());
 
             // DO THE MAGIC HERE
-            $query = "INSERT INTO automa(nome, grafo, immagine)
-                    VALUES ($1,$2,$3)"; //Inserisco l'automa dentro il DB
-            $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail));
-            echo "<h1>Salvataggio eseguito correttamente</h1>";
-            header("Location: hub.php");
+            $check_name_query = "SELECT nome FROM automa";
+            $result_check = pg_query($dbconn, $check_name_query);
+            $check = FALSE;
+            $count = 0;
+            while($line = pg_fetch_array($result_check, NULL, PGSQL_ASSOC)){
+               // echo "$line[nome] \n";
+                if ($name == $line['nome']){
+                    $check = TRUE;
+                    break;
+                }
+                else
+                    $check = FALSE;
+            }
+            if (!$check)  {
+                $query = "INSERT INTO automa(nome, grafo, immagine)
+                        VALUES ($1,$2,$3)"; //Inserisco l'automa dentro il DB
+                $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail));
+                echo "<h1>Salvataggio eseguito correttamente</h1>";
+                header("Location: hub.php");
+            }
+            else {
+                echo "<h1>è già presente un automa con questo nome, riprovare</h1>";
+                echo "<button onClick=\"window.location.href='http://localhost:8080/?graph=$graph'\">Home Page</button>";
+            }
+
         }
 
         function display_confirm($graph, $thumbnail) {
@@ -27,7 +47,7 @@
             echo "<div class=\"thumbnail\">$thumbnail</div>";
             echo "<form action=\"save.php\" method=\"post\">
                 <p>Choose a name:</p>
-                <input type=\"text\" name=\"name\" placeholder=\"Name...\" required>
+                <input type=\"text\" name=\"name\" placeholder=\"Name...\" required autofocus>
                 <input type=\"submit\" value=\"save\">
 
                 <input type=\"hidden\" name=\"graph\" value=\"". htmlspecialchars($graph)."\">
