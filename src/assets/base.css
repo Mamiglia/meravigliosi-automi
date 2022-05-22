@@ -128,16 +128,33 @@ body, html {
   font-family: 'Courier New', Courier, monospace;
 }
 
-
-.toast>.body.info{
-  background-color: var(--white-ish);
-  top: 0;
-  left: auto;
-  right: auto;
-  opacity: 0.8;
+.toast>.body {
+  /* opacity: 0.8; */
   color: var(--color-text);
-  border-radius: 1em;
+  border-radius: 5px;
   border-style: solid;
-  border-color: var(--rosso-sapienza);
   text-align: center;
+  transform: translateY(-10vh);
+}
+.toast>.body.info{
+  background-color: var(--background);
+  border-color: var(--background);
 } 
+.toast>.body.warning{
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: var(--white);
+
+}
+
+.toast>.body.done {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+
+}
+@media screen and (orientation: portrait) {
+  .toast>.body {
+    transform: translateY(-20vh);
+  }
+}
