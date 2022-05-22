@@ -48,7 +48,7 @@ export class Automaton{
     }
 
     //ausiliaria per evaluate
-    checkSuccess(myNodes: Array<string>){
+    checkSuccess(myNodes: Set<string>){
         for (const n of myNodes){
             if(this.isSuccess(n)){
                 return true;
@@ -67,6 +67,8 @@ export class Automaton{
         }
         if(ruleType === "EXCLUDE"){
             return !charset.includes(myChar);
+        } if (ruleType === "EPSILON"){
+            return false //epsilon is evaluated at a different stage
         }
         console.log("Error: unrecognized ruleType");
         return false;
@@ -100,26 +102,31 @@ export class Automaton{
             return false
         }
         console.log(`animated: ${animated}`)
-        const activeNodes: Array<string> = [this.initialNode]; //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
+        let activeNodes: Set<string> = new Set([this.initialNode]); 
+        //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
+        activeNodes = this.epsilonTransitions(activeNodes)
         const res = await this.ricorsiveEvaluate(activeNodes, myString, animated);
         const t = new T.Toast(res, T.Toast.TYPE_DONE);
         return res
     }
 
-    async ricorsiveEvaluate(myNodes: Array<string>, myString: string, animated: boolean): Promise<boolean>{
-        if (myString===""){                              //base case
+    async ricorsiveEvaluate(myNodes: Set<string>, myString: string, animated: boolean): Promise<boolean>{
+        if (myString==="" || myNodes.size===0){                              //base case
             if(this.checkSuccess(myNodes)){              //if myNodes contains a final state
                 return true;
             }
             return false;
         }
-        const newNodes: Array<string> = [];
+        let newNodes: Set<string> = new Set();
         for(const key in this.edges){
             const e = this.edges[key];
-            if( myNodes.includes(e.source) && this.checkTransition(e.ruleType, e.charset, myString.charAt(0)) && !newNodes.includes(e.target) ){
-                newNodes.push(e.target);
+            if( myNodes.has(e.source) && this.checkTransition(e.ruleType, e.charset, myString.charAt(0)) ){
+                newNodes.add(e.target);
             }
         }
+        newNodes = this.epsilonTransitions(newNodes);
+
+
         if (animated) {
             newNodes.forEach((v)=>this.nodes[v].on = true)
             await sleep(500)
@@ -145,6 +152,22 @@ export class Automaton{
             }
         }
         return true
+    }
+
+    epsilonTransitions(newNodes: Set<string> ){
+        let newTransitions = true;
+        while (newTransitions) {
+            newTransitions = false
+            for(const key in this.edges) {
+                const e = this.edges[key];
+                if (e.ruleType==="EPSILON" && newNodes.has(e.source) && !newNodes.has(e.target)) {
+                    newTransitions = true;
+                    newNodes.add(e.target);
+                }
+    
+            }
+        }
+        return newNodes
     }
 
     randomWalk(nodeId?:string) : string {

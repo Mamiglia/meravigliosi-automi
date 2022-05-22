@@ -18,6 +18,12 @@
             <!-- <label for="ruleTypeEXCLUDE">EXCLUDE</label> -->
             <input type="text" placeholder="Exclude characters" :disabled="ruleType!='EXCLUDE'" v-model="textExclude">
         </div>
+        <div class="section" >
+            <input type="radio" value="EPSILON" id="ruleTypeEPSILON" name="ruleType" v-model="ruleType">
+            <!-- <label for="ruleTypeALL">ALL</label> -->
+            <p @click="ruleType='EPSILON'">&epsilon;-transition</p> 
+        </div>
+
     </div>
 </template>
 
@@ -56,6 +62,8 @@ const label = computed(()=>{
     }
     else if(ruleType.value === "EXCLUDE"){
         return (charset.value.length!==0)?"¬" + charset.value.join(", ¬"):"";
+    } else if (ruleType.value==="EPSILON"){
+        return "ε"
     }
 
     return "*";
@@ -105,7 +113,7 @@ watch(()=>props.edgeId,async () => {
         padding: .3em;
         padding-top: .2em;
         border: solid;
-        border-color: var(--accent);
+        border-color: var(--background-alternative);
         border-radius: 1em;
         max-width: 25vw;
     }
