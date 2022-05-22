@@ -42,6 +42,15 @@
 
         }
 
+        function stringaRandom($len) { //Da finire di implementare(Manca il collegamento con la casella di testo)
+            $caratteri = '0123456789abcdefghilmnjkolpqrstuvzwxyABCDEFGHILMNJKOPQRSTUVZWXY';
+            $str = "";
+            for ($i = 0; $i < $len; $i++) {
+                $str .= $caratteri[rand(0, strlen($caratteri) - 1)];
+            }
+            return $str;
+        }
+
         function display_confirm($graph, $thumbnail) {
             echo "<h1>Do you want to save this Automa?</h1>";
             echo "<div class=\"thumbnail\">$thumbnail</div>";
@@ -49,6 +58,7 @@
                 <p>Choose a name:</p>
                 <input type=\"text\" name=\"name\" placeholder=\"Name...\" required autofocus>
                 <input type=\"submit\" value=\"save\">
+                <button onClick=\"stringaRandom(5)\">Random</button> 
 
                 <input type=\"hidden\" name=\"graph\" value=\"". htmlspecialchars($graph)."\">
                 <input type=\"hidden\" name=\"thumbnail\" value=\"". htmlspecialchars($thumbnail)."\">

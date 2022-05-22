@@ -56,11 +56,12 @@ input[type="submit"] {
 }
 
 button {
-    position: relative;
+    position: static;
     bottom:300px;
     left:150px;
     width:100px;
-    height:100px;
+    height:25px;
     color: blue;
+    border-radius: 10px 10px 10px 10px;
     background-color: rgb(241, 16, 16);
 }
