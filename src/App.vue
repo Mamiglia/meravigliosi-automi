@@ -1,15 +1,15 @@
 <script setup lang="ts" >
 import { ref,reactive,computed,watch} from "vue";
-import SideMenu from "./components/SideMenu.vue";
-import FootBar from './components/FootBar.vue';
-import EdgeEditor from "./components/EdgeEditor.vue";
-import NodeEditor from "./components/NodeEditor.vue";
-import { Transition, Nodes, Edges, Parameters } from "./assets/types";
-import { Automaton } from "./assets/Automaton";
-import { unreactiveCopy} from "./assets/utilities";
-import { graphString, downloadAsSvg } from "./assets/graph";
-import { readParams, save, share } from "./assets/memory";
-import { networkGraphConfigs, palette } from "./assets/predefined";
+import SideMenu from "@/components/SideMenu.vue";
+import FootBar from '@/components/FootBar.vue';
+import EdgeEditor from "@/components/EdgeEditor.vue";
+import NodeEditor from "@/components/NodeEditor.vue";
+import { Transition, Nodes, Edges, Parameters } from "@/assets/types";
+import { Automaton } from "@/assets/Automaton";
+import { unreactiveCopy} from "@/assets/utilities";
+import { graphString, downloadAsSvg } from "@/assets/graph";
+import { readParams, save, share } from "@/assets/memory";
+import { networkGraphConfigs, palette } from "@/assets/predefined";
 import * as vNG from "v-network-graph"
 
 const initialParams :Parameters = readParams(window.location.search);
@@ -131,7 +131,7 @@ const eventHandlers: vNG.EventHandlers = {
         <v-edge-label :text="edge.label" color="#fbfaf5" align="center" vertical-align="above" v-bind="slotProps"/>
       </template>
     </v-network-graph>
-    <EdgeEditor v-if="selectedEdge.length !== 0" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
+    <EdgeEditor v-if="selectedEdge.length === 1" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
     <NodeEditor v-else-if="selectedNodes.length === 1" :node-id="selectedNodes[0]" v-model="nodes[selectedNodes[0]]"/>  </div>
   <FootBar
     @validate="(text:string)=>validate(text)"
@@ -153,7 +153,7 @@ const eventHandlers: vNG.EventHandlers = {
 </template>
 
 <style>
-@import "./assets/base.css";
+@import "@/assets/base.css";
 #app {
   width: 100vw;
   height: 100vh;
@@ -164,7 +164,4 @@ const eventHandlers: vNG.EventHandlers = {
   width: 100%;
 }
 
-.toast.body.info{
-  background: blue;
-}
 </style>

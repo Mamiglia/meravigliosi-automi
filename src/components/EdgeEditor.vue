@@ -95,6 +95,8 @@ watch(()=>props.edgeId,async () => {
 </script>
 
 <style scoped>
+.r{}
+
     .edgeEditor {
         background-color: var(--background);
         position:fixed;
