@@ -48,7 +48,7 @@
     $query_param = $_GET['query']; //contiente il termine da cercare
     $result;
     if (isset($query_param)){
-        $query = "BOH"; // Da impostare la query LIKE con parametri safe!!
+        $query = "SELECT nome, grafo, immagine FROM automa WHERE nome LIKE '%$query_param%'"; // Da impostare la query LIKE con parametri safe!! - Se voglia una ricerca precisa => dobbiamo togliere gli %; senno se vogliamo tutti i nomi dei grafi che hanno quella parola dentro, allora va bene cosi la query
         $result = query($query);
     } else {
         $result = query("SELECT nome, grafo, immagine FROM automa ORDER BY nome LIMIT 10");
