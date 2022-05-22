@@ -19,7 +19,7 @@
 - [x] save UI (X)
 - [ ] save: gestione errore (M)
 #### Optional
-- [ ] research through automas hub (SQL LIKE) (M)
+- [x] research through automas hub (SQL LIKE) (M)
 ## Media Query
 - [ ] Adapt to media query (F)
     - [X] Footbar - spezzata in due linee
