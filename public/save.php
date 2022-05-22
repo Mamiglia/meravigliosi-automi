@@ -21,14 +21,14 @@
             $count = 0;
             while($line = pg_fetch_array($result_check, NULL, PGSQL_ASSOC)){
                // echo "$line[nome] \n";
-                if ($name == $line['nome']){
+                if ($name == $line['nome']){ //Il nome è gia presente dentro il DB
                     $check = TRUE;
                     break;
                 }
                 else
-                    $check = FALSE;
+                    $check = FALSE; 
             }
-            if (!$check)  {
+            if (!$check)  { //Ps True e False sono invertiti
                 $query = "INSERT INTO automa(nome, grafo, immagine)
                         VALUES ($1,$2,$3)"; //Inserisco l'automa dentro il DB
                 $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail));
