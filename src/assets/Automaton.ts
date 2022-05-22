@@ -3,6 +3,8 @@ import { sample, sleep } from './utilities';
 import "toaster-js/default.scss";
 //import { Toast } from "toaster-js";
 const T = require("toaster-js");
+T.configureToasts({
+})
 
 export class Automaton{
     nodes: Nodes;
@@ -85,22 +87,22 @@ export class Automaton{
     async evaluate(myString: string, animated:boolean, determinism:boolean){
         for (const i of myString){
             if (!this.alphabet.includes(i)){
-                const t = new T.Toast("The string contains characters that are not in the alphabet", T.Toast.TYPE_INFO);
+                const t = new T.Toast("The string contains characters that are not in the alphabet", T.Toast.TYPE_WARNING);
                 return false;
             }
         }
         if (!this.validateEdges()){
-            const t = new T.Toast("Transitions refer to character that are not in the alphabet", T.Toast.TYPE_INFO);
+            const t = new T.Toast("Transitions refer to character that are not in the alphabet", T.Toast.TYPE_WARNING);
             return false;
         }
         if (determinism && !this.isDeterministic()) {
-            const t = new T.Toast("The automaton in not deterministic", T.Toast.TYPE_INFO);
+            const t = new T.Toast("The automaton in not deterministic", T.Toast.TYPE_WARNING);
             return false
         }
         console.log(`animated: ${animated}`)
         const activeNodes: Array<string> = [this.initialNode]; //myNodes è l'insieme dei nodi "attivi", inizialmente la sola radice
         const res = await this.ricorsiveEvaluate(activeNodes, myString, animated);
-        const t = new T.Toast(res, T.Toast.TYPE_INFO);
+        const t = new T.Toast(res, T.Toast.TYPE_DONE);
         return res
     }
 
@@ -180,7 +182,7 @@ export class Automaton{
     //CAVEAT: THIS METHOD MODIFIES THE AUTOMATON TROUGH SIDE-EFFECT
     findAMatch(){
         const res = this.randomWalk()
-        new T.Toast(res, T.Toast.TYPE_DONE)
+        new T.Toast(res, T.Toast.TYPE_INFO)
         return res
 
     }
