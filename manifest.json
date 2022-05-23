@@ -1,0 +1,16 @@
+{
+    "name": "Meravigliosi Automi",
+    "short_name": "meravigliosi-automi",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#822433",
+    "theme_color": "#822433",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "../src/assets/logo2.png",
+        "type": "image/png", "sizes": "300x343"
+      }
+    ]
+  }
+  
