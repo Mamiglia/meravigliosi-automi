@@ -60,6 +60,12 @@ function addNode() {
 function remove() { 
   for (let nodeId of selectedNodes.value) {
     delete nodes[nodeId]
+    for (let edgeID in edges) {
+      const e = edges[edgeID]
+      if (e.source == nodeId || e.target == nodeId) {
+        delete edges[edgeID]
+      }
+    }
   }
   for (let edgeID of selectedEdge.value) {
     delete edges[edgeID]
