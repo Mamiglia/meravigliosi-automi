@@ -14,7 +14,7 @@ body {
     /* background-color: var(--background-alternative); */
     border-radius: 5px;
     /* border: solid var(--background-alternative); */
-    color: var(--white);
+    color: var(--color-text);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin:1em;
     text-align: center;

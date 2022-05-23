@@ -8,7 +8,7 @@
 #### Optional
 - [x] Random walk on graph (X)
 - [x] match UI (F)
-- [ ] customizzare popup (F)
+- [x] customizzare popup (F)
 - [x] Footbar textfield should occupy the whole space (F)
 
 ## Server
@@ -21,9 +21,32 @@
 #### Optional
 - [x] research through automas hub (SQL LIKE) (M)
 ## Media Query
-- [ ] Adapt to media query (F)
+- [x] Adapt to media query (F)
     - [x] Footbar - spezzata in due linee
     - [x] Sidebar -  schermo intero
     - [x] OptionPane - schermo intero
-    - [ ] Popup - vedi se funge
+    - [x] Popup - vedi se funge
 - [ ] bottone dark/light mode (F)
+
+
+# Presentazione
+1 - Demo Sito
+        a - add Node
+        b - remove
+        c - addEdge
+        d - edit nodes and edges
+        e - validate
+        f - options (alphabet, firstNode, switches, generate)
+        g - share
+        h - download img
+        i - save e hub
+        
+### Problematiche
+- Problema compressione dei dati e passaggio tra php, vue
+- Media Query: Tema Scuro/Chiaro , palette 
+- Mappatura degli eventi
+- App.vue ci sono la parte di memoria reattiva del sito
+- Tipi custom Typescript (Transition e State extension)
+- memoria
+
+

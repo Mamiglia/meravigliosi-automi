@@ -56,9 +56,9 @@ input[type="submit"] {
 }
 
 button {
-    position: static;
-    bottom:300px;
-    left:150px;
+    position: relative;
+    bottom:350px;
+    left:175px;
     width:100px;
     height:25px;
     color: blue;
