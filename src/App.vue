@@ -60,6 +60,12 @@ function addNode() {
 function remove() { 
   for (let nodeId of selectedNodes.value) {
     delete nodes[nodeId]
+    for (let edgeID in edges) {
+      const e = edges[edgeID]
+      if (e.source == nodeId || e.target == nodeId) {
+        delete edges[edgeID]
+      }
+    }
   }
   for (let edgeID of selectedEdge.value) {
     delete edges[edgeID]
@@ -68,8 +74,15 @@ function remove() {
 
 function addEdge(src:string, trgt?:string) {
   // currently edgeID can be assigned to an already existing ID, causing problems
-  if (trgt==undefined)
+  if (trgt==undefined) {
+    for (let e of Object.values(edges)){
+      // Each node can have only one loop
+      if (src == e.target && e.source == e.target) {
+        return;
+      }
+    }
     trgt = src
+  }
 
   let newEdge :Transition = {
     source:src,
@@ -86,6 +99,18 @@ function validate(text:string){
   console.log(`validate: ${text}`);
   console.log(automata.value.toString());
   automata.value.evaluate(text, animated.value, determinism.value);
+}
+
+function handleKeyboard(keydown: string, event:Event) {
+  switch (keydown) {
+    case "n":
+      event.preventDefault()
+      addNode();
+      break;
+    case "e":
+      event.preventDefault()
+      addEdge(selectedNodes.value[0], selectedNodes.value[1])
+  }
 }
 
 watch(params,()=>{
@@ -123,6 +148,9 @@ const eventHandlers: vNG.EventHandlers = {
       :event-handlers="eventHandlers"
       v-model:selected-edges="selectedEdge"
       v-model:selected-nodes="selectedNodes"
+      tabindex="0"
+      @keydown.delete="remove"
+      @keydown="handleKeyboard($event.key, $event)"
       >
       <defs>
         <component :is="'style'">{{palette}}</component>

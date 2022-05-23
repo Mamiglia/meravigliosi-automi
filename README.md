@@ -17,13 +17,13 @@
 - [x] save form (chiedi nome) (M)
 - [x] hub UI (X)
 - [x] save UI (X)
-- [ ] save: gestione errore (M)
+- [x] save: gestione errore (M)
 #### Optional
-- [ ] research through automas hub (SQL LIKE) (M)
+- [x] research through automas hub (SQL LIKE) (M)
 ## Media Query
 - [ ] Adapt to media query (F)
-    - [X] Footbar - spezzata in due linee
-    - [X] Sidebar -  schermo intero
-    - [X] OptionPane - schermo intero
+    - [x] Footbar - spezzata in due linee
+    - [x] Sidebar -  schermo intero
+    - [x] OptionPane - schermo intero
     - [ ] Popup - vedi se funge
 - [ ] bottone dark/light mode (F)

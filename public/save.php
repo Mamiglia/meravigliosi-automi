@@ -15,11 +15,40 @@
             or die("Connessione non riuscita: " . pg_last_error());
 
             // DO THE MAGIC HERE
-            $query = "INSERT INTO automa(nome, grafo, immagine)
-                    VALUES ($1,$2,$3)"; //Inserisco l'automa dentro il DB
-            $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail));
-            echo "<h1>Salvataggio eseguito correttamente</h1>";
-            header("Location: hub.php");
+            $check_name_query = "SELECT nome FROM automa";
+            $result_check = pg_query($dbconn, $check_name_query);
+            $check = FALSE;
+            $count = 0;
+            while($line = pg_fetch_array($result_check, NULL, PGSQL_ASSOC)){
+               // echo "$line[nome] \n";
+                if ($name == $line['nome']){ //Il nome è gia presente dentro il DB
+                    $check = TRUE;
+                    break;
+                }
+                else
+                    $check = FALSE; 
+            }
+            if (!$check)  { //Ps True e False sono invertiti
+                $query = "INSERT INTO automa(nome, grafo, immagine)
+                        VALUES ($1,$2,$3)"; //Inserisco l'automa dentro il DB
+                $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail));
+                echo "<h1>Salvataggio eseguito correttamente</h1>";
+                header("Location: hub.php");
+            }
+            else {
+                echo "<h1>è già presente un automa con questo nome, riprovare</h1>";
+                echo "<button onClick=\"window.location.href='http://localhost:8080/?graph=$graph'\">Home Page</button>";
+            }
+
+        }
+
+        function stringaRandom($len) { //Da finire di implementare(Manca il collegamento con la casella di testo)
+            $caratteri = '0123456789abcdefghilmnjkolpqrstuvzwxyABCDEFGHILMNJKOPQRSTUVZWXY';
+            $str = "";
+            for ($i = 0; $i < $len; $i++) {
+                $str .= $caratteri[rand(0, strlen($caratteri) - 1)];
+            }
+            return $str;
         }
 
         function display_confirm($graph, $thumbnail) {
@@ -27,8 +56,9 @@
             echo "<div class=\"thumbnail\">$thumbnail</div>";
             echo "<form action=\"save.php\" method=\"post\">
                 <p>Choose a name:</p>
-                <input type=\"text\" name=\"name\" placeholder=\"Name...\" required>
+                <input type=\"text\" name=\"name\" placeholder=\"Name...\" required autofocus>
                 <input type=\"submit\" value=\"save\">
+                <button onClick=\"stringaRandom(5)\">Random</button> 
 
                 <input type=\"hidden\" name=\"graph\" value=\"". htmlspecialchars($graph)."\">
                 <input type=\"hidden\" name=\"thumbnail\" value=\"". htmlspecialchars($thumbnail)."\">

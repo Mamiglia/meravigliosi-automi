@@ -6,6 +6,11 @@ defineEmits(["startTutorial"])
 
 const hasFocus = ref(true)
 
+function updateTheme(){
+    console.log("IMPLEMENTARE CAMBIO TEMA");
+    //TODO
+}
+
 </script>
 
 <template >
