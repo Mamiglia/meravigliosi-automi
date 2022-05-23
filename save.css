@@ -54,3 +54,14 @@ input[type="submit"] {
     cursor: pointer;
     font-family: 'Courier New', Courier, monospace;
 }
+
+button {
+    position: relative;
+    bottom:350px;
+    left:175px;
+    width:100px;
+    height:25px;
+    color: blue;
+    border-radius: 10px 10px 10px 10px;
+    background-color: rgb(241, 16, 16);
+}

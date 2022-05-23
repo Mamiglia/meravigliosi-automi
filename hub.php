@@ -19,11 +19,12 @@
     </div>
     <form action="hub.php" method='get'>
         <a href="http://localhost:8080"><span class="material-icons">home</span></a>
-        <input type="text" placeholder="Search an automa..." name="query" required>
+        <input type="text" placeholder="Search an automa..." name="query" required autofocus>
         <input type="submit" value="go">
     </form>
     <div class="results">
     <?php
+    error_reporting(0);
     function display_result($result) {
         while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
             echo "<div class=\"entry\">";
@@ -38,7 +39,18 @@
     function query($query) {
         $dbconn = pg_connect("host=localhost port=5432 dbname=automi user=postgres password=hub")
         or die("Connessione non riuscita: " . pg_last_error());
-        $result = pg_query($query)
+        $query_like = "SELECT nome, grafo, immagine FROM automa WHERE nome LIKE $1";
+        $result = pg_query_params($dbconn, $query_like, array('%'.$query.'%'))
+        or die("Errore con la Query: " . pg_last_error());
+
+        pg_close($dbconn);
+        return $result;
+    }
+
+    function default_query($query) {
+        $dbconn = pg_connect("host=localhost port=5432 dbname=automi user=postgres password=hub")
+        or die("Connessione non riuscita: " . pg_last_error());
+        $result = pg_query($dbconn, $query)
         or die("Errore con la Query: " . pg_last_error());
 
         pg_close($dbconn);
@@ -47,11 +59,10 @@
     
     $query_param = $_GET['query']; //contiente il termine da cercare
     $result;
-    if (isset($query_param)){
-        $query = "BOH"; // Da impostare la query LIKE con parametri safe!!
-        $result = query($query);
+    if (isset($query_param)){ // Da impostare la query LIKE con parametri safe!! - Se voglia una ricerca precisa => dobbiamo togliere gli %; senno se vogliamo tutti i nomi dei grafi che hanno quella parola dentro, allora va bene cosi la query
+        $result = query($query_param);
     } else {
-        $result = query("SELECT nome, grafo, immagine FROM automa ORDER BY nome LIMIT 10");
+        $result = default_query("SELECT nome, grafo, immagine FROM automa ORDER BY nome LIMIT 15");
     }
 
     display_result($result);
