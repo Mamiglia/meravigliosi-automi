@@ -8,7 +8,7 @@
 #### Optional
 - [x] Random walk on graph (X)
 - [x] match UI (F)
-- [ ] customizzare popup (F)
+- [x] customizzare popup (F)
 - [x] Footbar textfield should occupy the whole space (F)
 
 ## Server
@@ -21,9 +21,9 @@
 #### Optional
 - [x] research through automas hub (SQL LIKE) (M)
 ## Media Query
-- [ ] Adapt to media query (F)
+- [x] Adapt to media query (F)
     - [x] Footbar - spezzata in due linee
     - [x] Sidebar -  schermo intero
     - [x] OptionPane - schermo intero
-    - [ ] Popup - vedi se funge
+    - [x] Popup - vedi se funge
 - [ ] bottone dark/light mode (F)
