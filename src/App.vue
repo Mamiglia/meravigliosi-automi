@@ -94,6 +94,18 @@ function validate(text:string){
   automata.value.evaluate(text, animated.value, determinism.value);
 }
 
+function handleKeyboard(keydown: string, event:Event) {
+  switch (keydown) {
+    case "n":
+      event.preventDefault()
+      addNode();
+      break;
+    case "e":
+      event.preventDefault()
+      addEdge(selectedNodes.value[0], selectedNodes.value[1])
+  }
+}
+
 watch(params,()=>{
   localStorage.setItem("graph", graphString(params.value))
 })
@@ -129,6 +141,9 @@ const eventHandlers: vNG.EventHandlers = {
       :event-handlers="eventHandlers"
       v-model:selected-edges="selectedEdge"
       v-model:selected-nodes="selectedNodes"
+      tabindex="0"
+      @keydown.delete="remove"
+      @keydown="handleKeyboard($event.key, $event)"
       >
       <defs>
         <component :is="'style'">{{palette}}</component>
