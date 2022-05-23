@@ -3,8 +3,8 @@ import { sample, sleep } from './utilities';
 import "toaster-js/default.scss";
 //import { Toast } from "toaster-js";
 const T = require("toaster-js");
-//T.configureToasts({
-//})
+T.configureToasts({
+})
 
 export class Automaton{
     nodes: Nodes;
