@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { server } from '@/assets/predefined'
 import { ref , defineEmits} from 'vue'
-import Toggle from '@vueform/toggle'
 
 defineEmits(["startTutorial"])
 
 const hasFocus = ref(true)
-
-function updateTheme(){
-    console.log("IMPLEMENTARE CAMBIO TEMA");
-    //TODO
-}
 
 </script>
 
@@ -27,7 +21,6 @@ function updateTheme(){
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
         <li><a :href="server.hub">Hub</a></li> <!--Non mi trova l'hub.php / per l'importazione di dati provo ad aggiungere un action-->        
         <br>
-        <li>Dark/Light mode<Toggle id="themeCheckbox" class="toggle" @change="updateTheme()" on-label="on" off-label="off"/></li>
     </ul>
     <span></span>
     <button type="button" @click="hasFocus=false" >start ></button>
@@ -181,12 +174,6 @@ h1 {
     font-size: 30px;
     /*Molto incerto se questo colore vada bene con il sito*/ 
     background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
-}
-
-/*Vorrei staccare un pò il toggle dalla scritta sopra*/
-.toggle{
-    margin-left:auto;
-    margin-right:auto;
 }
 
 @media screen and (orientation: portrait){
