@@ -1,6 +1,7 @@
 import {Nodes,Edges, Transition} from './types';
 import { sample, sleep } from './utilities';
 import "toaster-js/default.scss";
+import { NULL } from 'sass';
 //import { Toast } from "toaster-js";
 const T = require("toaster-js");
 T.configureToasts({
@@ -170,7 +171,7 @@ export class Automaton{
         return newNodes
     }
 
-    randomWalk(nodeId?:string) : string {
+    randomWalk(nodeId?:string) : string | null{
         if (nodeId==undefined)
             nodeId = this.initialNode
 
@@ -180,32 +181,41 @@ export class Automaton{
         const possibleEdges :string[] = []
         Object.entries(this.edges).forEach(entry=>{
             const [key, val] = entry
-            if (val.source == nodeId)
+            if (val.source === nodeId)
                 possibleEdges.push(key)
         })
 
-        if (possibleEdges.length==0)
-            return ""
+        if (possibleEdges.length===0){
+            return null;
+        }
 
         const chosenEdgeId = sample(possibleEdges)
         
         const chosen = this.edges[chosenEdgeId]
         let candidates : string[];
 
-        if (chosen.ruleType == "ALL") 
+        if (chosen.ruleType === "ALL") 
             candidates = this.alphabet
-        else if (chosen.ruleType == "INCLUDE")
+        else if (chosen.ruleType === "INCLUDE")
             candidates = chosen.charset
         else          
             candidates = this.alphabet.filter(x => !chosen.charset.includes(x))
-
-        return sample(candidates) + this.randomWalk(chosen.target)
+        const res = this.randomWalk(chosen.target);
+        if(res === null){
+            return null;
+        }
+        return sample(candidates) + res;
     }
 
     //CAVEAT: THIS METHOD MODIFIES THE AUTOMATON TROUGH SIDE-EFFECT
     findAMatch(){
         const res = this.randomWalk()
-        new T.Toast(res, T.Toast.TYPE_INFO)
+        if (res===null){
+            new T.toast("MATCH NOT FOUND", T.Toast.TYPE_WARNING);
+        }
+        else{
+            new T.Toast(res, T.Toast.TYPE_INFO)
+        }
         return res
 
     }
