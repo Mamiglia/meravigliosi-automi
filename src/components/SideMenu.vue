@@ -7,6 +7,11 @@ defineEmits(["startTutorial"])
 
 const hasFocus = ref(true)
 
+function updateTheme(){
+    console.log("IMPLEMENTARE CAMBIO TEMA");
+    //TODO
+}
+
 </script>
 
 <template >
@@ -22,7 +27,7 @@ const hasFocus = ref(true)
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
         <li><a :href="server.hub">Hub</a></li> <!--Non mi trova l'hub.php / per l'importazione di dati provo ad aggiungere un action-->        
         <br>
-        <li>Dark/Light mode<Toggle id="themeCheckbox" class="toggle" /></li>
+        <li>Dark/Light mode<Toggle id="themeCheckbox" class="toggle" @change="updateTheme()" on-label="on" off-label="off"/></li>
     </ul>
     <span></span>
     <button type="button" @click="hasFocus=false" >start ></button>
