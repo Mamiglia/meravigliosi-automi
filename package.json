@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "@vue/cli": "^5.0.4",
@@ -17,6 +17,7 @@
     "core-js": "^3.22.5",
     "gzip-js": "^0.3.2",
     "lz-string": "^1.4.4",
+    "register-service-worker": "^1.7.2",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "toaster-js": "^2.2.3",
@@ -33,6 +34,7 @@
     "@typescript-eslint/parser": "^5.23.0",
     "@vue/cli-plugin-babel": "~5.0.4",
     "@vue/cli-plugin-eslint": "~5.0.4",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-plugin-typescript": "~5.0.4",
     "@vue/cli-service": "~5.0.4",
     "@vue/eslint-config-typescript": "^10.0.0",
