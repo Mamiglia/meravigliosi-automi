@@ -15,7 +15,6 @@
             $dbconn = pg_connect("host=localhost port=5432 dbname=automi user=postgres password=hub")
             or die("Connessione non riuscita: " . pg_last_error());
 
-            // DO THE MAGIC HERE
             $check_name_query = "SELECT nome FROM automa";
             $result_check = pg_query($dbconn, $check_name_query);
             $check = FALSE;
@@ -30,6 +29,7 @@
                     $check = FALSE; 
             }
             if (!$check)  { //Ps True e False sono invertiti
+                // Sanificazione dell'input
                 $query = "INSERT INTO automa(nome, grafo, immagine)
                         VALUES ($1,$2,$3)"; //Inserisco l'automa dentro il DB
                 $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail));
@@ -60,13 +60,14 @@
                 <input type=\"text\" name=\"name\" placeholder=\"Name...\" required autofocus>
                 <input type=\"submit\" value=\"save\">
         
-
                 <input type=\"hidden\" name=\"graph\" value=\"". htmlspecialchars($graph)."\">
                 <input type=\"hidden\" name=\"thumbnail\" value=\"". htmlspecialchars($thumbnail)."\">
 
             </form>";
         }
-        
+
+
+        // POST Request
         $name = $_POST['name'];
         $graph = $_POST['graph'];
         $thumbnail = $_POST['thumbnail'];
@@ -77,26 +78,6 @@
         } else {
             echo "<h2>ERROR</h2><p>No save data was found</p>";
         }
-
-
-        
-
-        // A cosa servono queste cose?
-        // $query2 = "SELECT immagine FROM automa WHERE nome = 'pippo7'";
-        // $result = pg_query($query2);
-        // while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-        //     foreach($line as $col) {
-        //         echo "$col";
-        //     }
-        // }
-       /* if (!$result) { //Vediamo se la query esiste
-            echo "Errore nel salvataggio del grafo" . pg_last_error();
-            header("Location: index.html"); //in caso di errore ritorno indietro
-        }
-        else { 
-            header("Location: hub.php"); //A fine del salvataggio sul DB, questa funzione mi fa il redirect sulla pagina hub.php
-        }*/
-
     ?>
     
 
