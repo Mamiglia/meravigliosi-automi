@@ -1,8 +1,6 @@
 import {Nodes,Edges, Transition} from './types';
 import { sample, sleep } from './utilities';
 import "toaster-js/default.scss";
-import { NULL } from 'sass';
-//import { Toast } from "toaster-js";
 const T = require("toaster-js");
 T.configureToasts({
 })
@@ -175,7 +173,7 @@ export class Automaton{
         if (nodeId==undefined)
             nodeId = this.initialNode
 
-            if (this.nodes[nodeId].final && Math.random() > .75) 
+        if (this.nodes[nodeId].final && Math.random() > .75) 
             return ""
 
         const possibleEdges :string[] = []
@@ -184,9 +182,8 @@ export class Automaton{
             if (val.source === nodeId)
                 possibleEdges.push(key)
         })
-
         if (possibleEdges.length===0){
-            return null;
+            return (this.nodes[nodeId].final)? "": null;
         }
 
         const chosenEdgeId = sample(possibleEdges)
@@ -202,6 +199,7 @@ export class Automaton{
             candidates = this.alphabet.filter(x => !chosen.charset.includes(x))
         const res = this.randomWalk(chosen.target);
         if(res === null){
+            console.log(res)
             return null;
         }
         return sample(candidates) + res;
@@ -211,7 +209,7 @@ export class Automaton{
     findAMatch(){
         const res = this.randomWalk()
         if (res===null){
-            new T.toast("MATCH NOT FOUND", T.Toast.TYPE_WARNING);
+            new T.Toast("MATCH NOT FOUND", T.Toast.TYPE_WARNING);
         }
         else{
             new T.Toast(res, T.Toast.TYPE_INFO)
