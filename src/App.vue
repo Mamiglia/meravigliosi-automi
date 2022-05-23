@@ -74,8 +74,15 @@ function remove() {
 
 function addEdge(src:string, trgt?:string) {
   // currently edgeID can be assigned to an already existing ID, causing problems
-  if (trgt==undefined)
+  if (trgt==undefined) {
+    for (let e of Object.values(edges)){
+      // Each node can have only one loop
+      if (src == e.target && e.source == e.target) {
+        return;
+      }
+    }
     trgt = src
+  }
 
   let newEdge :Transition = {
     source:src,
