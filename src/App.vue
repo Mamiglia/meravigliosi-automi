@@ -113,7 +113,9 @@ function handleKeyboard(keydown: string, event:Event) {
   }
 }
 
+// watcher: funzione eseguita 
 watch(params,()=>{
+  // localStorage vs sessionStorages
   localStorage.setItem("graph", graphString(params.value))
 })
 
@@ -179,6 +181,7 @@ const eventHandlers: vNG.EventHandlers = {
     v-model:start="initialNode"
     :nodes="nodes"
   />
+  <!-- variabile! significa che la variabile non puó essere nulla -->
 </div>
 
 </template>

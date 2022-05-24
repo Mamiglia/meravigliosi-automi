@@ -85,6 +85,7 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
                     />
                 </div>
                 <div class="section">
+                    <!-- Al click si emette l'evento 'save' che verra raccolto da App.vue -->
                     <SquareButton icon="save" @click="$emit('save')" />
                     <SquareButton icon="share" @click="$emit('share')" />
                     <SquareButton icon="image" @click="$emit('downloadSVG')" />
@@ -261,6 +262,10 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     }
     .settings input {
         font-size: 1.3em    ;
+    }
+
+    .settings>.section {
+        width: 100vw;
     }
 }
 </style>
