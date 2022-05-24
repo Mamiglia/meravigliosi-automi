@@ -29,7 +29,7 @@
                     $check = FALSE; 
             }
             if (!$check)  { //Ps True e False sono invertiti
-                // Sanificazione dell'input
+                // Sanificazione dell'input - evito SQL injection
                 $query = "INSERT INTO automa(nome, grafo, immagine)
                         VALUES ($1,$2,$3)"; //Inserisco l'automa dentro il DB
                 $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail));
@@ -71,7 +71,7 @@
         $name = $_POST['name'];
         $graph = $_POST['graph'];
         $thumbnail = $_POST['thumbnail'];
-        if (isset($name)) {
+        if (isset($name) and isset($graph) and isset($thumbnail)) {
             insert_graph($name, $graph, $thumbnail);
         } else if (isset($graph) and isset($thumbnail)) {
             display_confirm($graph, $thumbnail);
