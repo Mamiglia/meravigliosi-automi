@@ -13,7 +13,7 @@
 <body>
     <div id="header">
         <div id="title">
-            <img src="../src/assets/logo2.png">
+            <img src="../src/assets/logo.png">
             <H1>Benvenuti nell'Hub di Meravigliosi Automi!</H1>
         </div>
     </div>
@@ -40,7 +40,7 @@
         $dbconn = pg_connect("host=localhost port=5432 dbname=automi user=postgres password=hub")
         or die("Connessione non riuscita: " . pg_last_error());
         $query_like = "SELECT nome, grafo, immagine FROM automa WHERE nome LIKE $1";
-        $result = pg_query_params($dbconn, $query_like, array('%'.$query.'%'))
+        $result = pg_query_params($dbconn, $query_like, array('%'.$query.'%')) //Per somiglianza 
         or die("Errore con la Query: " . pg_last_error());
 
         pg_close($dbconn);
