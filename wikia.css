@@ -6,7 +6,18 @@
 }
 
 body{
+    padding-top: 2em;
     background-color: var(--white-ish);
+    padding-left: 20%;
+    padding-right: 20%;
+    font-size: 1.2em;
+}
+
+@media screen and (orientation:portrait) {
+  body {
+    padding-right: 10%;
+    padding-left: 10%;
+  }
 }
 
 h2{
@@ -14,6 +25,21 @@ h2{
     margin-right:auto;
     display: block;
     text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    padding-bottom: 1.5em;
+}
+
+ul {
+  margin-left: 1em;
+}
+
+h3 {
+  padding-bottom: .5em;
+}
+
+p {
+  padding-bottom: 1em;
 }
 
 a{
@@ -24,68 +50,117 @@ a{
 .material-icons{
     color: var(--rosso-sapienza);
 }
-
 :root {
-    /* colors: */
-      --white: #fbfaf5;
-      --white-ish: #ddd5d5;
+  /* colors: */
+    --white: #f7f9fa;
+    --white-ish: #d7d7d9;
+  
+    --black: #0c0c0d;
+    --black-ish: #2a2e35;
+  
+    --indigo: #2c3e50;
+  
+    --rosso-sapienza: #822433; /* <3 */
+  
+    --vt-c-text-light-1: var(--black-ish);
+    --vt-c-text-light-2: rgba(60, 60, 60, 1);
+    --vt-c-text-dark-1: var(--vt-c-white);
+    --vt-c-text-dark-2: rgba(235, 235, 235, 1);
+  
+  
+  /* palette: */
+    --main: var(--rosso-sapienza) ;
+  
+    --complement: #35799c;
+  
+    --fast-animation: 0.35s;
+    --normal-animation: 0.75s;   
+  }
+  
+  /* semantic color variables for this project */
+  :root {
+    --call-to-action: var(--rosso-sapienza);
+    --secondary: var(--complement);
+    --primary-dark: var(--white-ish);
+    --primary-light: var(--white);
+  
+    --background: var(--primary-light);
+    --background-alternative: var(--primary-dark);
+  
     
-      --black: #181818;
-      --black-ish: #252c2c;
+    --color-grid: var(--primary-dark);
     
-      --indigo: #2c3e50;
-    
-      --rosso-sapienza: #822433; /* <3 */
-    
-      --vt-c-text-light-1: var(--vt-c-indigo);
-      --vt-c-text-light-2: rgba(60, 60, 60, 1);
-      --vt-c-text-dark-1: var(--vt-c-white);
-      --vt-c-text-dark-2: rgba(235, 235, 235, 1);
-    
-    
-    /* palette: */
-      --main: var(--rosso-sapienza) ;
-    
-      --complement: #248273;
-    
-      --fast-animation: 0.35s;
-      --normal-animation: 0.75s;   
-    }
-    
-    /* semantic color variables for this project */
+    --color-text: var(--black-ish);
+    --accent: var(--call-to-action);
+  }
+  
+  @media (prefers-color-scheme: dark) {
     :root {
       --call-to-action: var(--rosso-sapienza);
       --secondary: var(--complement);
-      --primary-dark: var(--white-ish);
-      --primary-light: var(--white);
+      --primary-dark: var(--black);
+      --primary-light: var(--black-ish);
     
-      --background: var(--primary-light);
-      --background-alternative: var(--primary-dark);
+      --background: var(--primary-dark);
+      --background-alternative: var(--primary-light);
     
-      
-      --color-grid: var(--primary-dark);
-      
-      --color-heading: var(--vt-c-text-light-1);
-      --color-text: var(--vt-c-text-light-1);
-      
+      --color-grid: var(--primary-light);
+    
+      --color-text: var(--white-ish);
+    
       --accent: var(--call-to-action);
-    }
-    
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --call-to-action: var(--rosso-sapienza);
-        --secondary: var(--complement);
-        --primary-dark: var(--black);
-        --primary-light: var(--black-ish);
-      
-        --background: var(--primary-dark);
-        --background-alternative: var(--primary-light);
-      
-        --color-grid: var(--primary-light);
-      
-        --color-heading: var(--vt-c-text-dark-1);
-        --color-text: var(--vt-c-text-dark-2);
-      
-        --accent: var(--call-to-action);
-      } 
-    }
+    } 
+  }
+  
+  *,
+  *::before,
+  *::after {
+  
+    box-sizing: border-box;
+    margin: 0;
+    font-weight: normal;
+    color: var(--color-text);
+    accent-color: var(--accent);
+    font-family: 'Open Sans',Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+      Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; 
+  }
+  
+  *::selection {
+    background-color: var(--accent);
+    color: var(--background);
+  }
+  
+  body {
+    color: var(--color-text);
+    background: var(--background);
+    transition: color 0.5s, background-color 0.5s;
+    line-height: 1.6;
+    font-family: 'Open Sans',Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+      Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  a:hover {
+    color: var(--accent);
+    transition: color var(--fast-animation) ease;
+  }
+  
+  a {
+      color: var(--secondary);
+  }
+  
+  input[type="text"] {
+    background-color: var(--background);
+    border: solid;
+    border-color: var(--background);
+    border-radius: 3px;
+    width: 10em;
+  
+  } 
+  
+  h1,h2,h3,h4,h5,h6 {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+  }
