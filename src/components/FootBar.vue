@@ -38,7 +38,7 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     <div id="footer">
         <!--Primo blocco-->
         <div class="popupMenu" :show="show">
-            <SquareButton icon="settings" :active="show" @click="show = !show" />
+            <SquareButton icon="settings" :active="show" @click="show = show" />
             <div class="settings">
                 <div class="section">
                     <label for="startNode">Starting node</label>
@@ -155,7 +155,6 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     position: fixed;
     bottom: 0;
     left: 0;
-    padding: 0.5em;
     padding-bottom: 10vh;
     transition: opacity var(--fast-animation) ease,
         transform var(--normal-animation) ease-out;
@@ -164,6 +163,7 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     transform: translateX(-100%);
     background-color: var(--background-alternative);
     border: solid var(--background-alternative);
+    border-width: 5px 5px 0 0;
     border-radius: 0 1em 0 0;
     display: flex;
     flex-direction: column;
@@ -198,9 +198,9 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     gap: 1em;
-    margin-top: 0.3em;
+    padding: 0.3em 1em 0 1em;
 }
 
 .section select {
@@ -219,9 +219,6 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     text-align: center;
 }
 
-.section>.btn {
-    width: 5vw;
-}
 
 @media screen and (orientation: portrait) {
     #footer {
@@ -240,8 +237,8 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     }
 
     .popupMenu > .settings {
-        max-width: 100vw;
-        width: 100vw;
+        max-width: calc(100vw - 5px);
+        width: calc(100vw - 5px);
         padding-bottom: 20vh;
         transition-delay: 0s !important;
     }
@@ -261,6 +258,10 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     }
     .settings input {
         font-size: 1.3em    ;
+    }
+
+    .settings>.section {
+        width: 100vw;
     }
 }
 </style>

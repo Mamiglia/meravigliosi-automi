@@ -116,19 +116,9 @@ watch(()=>props.edgeId,async () => {
         border-color: var(--background-alternative);
         border-radius: 0 0 0 1em;
         max-width: 25vw;
+        min-width: min-content;
     }
 
-    @media screen and (orientation: portrait){
-        .editor{
-            width:100vw;
-            max-width: 100vw;
-            border-radius: 0 0 1em 1em;
-            z-index: 2;
-        }
-        .section>input, p {
-            font-size: 1.3em
-        }
-    };
    
     .editor input[type='radio'] {
         color: var(--accent);
@@ -136,17 +126,20 @@ watch(()=>props.edgeId,async () => {
         margin: .3em;
     }
     .editor input[type="text"]{
-        background-color: var(--background-alternative  );
-        border: none;
+        background-color: var(--background);
+        /* border: none; */
         height: 2em;
         text-align: right;
+
+
     }
     .editor input[type="text"]:disabled{
         opacity: 50%;
+        background-color: var(--background-alternative);
     }
 
     .editor .section{
-        margin-bottom: .2em;
+        padding-bottom: .5em;
         display: flex;
         justify-content: right;
         gap: 1em;
@@ -161,4 +154,15 @@ watch(()=>props.edgeId,async () => {
         display: inline-block;
     }
 
+    @media screen and (orientation: portrait){
+        .editor{
+            width:100vw;
+            max-width: 100vw;
+            border-radius: 0 0 1em 1em;
+            z-index: 2;
+        }
+        .section>input, p {
+            font-size: 1.3em
+        }
+    };
 </style>
