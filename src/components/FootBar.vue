@@ -38,7 +38,7 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     <div id="footer">
         <!--Primo blocco-->
         <div class="popupMenu" :show="show">
-            <SquareButton icon="settings" :active="show" @click="show = !show" />
+            <SquareButton icon="settings" :active="show" @click="show = show" />
             <div class="settings">
                 <div class="section">
                     <label for="startNode">Starting node</label>
