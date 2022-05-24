@@ -1,3 +1,5 @@
+//funzioni relative al grafo
+
 import { VNetworkGraphInstance } from "v-network-graph";
 import { Parameters } from "./types";
 import { zip } from "./utilities";
