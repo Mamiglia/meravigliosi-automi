@@ -7,16 +7,9 @@ module.exports = defineConfig({
   pwa: {
     name: 'Meravigliosi Automi',
     themeColor: '#822433',
-    msTileColor: '#000000',
-    appleMobileWebAppCapable: 'yes',
-    appleMobileWebAppStatusBarStyle: 'black'
-
-    // // configure the workbox plugin
-    // workboxPluginMode: 'InjectManifest',
-    // workboxOptions: {
-    //   // swSrc is required in InjectManifest mode.
-    //   swSrc: 'dev/sw.js',
-    //   // ...other Workbox options...
-    // }
+    msTileColor: '#2a2e35',
+    manifestOptions: {
+      background_color: '#2a2e35'
+    }
   }
 })
