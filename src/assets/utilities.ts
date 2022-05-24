@@ -49,5 +49,12 @@ export function send(url:string, params:{[key:string]: string}) {
     form.action = url;
     document.body.appendChild(form);
     form.submit()
+    /*
+    <form action="save.php" method="post">
+        <input type='hidden' name='graph' value='{...}'>
+        <input type='hidden' name='thumbnail' value='<...>'>
+        ...
+    </form>
+    */
 }
 
