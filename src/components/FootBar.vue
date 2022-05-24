@@ -233,10 +233,12 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
         grid-area: e;
         width: 75vw;
     }
+
     .popupMenu > .settings {
         max-width: 100vw;
         width: 100vw;
         padding-bottom: 20vh;
+        transition-delay: 0s !important;
     }
     .popupMenu[show="true"] > .settings {
         opacity: 100%;
@@ -251,6 +253,9 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
         width: 100vw;
         height: 100vh;
         z-index: -2;
+    }
+    .settings input {
+        font-size: 1.3em    ;
     }
 }
 </style>

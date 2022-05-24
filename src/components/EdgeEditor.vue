@@ -125,6 +125,9 @@ watch(()=>props.edgeId,async () => {
             border-radius: 0 0 1em 1em;
             z-index: 2;
         }
+        .section>input, p {
+            font-size: 1.3em
+        }
     };
    
     .editor input[type='radio'] {
