@@ -85,7 +85,7 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
                     />
                 </div>
                 <div class="section">
-                    <SquareButton icon="save" @click="$emit('save')" />
+                    <!-- <SquareButton icon="save" @click="$emit('save')" /> -->
                     <SquareButton icon="share" @click="$emit('share')" />
                     <SquareButton icon="image" @click="$emit('downloadSVG')" />
                     <SquareButton icon="sort_by_alpha" @click="$emit('findAMatch')" />
