@@ -13,7 +13,7 @@ const hasFocus = ref(true)
     id="sidemenu" 
     :hide="!hasFocus">
     <img class="logo" src="..\assets\logo.png">
-    <h1 class="title" id="title">Meravigliosi Automi <br> &beta;</h1>
+    <h1 class="title" id="title">Meravigliosi Automi</h1>
     <ul>
         <!--<li><a href="start.html">Start</a></li>-->
         <!--<li><a href="https://it.wikipedia.org/wiki/Automa_(informatica)">Wiki</a></li>-->

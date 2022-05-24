@@ -116,6 +116,7 @@ watch(()=>props.edgeId,async () => {
         border-color: var(--background-alternative);
         border-radius: 0 0 0 1em;
         max-width: 25vw;
+        min-width: min-content;
     }
 
    
@@ -138,7 +139,7 @@ watch(()=>props.edgeId,async () => {
     }
 
     .editor .section{
-        margin-bottom: .2em;
+        padding-bottom: .5em;
         display: flex;
         justify-content: right;
         gap: 1em;
