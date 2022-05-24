@@ -32,7 +32,7 @@
                 // Sanificazione dell'input - evito SQL injection
                 $query = "INSERT INTO automa(nome, grafo, immagine)
                         VALUES ($1,$2,$3)"; //Inserisco l'automa dentro il DB
-                $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail));
+                $result = pg_query_params($dbconn, $query, array($name, $graph, $thumbnail)); //é una funzione che converte la query scritta precedentemente e la manda al DB
                 echo "<h1>Salvataggio eseguito correttamente</h1>";
                 header("Location: hub.php");
             }
