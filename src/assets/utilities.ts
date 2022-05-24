@@ -35,7 +35,7 @@ export function unzip(zipped: string) : Parameters {
 export function sample(arr: Array<any>) : any{
     return arr[Math.floor(Math.random()*arr.length)];
 }
-
+//Uso una chiamata AJAX per effettuare una post, usando come exploit la creazione di una form
 export function send(url:string, params:{[key:string]: string}) {
     const form = document.createElement('form');
     Object.keys(params).forEach((key)=>{
