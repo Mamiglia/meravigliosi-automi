@@ -12,8 +12,8 @@ const hasFocus = ref(true)
 <div 
     id="sidemenu" 
     :hide="!hasFocus">
-    <img class="logo" src="..\assets\logo2.png">
-    <h1 class="title" id="title">Meravigliosi Automi</h1>
+    <img class="logo" src="..\assets\logo.png">
+    <h1 class="title" id="title">Meravigliosi Automi <br> &beta;</h1>
     <ul>
         <!--<li><a href="start.html">Start</a></li>-->
         <!--<li><a href="https://it.wikipedia.org/wiki/Automa_(informatica)">Wiki</a></li>-->
@@ -113,7 +113,6 @@ h1 {
     color: inherit;
     font-size: 0;
     transition: 0.35s;
-    overflow-x: hidden;
 }
 .menu-btn>button::before , .menu-btn>button::after{
     position: absolute;
@@ -182,6 +181,7 @@ h1 {
         width: 100vw;
     }
     #sidemenu>button{
+        padding-top: .3em;
         height: 15vh;
         font-size: 2.5em;
         padding-bottom: 1em;
