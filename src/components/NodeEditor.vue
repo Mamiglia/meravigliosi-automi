@@ -1,5 +1,5 @@
 <template>
-    <div class="nodeEditor">
+    <div class="editor nodeEditor">
         <div class="nodeTitle">
             <h3>Node: {{name}}</h3>
         </div>
@@ -43,7 +43,7 @@ watch(()=>props.nodeId, async ()=>{
 </script>
 
 <style scoped>
-    .nodeEditor {
+    /* .editor {
         background-color: var(--background);
         position:fixed;
         top: 0;
@@ -57,7 +57,7 @@ watch(()=>props.nodeId, async ()=>{
     }
 
     @media screen and (orientation: portrait){
-        .nodeEditor{
+        .editor{
             width:auto;
             max-width: 100vw;
         }
@@ -87,6 +87,6 @@ watch(()=>props.nodeId, async ()=>{
     }
     p {
         display: inline-block;
-    }
+    } */
 
 </style>

@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import { ref , defineEmits} from 'vue'
-// import Toggle from '@vueform/toggle'
 
 defineEmits(["startTutorial"])
 
 const hasFocus = ref(true)
-
-function updateTheme(){
-    console.log("IMPLEMENTARE CAMBIO TEMA");
-    //TODO
-}
 
 </script>
 
@@ -26,7 +20,6 @@ function updateTheme(){
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
         <!-- <li><a :href="server.hub">Hub</a></li>  -->
         <br>
-        <!-- <li>Dark/Light mode<Toggle id="themeCheckbox" class="toggle" /></li> -->
     </ul>
     <span></span>
     <button type="button" @click="hasFocus=false" >start ></button>
@@ -74,7 +67,7 @@ button {
     flex-shrink: 0;
     height: 10vh;
     padding: 0;
-    color: var(--background);
+    color: var(--white-ish);
     background-color: var(--accent);
     transition: background var(--fast-animation) ease;
 }
@@ -91,6 +84,7 @@ ul {
 h1 {
     margin: 0;
     padding: 10%;
+    color: var(--color-text);
 }
 
 .menu-btn {
@@ -182,19 +176,14 @@ h1 {
     background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
 }
 
-/*Vorrei staccare un pò il toggle dalla scritta sopra*/
-.toggle{
-    margin-left:auto;
-    margin-right:auto;
-}
-
 @media screen and (orientation: portrait){
     #sidemenu{
         width: 100vw;
     }
     #sidemenu>button{
-        height: 20vh;
+        height: 15vh;
         font-size: 2.5em;
+        padding-bottom: 1em;
     }
 };
 </style>

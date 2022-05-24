@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref , defineEmits, defineProps, computed} from 'vue'
+import { ref, defineEmits, defineProps, computed } from 'vue'
 import Toggle from '@vueform/toggle'
 import SquareButton from '@/components/SquareButton.vue'
 import { parseList } from '@/assets/utilities'
@@ -11,23 +11,23 @@ const emits = defineEmits(["addNode", "remove", "addEdge", "validate", "update:a
 
 const props = defineProps<{
     alphabet: string[]
-    determinism:boolean
-    animated:boolean 
-    start:string
+    determinism: boolean
+    animated: boolean
+    start: string
 
-    nodes:Nodes
+    nodes: Nodes
 }>()
 const show = ref(false)
 
 const alphabetInput = ref(props.alphabet.join(','))
-const alphabetModel = computed(()=>
+const alphabetModel = computed(() =>
     parseList(alphabetInput.value)
 )
 const determinismModel = ref(props.determinism)
 const animatedModel = ref(props.animated)
-const inputText= ref("")
+const inputText = ref("")
 
-function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value:any) {
+function updateValue(variable: "animated" | "determinism" | "alphabet" | "start", value: any) {
     console.log(value)
     emits(`update:${variable}`, value)
 }
@@ -35,51 +35,77 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
 </script>
 
 <template>
-    <div id="footer"> <!--Primo blocco-->
-            <div class="popupMenu" :show="show">
-                <SquareButton icon="settings" :active="show" @click="show = !show" />
-                <div class="settings">
-                    <div class="section">
-                        <label for="startNode">Starting node</label>
-                        <select name="startNode" @change="updateValue('start', $event.target!.value)">
-                            <option disabled value="null"> </option>
-                            <option v-for="n in Object.keys(nodes)" :key="n" :value="n">{{nodes[n].name}}</option>
-                        </select>
-                    </div>
-                    <div class="section">
-                        <label for="alphabetInput">
-                            Alphabet:&nbsp;
-                        </label>
-                        <input type="text" id="alphabetInput" placeholder="Alfabeto"  @input="updateValue('alphabet', alphabetModel)" v-model="alphabetInput">
-                    </div>
-                        
-                    <div class="section">
-                        <label for="determinismCheckbox">Determinstic Automa</label>
-                        <Toggle id="determinismCheckbox" class="toggle" @change="updateValue('determinism', determinismModel)" v-model="determinismModel" on-label="on" off-label="off"/>
-                    </div>
-                    <div class="section">
-                        <label for="animateCheckbox">Animate Evaluation</label>
-                        <Toggle id="animateCheckbox" class="toggle" @change="updateValue('animated', animatedModel)" v-model="animatedModel" on-label="on" off-label="off"/>
-                    </div>
-                    <div class="section">
-                        <!-- <SquareButton icon="save" @click="$emit('save')"/> -->
-                        <SquareButton icon="share" @click="$emit('share')"/>
-                        <SquareButton icon="image" @click="$emit('downloadSVG')"/>
-                        <SquareButton icon="sort_by_alpha" @click="$emit('findAMatch')"/>
-                        <SquareButton icon="clear" @click="reset()" />
-                    </div>
+    <div id="footer">
+        <!--Primo blocco-->
+        <div class="popupMenu" :show="show">
+            <SquareButton icon="settings" :active="show" @click="show = !show" />
+            <div class="settings">
+                <div class="section">
+                    <label for="startNode">Starting node</label>
+                    <select name="startNode" @change="updateValue('start', $event.target!.value)">
+                        <option disabled value="null"></option>
+                        <option
+                            v-for="n in Object.keys(nodes)"
+                            :key="n"
+                            :value="n"
+                        >{{ nodes[n].name }}</option>
+                    </select>
+                </div>
+                <div class="section">
+                    <label for="alphabetInput">Alphabet:&nbsp;</label>
+                    <input
+                        type="text"
+                        id="alphabetInput"
+                        placeholder="Alfabeto"
+                        @input="updateValue('alphabet', alphabetModel)"
+                        v-model="alphabetInput"
+                    />
+                </div>
+
+                <div class="section">
+                    <label for="determinismCheckbox">Determinstic Automa</label>
+                    <Toggle
+                        id="determinismCheckbox"
+                        class="toggle"
+                        @change="updateValue('determinism', determinismModel)"
+                        v-model="determinismModel"
+                        on-label="on"
+                        off-label="off"
+                    />
+                </div>
+                <div class="section">
+                    <label for="animateCheckbox">Animate Evaluation</label>
+                    <Toggle
+                        id="animateCheckbox"
+                        class="toggle"
+                        @change="updateValue('animated', animatedModel)"
+                        v-model="animatedModel"
+                        on-label="on"
+                        off-label="off"
+                    />
+                </div>
+                <div class="section">
+                    <SquareButton icon="save" @click="$emit('save')" />
+                    <SquareButton icon="share" @click="$emit('share')" />
+                    <SquareButton icon="image" @click="$emit('downloadSVG')" />
+                    <SquareButton icon="sort_by_alpha" @click="$emit('findAMatch')" />
+                    <SquareButton icon="clear" @click="reset()" />
                 </div>
             </div>
-            <SquareButton icon="delete_forever"  @click="$emit('remove')"/>
-            <SquareButton icon="add_circle"  @click="$emit('addNode')"/>
-            <SquareButton icon="commit"  @click="$emit('addEdge')"/>
+            <span class="outside" @click="show = false"></span>
+        </div>
+        <SquareButton icon="delete_forever" @click="$emit('remove')" />
+        <SquareButton icon="add_circle" @click="$emit('addNode')" />
+        <SquareButton icon="commit" @click="$emit('addEdge')" />
 
-            <input
+        <input
+            id="String"
             type="text"
             placeholder="Insert a string to validate"
             v-model="inputText"
-            @keyup.enter="$emit('validate', inputText)"> 
-            <SquareButton icon="skip_next" @click="$emit('validate', inputText)"/>
+            @keyup.enter="$emit('validate', inputText)"
+        />
+        <SquareButton icon="skip_next" @click="$emit('validate', inputText)" />
     </div>
 </template>
 
@@ -92,32 +118,31 @@ function updateValue(variable:"animated"|"determinism"|"alphabet"|"start", value
     width: 100vw;
     position: absolute;
     z-index: 1;
-    left:0;
-    bottom:0;
-    top:auto;
+    left: 0;
+    bottom: 0;
+    top: auto;
     background-color: var(--background-alternative);
 }
 
-#footer>* {
+#footer > * {
     height: 10vh;
-
 }
 
-input {
+#String {
     width: 100%;
     text-align: center;
     border-style: none;
     background-color: transparent;
     font-size: 1.3em;
     transition: background var(--normal-animation) ease-out;
+    outline: none;
 }
 
-
-input:hover{
+#String:hover {
     background-color: var(--background-alternative);
 }
 
-input:focus-visible{
+#String:focus-visible {
     border-style: none;
 }
 
@@ -126,39 +151,46 @@ input:focus-visible{
     flex-shrink: 0;
 }
 
-.popupMenu>.settings {
+.popupMenu > .settings {
     position: fixed;
-    bottom: 10vh;
-    background-color: var(--background-alternative);
-    display: flex;
-    flex-direction: column;
-    padding: .5em;
-    gap: .3em;
-    transition: opacity var(--fast-animation) ease, transform var(--normal-animation) ease-out;
-    transition-delay: .5s;
+    bottom: 0;
+    left: 0;
+    padding: 0.5em;
+    padding-bottom: 10vh;
+    transition: opacity var(--fast-animation) ease,
+        transform var(--normal-animation) ease-out;
+    transition-delay: 0.5s;
     opacity: 0;
     transform: translateX(-100%);
+    background-color: var(--background-alternative);
+    border: solid var(--background-alternative);
+    border-radius: 0 1em 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
     min-width: max-content;
-    width: 25vw;
-    left:0;
+    max-width: 30vw;
+    z-index: -1;
 }
 
-.popupMenu:hover>.settings, .popupMenu[show="true"]>.settings {
+.popupMenu:hover > .settings {
     opacity: 100%;
     transform: translateX(0%);
     transition-delay: 0s;
-
+}
+.popupMenu > .outside {
+    display: none;
 }
 
 .settings input[type="checkbox"] {
     vertical-align: middle;
-    display:inline-block;
+    display: inline-block;
     width: min-content;
 }
 
 .settings label {
     white-space: nowrap;
-    display:inline-block;
+    display: inline-block;
 }
 
 .section {
@@ -166,7 +198,8 @@ input:focus-visible{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: .3em;
+    gap: 1em;
+    margin-top: 0.3em;
 }
 
 .section select {
@@ -182,30 +215,44 @@ input:focus-visible{
     border-color: var(--background);
     border-radius: 3px;
     width: 10em;
+    text-align: center;
 }
-    
-@media screen and (orientation: portrait){
-    #footer{
+
+@media screen and (orientation: portrait) {
+    #footer {
         height: 20vh;
         display: grid;
-        grid-template-areas: 
+        grid-template-areas:
             "a b c d"
             "e e e f";
         grid-template-columns: 25vw 25vw 25vw 25vw;
         grid-template-rows: 10vh 10vh;
         place-items: center;
-
     }
-    #footer>input[type='text']{
+    #footer > input[type="text"] {
         grid-area: e;
         width: 75vw;
-
     }
-    .popupMenu>.settings{
+    .popupMenu > .settings {
+        max-width: 100vw;
         width: 100vw;
-        bottom: 20vh;
+        padding-bottom: 20vh;
     }
-};
+    .popupMenu[show="true"] > .settings {
+        opacity: 100%;
+        transform: translateX(0%);
+        transition-delay: 0s;
+    }
+    .popupMenu[show="true"] > .outside {
+        display: unset;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -2;
+    }
+}
 </style>
 
 
