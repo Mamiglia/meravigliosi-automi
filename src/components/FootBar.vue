@@ -198,6 +198,7 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     gap: 1em;
     margin-top: 0.3em;
 }
@@ -216,6 +217,10 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     border-radius: 3px;
     width: 10em;
     text-align: center;
+}
+
+.section>.btn {
+    width: 5vw;
 }
 
 @media screen and (orientation: portrait) {
