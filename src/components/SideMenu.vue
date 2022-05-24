@@ -68,7 +68,7 @@ button {
     flex-shrink: 0;
     height: 10vh;
     padding: 0;
-    color: var(--background);
+    color: var(--white-ish);
     background-color: var(--accent);
     transition: background var(--fast-animation) ease;
 }
@@ -85,6 +85,7 @@ ul {
 h1 {
     margin: 0;
     padding: 10%;
+    color: var(--color-text);
 }
 
 .menu-btn {
@@ -181,8 +182,9 @@ h1 {
         width: 100vw;
     }
     #sidemenu>button{
-        height: 20vh;
+        height: 15vh;
         font-size: 2.5em;
+        padding-bottom: 1em;
     }
 };
 </style>

@@ -1,27 +1,27 @@
 <template>
-    <div class="edgeEditor">
+    <div class="editor edgeEditor">
         <div class="edgeTitle">
-            <h3>From node {{modelValue.source}} to {{modelValue.target}}</h3>
+            <h3>{{modelValue.source}} → {{modelValue.target}}</h3>
         </div>
         <div class="section" >
-            <input type="radio" value="ALL" id="ruleTypeALL" name="ruleType" v-model="ruleType">
-            <!-- <label for="ruleTypeALL">ALL</label> -->
-            <p @click="ruleType='ALL'">All alphabet</p> 
-        </div>
-        <div class="section" @click="ruleType='INCLUDE'">
-            <input type="radio" value="INCLUDE" id="ruleTypeINCLUDE" name="ruleType" v-model="ruleType">
-            <!-- <label for="ruleTypeINCLUDE">INCLUDE</label> -->
-            <input type="text" placeholder="Include characters" :disabled="ruleType!='INCLUDE'" v-model="textInclude">
-        </div>
-        <div class="section" @click="ruleType='EXCLUDE'">
-            <input type="radio" value="EXCLUDE" id="ruleTypeEXCLUDE" name="ruleType" v-model="ruleType"> 
-            <!-- <label for="ruleTypeEXCLUDE">EXCLUDE</label> -->
-            <input type="text" placeholder="Exclude characters" :disabled="ruleType!='EXCLUDE'" v-model="textExclude">
-        </div>
-        <div class="section" >
-            <input type="radio" value="EPSILON" id="ruleTypeEPSILON" name="ruleType" v-model="ruleType">
             <!-- <label for="ruleTypeALL">ALL</label> -->
             <p @click="ruleType='EPSILON'">&epsilon;-transition</p> 
+            <input type="radio" value="EPSILON" id="ruleTypeEPSILON" name="ruleType" v-model="ruleType">
+        </div>
+        <div class="section" >
+            <!-- <label for="ruleTypeALL">ALL</label> -->
+            <p @click="ruleType='ALL'">All alphabet</p> 
+            <input type="radio" value="ALL" id="ruleTypeALL" name="ruleType" v-model="ruleType">
+        </div>
+        <div class="section" @click="ruleType='EXCLUDE'">
+            <!-- <label for="ruleTypeEXCLUDE">EXCLUDE</label> -->
+            <input type="text" placeholder="Exclude characters" :disabled="ruleType!='EXCLUDE'" v-model="textExclude">
+            <input type="radio" value="EXCLUDE" id="ruleTypeEXCLUDE" name="ruleType" v-model="ruleType"> 
+        </div>
+        <div class="section" @click="ruleType='INCLUDE'">
+            <!-- <label for="ruleTypeINCLUDE">INCLUDE</label> -->
+            <input type="text" placeholder="Include characters" :disabled="ruleType!='INCLUDE'" v-model="textInclude">
+            <input type="radio" value="INCLUDE" id="ruleTypeINCLUDE" name="ruleType" v-model="ruleType">
         </div>
 
     </div>
@@ -102,11 +102,11 @@ watch(()=>props.edgeId,async () => {
 
 </script>
 
-<style scoped>
+<style>
 .r{}
 
-    .edgeEditor {
-        background-color: var(--background);
+    .editor {
+        background-color: var(--background-alternative);
         position:fixed;
         top: 0;
         right: 0;
@@ -114,40 +114,47 @@ watch(()=>props.edgeId,async () => {
         padding-top: .2em;
         border: solid;
         border-color: var(--background-alternative);
-        border-radius: 1em;
+        border-radius: 0 0 0 1em;
         max-width: 25vw;
     }
 
     @media screen and (orientation: portrait){
-        .edgeEditor{
-            width:auto;
-            max-width: 50vw;
+        .editor{
+            width:100vw;
+            max-width: 100vw;
+            border-radius: 0 0 1em 1em;
+            z-index: 2;
         }
     };
    
-    input[type='radio'] {
+    .editor input[type='radio'] {
         color: var(--accent);
         background-color: var(--background-alternative);
         margin: .3em;
     }
-    input[type="text"]{
+    .editor input[type="text"]{
         background-color: var(--background-alternative  );
         border: none;
         height: 2em;
-        width: 10em;
+        text-align: right;
     }
-    input[type="text"]:disabled{
+    .editor input[type="text"]:disabled{
         opacity: 50%;
     }
 
-    .section{
+    .editor .section{
         margin-bottom: .2em;
         display: flex;
+        justify-content: right;
+        gap: 1em;
     }
-    h3 {
+    .editor h3 {
         text-align: center;
+        font-size: 1.5em;
+        padding-bottom: .5em;
+        font-weight: bold;
     }
-    p {
+    .editor p {
         display: inline-block;
     }
 

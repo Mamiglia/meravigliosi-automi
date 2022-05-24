@@ -159,8 +159,11 @@ const eventHandlers: vNG.EventHandlers = {
         <v-edge-label :text="edge.label" color="#fbfaf5" align="center" vertical-align="above" v-bind="slotProps"/>
       </template>
     </v-network-graph>
-    <EdgeEditor v-if="selectedEdge.length === 1" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
-    <NodeEditor v-else-if="selectedNodes.length === 1" :node-id="selectedNodes[0]" v-model="nodes[selectedNodes[0]]"/>  </div>
+    <Transition name="slide">
+      <EdgeEditor v-if="selectedEdge.length === 1" :edgeId="selectedEdge[0]" v-model="edges[selectedEdge[0]]" />
+      <NodeEditor v-else-if="selectedNodes.length === 1" :node-id="selectedNodes[0]" v-model="nodes[selectedNodes[0]]"/>  
+    </Transition>
+    </div>
   <FootBar
     @validate="(text:string)=>validate(text)"
     @addNode="addNode()"
@@ -190,6 +193,20 @@ const eventHandlers: vNG.EventHandlers = {
 #worksheet {
   height: 90vh;
   width: 100%;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: 
+    opacity var(--normal-animation) ease,
+    transform var(--normal-animation) ease;
+}
+
+
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateY(-3em);
 }
 
 </style>

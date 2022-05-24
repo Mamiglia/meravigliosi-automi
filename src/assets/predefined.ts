@@ -95,17 +95,17 @@ export const networkGraphConfigs = defineConfigs({
 export const palette = `
 :root {
     /* colors: */
-      --white: #fbfaf5;
-      --white-ish: #ddd5d5;
+      --white: #f7f9fa;
+      --white-ish: #d7d7d9;
     
-      --black: #181818;
-      --black-ish: #252c2c;
+      --black: #0c0c0d;
+      --black-ish: #2a2e35;
     
       --indigo: #2c3e50;
     
       --rosso-sapienza: #822433; /* <3 */
     
-      --vt-c-text-light-1: var(--vt-c-indigo);
+      --vt-c-text-light-1: var(--black-ish);
       --vt-c-text-light-2: rgba(60, 60, 60, 1);
       --vt-c-text-dark-1: var(--vt-c-white);
       --vt-c-text-dark-2: rgba(235, 235, 235, 1);
@@ -114,11 +114,10 @@ export const palette = `
     /* palette: */
       --main: var(--rosso-sapienza) ;
     
-      --complement: #248273;
+      --complement: #35799c;
     
       --fast-animation: 0.35s;
-      --normal-animation: 0.75s; 
-      background: var(--background);  
+      --normal-animation: 0.75s;   
     }
     
     /* semantic color variables for this project */
@@ -134,9 +133,7 @@ export const palette = `
       
       --color-grid: var(--primary-dark);
       
-      --color-heading: var(--vt-c-text-light-1);
-      --color-text: var(--vt-c-text-light-1);
-      
+      --color-text: var(--black-ish);
       --accent: var(--call-to-action);
     }
     
@@ -152,8 +149,7 @@ export const palette = `
       
         --color-grid: var(--primary-light);
       
-        --color-heading: var(--vt-c-text-dark-1);
-        --color-text: var(--vt-c-text-dark-2);
+        --color-text: var(--white-ish);
       
         --accent: var(--call-to-action);
       } 
