@@ -155,3 +155,5 @@ export const palette = `
       } 
     }
 `
+
+export const csv = /^(\w,)*\w$/
