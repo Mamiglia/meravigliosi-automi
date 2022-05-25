@@ -37,18 +37,19 @@ export function readParams(url: string): Parameters {
 }
 
 export function share(params :Parameters) {
-    const url = window.location.hostname + window.location.pathname + "?graph=" + graphString(params)
     if (navigator.share) {
+        const url = "?graph=" + graphString(params)
         navigator.share({
-          title: 'Meraviglioso Automa',
-          url: url
+            title: 'Meraviglioso Automa',
+            url: url
         })
         .catch(console.error);
-      } else {
+    } else {
+        const url = window.location.hostname + window.location.pathname + "?graph=" + graphString(params)
         const {Toast} = require("toaster-js")
         toClipboard(encodeURI(url));
         new Toast("Copied to clipboard", Toast.TYPE_DONE)
-      }
+    }
 }
 
 export function save(params: Parameters, graph: VNetworkGraphInstance) {
