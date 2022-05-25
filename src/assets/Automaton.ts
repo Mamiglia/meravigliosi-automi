@@ -2,8 +2,7 @@ import {Nodes,Edges, Transition} from './types';
 import { sample, sleep } from './utilities';
 import "toaster-js/default.scss";
 const T = require("toaster-js");
-T.configureToasts({
-})
+
 
 export class Automaton{
     nodes: Nodes;
