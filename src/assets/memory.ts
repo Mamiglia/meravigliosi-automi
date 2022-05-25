@@ -38,7 +38,17 @@ export function readParams(url: string): Parameters {
 
 export function share(params :Parameters) {
     const url = window.location.hostname + window.location.pathname + "?graph=" + graphString(params)
-    toClipboard(encodeURI(url));
+    if (navigator.share) {
+        navigator.share({
+          title: 'Meraviglioso Automa',
+          url: url
+        })
+        .catch(console.error);
+      } else {
+        const {Toast} = require("toaster-js")
+        toClipboard(encodeURI(url));
+        new Toast("Copied to clipboard", Toast.TYPE_DONE)
+      }
 }
 
 export function save(params: Parameters, graph: VNetworkGraphInstance) {
