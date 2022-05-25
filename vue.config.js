@@ -8,6 +8,8 @@ module.exports = defineConfig({
     name: 'Meravigliosi Automi',
     themeColor: '#822433',
     msTileColor: '#2a2e35',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black',
     manifestOptions: {
       background_color: '#2a2e35'
     }
