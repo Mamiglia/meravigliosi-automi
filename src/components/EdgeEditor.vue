@@ -11,16 +11,16 @@
         <div class="section" >
             <!-- <label for="ruleTypeALL">ALL</label> -->
             <p @click="ruleType='ALL'">All alphabet</p> 
-            <input type="radio" value="ALL" id="ruleTypeALL" name="ruleType" v-model="ruleType">
+            <input type="radio" value="ALL" id="ruleTypeALL" name="ruleType" v-model="ruleType" >
         </div>
         <div class="section" @click="ruleType='EXCLUDE'">
             <!-- <label for="ruleTypeEXCLUDE">EXCLUDE</label> -->
-            <input type="text" placeholder="Exclude characters" :disabled="ruleType!='EXCLUDE'" v-model="textExclude">
+            <input type="text" placeholder="Exclude characters" :disabled="ruleType!='EXCLUDE'" @input="charsetText = $event.target.value" :pattern="csv.source">
             <input type="radio" value="EXCLUDE" id="ruleTypeEXCLUDE" name="ruleType" v-model="ruleType"> 
         </div>
         <div class="section" @click="ruleType='INCLUDE'">
             <!-- <label for="ruleTypeINCLUDE">INCLUDE</label> -->
-            <input type="text" placeholder="Include characters" :disabled="ruleType!='INCLUDE'" v-model="textInclude">
+            <input type="text" placeholder="Include characters" :disabled="ruleType!='INCLUDE'" @input="charsetText = $event.target.value" :pattern="csv.source" >
             <input type="radio" value="INCLUDE" id="ruleTypeINCLUDE" name="ruleType" v-model="ruleType">
         </div>
 
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import {ref, computed, watch, defineEmits, defineProps} from "vue"
 import {Transition} from "@/assets/types"
+import { csv } from "@/assets/predefined";
 import { parseList } from "@/assets/utilities";
 
 const emits = defineEmits(["update:modelValue"]);
@@ -42,17 +43,23 @@ const ruleType = ref<Transition["ruleType"]>("ALL");
 const textInclude = ref("");
 const textExclude = ref("");
 updateModel()
+const charset = ref(props.modelValue.charset)
 
-
-const charset = computed(()=>{
-    if (ruleType.value === "INCLUDE"){
-        return parseList(textInclude.value);
-    }
-    else if(ruleType.value === "EXCLUDE"){
-        return parseList(textExclude.value);
-    }
-    else{
-        return [];
+const charsetText = computed<string>({
+    set(val :string) {
+        console.log(val)
+        if (ruleType.value === "INCLUDE" && csv.test(val)){
+            charset.value = parseList(val);
+        }
+        else if(ruleType.value === "EXCLUDE" && csv.test(val)){
+            charset.value = parseList(val);
+        }
+        else if (ruleType.value === "ALL" || ruleType.value === "EPSILON"){
+            charset.value = [];
+        }
+    },
+    get() {
+        return charset.value.toString()
     }
 })
 
@@ -99,7 +106,6 @@ watch(label,async() => {
 watch(()=>props.edgeId,async () => {
     updateModel()
 })
-
 </script>
 
 <style>
@@ -136,6 +142,10 @@ watch(()=>props.edgeId,async () => {
     .editor input[type="text"]:disabled{
         opacity: 50%;
         background-color: var(--background-alternative);
+    }
+
+    .editor input[type="text"]:invalid {
+        text-decoration: line-through;
     }
 
     .editor .section{

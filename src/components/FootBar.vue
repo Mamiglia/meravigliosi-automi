@@ -3,6 +3,7 @@ import { ref, defineEmits, defineProps, computed } from 'vue'
 import Toggle from '@vueform/toggle'
 import SquareButton from '@/components/SquareButton.vue'
 import { parseList } from '@/assets/utilities'
+import { csv } from '@/assets/predefined'
 import { Nodes } from '@/assets/types'
 import { reset } from '@/assets/memory'
 
@@ -57,8 +58,9 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
                         type="text"
                         id="alphabetInput"
                         placeholder="Alfabeto"
-                        @input="updateValue('alphabet', alphabetModel)"
+                        @input="csv.test($event.target?.value) && updateValue('alphabet', alphabetModel)"
                         v-model="alphabetInput"
+                        :pattern="csv.source"
                     />
                 </div>
 
@@ -218,6 +220,9 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     border-radius: 3px;
     width: 10em;
     text-align: center;
+}
+.section input[type="text"]:invalid {
+    text-decoration: line-through;
 }
 
 

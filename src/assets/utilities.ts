@@ -1,4 +1,5 @@
 import { compress, decompress } from 'compress-json';
+import { InputHTMLAttributes } from 'vue';
 import useClipboard from 'vue-clipboard3'
 import { Parameters } from './types';
 
@@ -57,4 +58,3 @@ export function send(url:string, params:{[key:string]: string}) {
     </form>
     */
 }
-
