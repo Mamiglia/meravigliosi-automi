@@ -1,52 +1,21 @@
-# TODO
-## Vue
-- [x] Popup (vedi toaster.js https://www.npmjs.com/package/toaster-js) (F)
-- [x] link name in editNode (X)
-- [x] fix self-loops (X)
-- [x] fix open option menu from mobile (X)
-- [x] fix select nodes from mobile (X)
-#### Optional
-- [x] Random walk on graph (X)
-- [x] match UI (F)
-- [x] customizzare popup (F)
-- [x] Footbar textfield should occupy the whole space (F)
+# Meravigliosi Automi
+É una web app progettata per la gestione e valutazione di Automi a Stati Finiti. Esame Linguaggi e Tecnologie per il Web 2022.
 
-## Server
-- [x] vue -> save (cookies immagine) (X,M)
-- [x] save -> hub (reindirizzamento) (M)
-- [x] save form (chiedi nome) (M)
-- [x] hub UI (X)
-- [x] save UI (X)
-- [x] save: gestione errore (M)
-#### Optional
-- [x] research through automas hub (SQL LIKE) (M)
-## Media Query
-- [x] Adapt to media query (F)
-    - [x] Footbar - spezzata in due linee
-    - [x] Sidebar -  schermo intero
-    - [x] OptionPane - schermo intero
-    - [x] Popup - vedi se funge
-- [ ] bottone dark/light mode (F)
+### [demo](https://mamiglia.github.io/meravigliosi-automi/)
 
+### Tecnologie usate:
+- Vue.js
+- Typescript
+- PHP
+- CSS puro
 
-# Presentazione
-1 - Demo Sito
-        a - add Node
-        b - remove
-        c - addEdge
-        d - edit nodes and edges
-        e - validate
-        f - options (alphabet, firstNode, switches, generate)
-        g - share
-        h - download img
-        i - save e hub
-        
-### Problematiche
-- Problema compressione dei dati e passaggio tra php, vue
-- Media Query: Tema Scuro/Chiaro , palette 
-- Mappatura degli eventi
-- App.vue ci sono la parte di memoria reattiva del sito
-- Tipi custom Typescript (Transition e State extension)
-- memoria
+---
+### Files:
+In `src` ci sono tutti i file in Vue e TS, relativi a tutto lo stato reattivo della web app nella sua interazione con l'utente. In particolare `App.vue` é la componente principale, che usa poi tutte le componenti definite in `src/components/`, oltre ad essere il punto di monta della libreria `v-network graph` che permette la visualizzazione del grafo. 
 
+Inoltre in `src/assets/` ci sono:
+- Il file CSS di base, con la palette di colori definita per tutto il sito
+- Vari file Typescript con alcune funzioni di utility
+- Il file `Automaton.ts` responsabile di tutta la logica relativa alla valutazione dell'automa
 
+Mentre in `public` ci sono tutti i file non relativi a TS, tipo `hub` e `save` in PHP e `wikia.html` pagina statica.
