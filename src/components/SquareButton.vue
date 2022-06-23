@@ -1,5 +1,5 @@
 <template>
-<button class='btn' :is-active="active">
+<button class='btn' :is-active="active" :aria-label="label">
     <span class="material-icons" >
         {{icon}}
     </span>
@@ -14,7 +14,8 @@ defineProps({
     active: {
         type: Boolean,
         default: false
-    }
+    },
+    label : String
 })
 
 </script>

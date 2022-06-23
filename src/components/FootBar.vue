@@ -39,7 +39,7 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
     <div id="footer">
         <!--Primo blocco-->
         <div class="popupMenu" :show="show">
-            <SquareButton icon="settings" :active="show" @click="show = show" />
+            <SquareButton icon="settings" :active="show" @click="show = show" label="Settings"/>
             <div class="settings">
                 <div class="section">
                     <label for="startNode">Starting node</label>
@@ -88,17 +88,17 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
                 </div>
                 <div class="section">
                     <!-- <SquareButton icon="save" @click="$emit('save')" /> -->
-                    <SquareButton icon="share" @click="$emit('share')" />
-                    <SquareButton icon="image" @click="$emit('downloadSVG')" />
-                    <SquareButton icon="sort_by_alpha" @click="$emit('findAMatch')" />
-                    <SquareButton icon="clear" @click="reset()" />
+                    <SquareButton icon="share" @click="$emit('share')" label="share"/>
+                    <SquareButton icon="image" @click="$emit('downloadSVG')" label="download image"/>
+                    <SquareButton icon="sort_by_alpha" @click="$emit('findAMatch')" label="find any random matching string" />
+                    <SquareButton icon="clear" @click="reset()" label="reset FSA" />
                 </div>
             </div>
             <span class="outside" @click="show = false"></span>
         </div>
-        <SquareButton icon="delete_forever" @click="$emit('remove')" />
-        <SquareButton icon="add_circle" @click="$emit('addNode')" />
-        <SquareButton icon="commit" @click="$emit('addEdge')" />
+        <SquareButton icon="delete_forever" @click="$emit('remove')" label="remove selected nodes and edges"/>
+        <SquareButton icon="add_circle" @click="$emit('addNode')" label="add new state" />
+        <SquareButton icon="commit" @click="$emit('addEdge')" label="add new transition"/>
 
         <input
             id="String"
@@ -107,7 +107,7 @@ function updateValue(variable: "animated" | "determinism" | "alphabet" | "start"
             v-model="inputText"
             @keyup.enter="$emit('validate', inputText)"
         />
-        <SquareButton icon="skip_next" @click="$emit('validate', inputText)" />
+        <SquareButton icon="skip_next" @click="$emit('validate', inputText)" label="evaluate string"/>
     </div>
 </template>
 

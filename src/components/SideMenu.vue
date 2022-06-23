@@ -11,21 +11,20 @@ const hasFocus = ref(true)
 <div 
     id="sidemenu" 
     :hide="!hasFocus">
-    <img class="logo" src="..\assets\logo.png">
-    <h1 class="title" id="title">Meravigliosi Automi <br>&beta;</h1>
+    <img class="logo" src="..\assets\logo.png" alt="Website Logo">
+    <h1 class="title" id="title">FSA Evaluator</h1>
     <ul>
         <!--<li><a href="start.html">Start</a></li>-->
         <!--<li><a href="https://it.wikipedia.org/wiki/Automa_(informatica)">Wiki</a></li>-->
         <li><a href=".\wikia.html">Wiki</a></li>
         <li><a href="https://github.com/Mamiglia/meravigliosi-automi">Source Code</a></li>
         <!-- <li><a :href="server.hub">Hub</a></li>  -->
-        <br>
     </ul>
     <span></span>
-    <button type="button" @click="hasFocus=false" >start ></button>
+    <button type="button" @click="hasFocus=false" aria-label="start">start ></button>
 </div>
-<div class="menu-btn" @click="hasFocus=true">
-    <button type="button" ></button>
+<div class="menu-btn" @click="hasFocus=true" >
+    <button type="button" aria-label="open menu"></button>
 </div>
 <span class="outside" @click="hasFocus=false" :hide="!hasFocus"></span>
 </template>
@@ -79,6 +78,32 @@ button {
 ul {
     list-style: none;
     padding: 0;
+}
+a {
+    text-decoration: none;
+    transition: color 1s;
+    height: 1.5em;
+    font-size: 1.5em;
+    padding: .3em;
+
+}
+a::after {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: var(--call-to-action);
+    bottom: 0;
+    left: 0;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+    transform: scaleX(0);
+}
+a:hover::after {
+    /* https://www.30secondsofcode.org/css/s/hover-underline-animation */
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }
 
 h1 {
