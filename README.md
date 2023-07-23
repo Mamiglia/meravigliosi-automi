@@ -1,9 +1,9 @@
 # Finite State Machine (FSM) Interactive Learning Website
 
-
-
 [![View site - GH Pages](https://img.shields.io/badge/View_site-GH_Pages-2ea44f?style=for-the-badge)](https://mamiglia.github.io/meravigliosi-automi/)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Github Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white) ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+
+[How do I use this tool?](https://mamiglia.github.io/meravigliosi-automi/wikia.html)
 
 ### Abstract
 The Finite State Machine (FSM) Interactive Learning Website is a modern and user-friendly online platform designed to assist Computer Science students in comprehending the fundamental concepts of [Finite State Machines](https://wikipedia.org/wiki/Finite-state_machine). Utilizing cutting-edge technologies such as Vue.js, TypeScript, CSS, and HTML, this interactive web application aims to provide an intuitive and engaging learning experience for users of all levels of expertise. The website is thoughtfully optimized for **Search Engine Optimization** (SEO), offers **Progressive Web App** (PWA) support, and boasts a responsive design, making it accessible on various devices and platforms.
